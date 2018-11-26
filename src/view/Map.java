@@ -1,4 +1,4 @@
-package environnement;
+package view;
 
 import planet.Planet;
 

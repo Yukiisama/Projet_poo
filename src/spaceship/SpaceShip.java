@@ -1,8 +1,8 @@
 package spaceship;
 
-import interfaces.Actions_game;
 
-public abstract class SpaceShip implements Actions_game{
+
+public abstract class SpaceShip {
 	
 	private int speed;
 	private int product_time;

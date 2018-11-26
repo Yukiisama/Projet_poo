@@ -1,13 +1,14 @@
 package planet;
 
-import interfaces.Actions_game;
-import spaceship.SpaceShip;
 
-abstract public class Planet implements Actions_game {
+import com.sun.javafx.geom.Point2D;
+
+abstract public class Planet  {
 	private float rate_production;
 	private int nb_ship;
-	private SpaceShip tab_ship[];
-	boolean neutral;
+	private String ships_type;
+	private Point2D centre;
+	private int ID_player;
 	
 	/**
 	 * @param rate_production  
@@ -16,13 +17,46 @@ abstract public class Planet implements Actions_game {
 	 * @param tab_ship
 	 * @param neutral
 	 */
-	public Planet(float rate_production,int nb_ship, boolean neutral) {
+	public Planet(float rate_production,int nb_ship, String ships_type, Point2D centre, int ID_player) {
 		this.rate_production = rate_production;
 		this.nb_ship = nb_ship;
-		this.tab_ship = new SpaceShip[1000];
-		this.neutral = neutral;
+		this.ships_type = ships_type;
+		this.centre = centre;
+		this.ID_player = ID_player;
 	}
-	//getter & setters
+	
+	public Planet(float rate_production,int nb_ship, String ships_type, Point2D centre) {
+		this.rate_production = rate_production;
+		this.nb_ship = nb_ship;
+		this.ships_type = ships_type;
+		this.centre = centre;
+		this.ID_player = -1;
+	}
+
+	public Point2D getCentre() {
+		return centre;
+	}
+
+	public void setCentre(Point2D centre) {
+		this.centre = centre;
+	}
+
+	public String getShips_type() {
+		return ships_type;
+	}
+
+	public void setShips_type(String ships_type) {
+		this.ships_type = ships_type;
+	}
+
+	public int getID_player() {
+		return ID_player;
+	}
+
+	public void setID_player(int iD_player) {
+		ID_player = iD_player;
+	}
+
 	public float getRate_production() {
 		return rate_production;
 	}
@@ -36,22 +70,9 @@ abstract public class Planet implements Actions_game {
 	public void setNb_ship(int nb_ship) {
 		this.nb_ship = nb_ship;
 	}
-	public SpaceShip[] getTab_ship() {
-		return tab_ship;
-	}
-	public void setTab_ship(SpaceShip[] tab_ship) {
-		this.tab_ship = tab_ship;
-	}
-	public boolean isNeutral() {
-		return neutral;
-	}
-	public void setNeutral(boolean neutral) {
-		this.neutral = neutral;
-	}
 	
-	public int deplacement(Planet origin , Planet destination) { return 0;}
-	public int production() { return 0;}
-	public boolean collision() { return true;}
+	
+
 	
 	
 }

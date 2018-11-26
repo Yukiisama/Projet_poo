@@ -1,4 +1,4 @@
-package environnement;
+package controller;
 
 import planet.Planet;
 

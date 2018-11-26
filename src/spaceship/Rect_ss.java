@@ -22,8 +22,6 @@ public class Rect_ss extends SpaceShip {
 		this.height = height;
 	}
 	
-	public int deplacement(Planet origin , Planet destination) { return 0;}
-	public int production() { return 0;}
-	public boolean collision() { return true;}
+	
 	
 }
