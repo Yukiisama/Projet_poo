@@ -1,7 +1,6 @@
 package planet;
 
-
-import com.sun.javafx.geom.Point2D;
+import javafx.geometry.Point2D;
 
 abstract public class Planet  {
 	private float rate_production;
@@ -9,6 +8,8 @@ abstract public class Planet  {
 	private String ships_type;
 	private Point2D centre;
 	private int ID_player;
+	private double width;
+	private double height;
 	
 	/**
 	 * @param rate_production  
@@ -17,12 +18,14 @@ abstract public class Planet  {
 	 * @param tab_ship
 	 * @param neutral
 	 */
-	public Planet(float rate_production,int nb_ship, String ships_type, Point2D centre, int ID_player) {
+	public Planet(float rate_production,int nb_ship, String ships_type, Point2D centre, int ID_player,double width , double height) {
 		this.rate_production = rate_production;
 		this.nb_ship = nb_ship;
 		this.ships_type = ships_type;
 		this.centre = centre;
 		this.ID_player = ID_player;
+		this.width = width;
+		this.height = height;
 	}
 	
 	public Planet(float rate_production,int nb_ship, String ships_type, Point2D centre) {
@@ -44,7 +47,23 @@ abstract public class Planet  {
 	public String getShips_type() {
 		return ships_type;
 	}
+	
+	public double getWidth() {
+		return width;
+	}
 
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public double getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+	
 	public void setShips_type(String ships_type) {
 		this.ships_type = ships_type;
 	}
@@ -70,6 +89,8 @@ abstract public class Planet  {
 	public void setNb_ship(int nb_ship) {
 		this.nb_ship = nb_ship;
 	}
+	
+	
 	
 	
 

@@ -1,9 +1,19 @@
 package view;
 
+
+import java.util.Random;
+
+import javafx.geometry.Point2D;
+import javafx.scene.Group;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import planet.Planet;
+import planet.Square_Planet;
+import planet.Rect_planet;
 
 public class Map {
-
+	private final double size = 50;
+	private final double min_dist = 100;
 	private int height ; private int width;
 	private Planet planet_tab[];
 	private int nb_planets;
@@ -19,10 +29,10 @@ public class Map {
 	 * @param nb_planets
 	 * @param nb_joueurs
 	 */
-	public Map(int height, int width, Planet[] planet_tab, int nb_planets, int nb_joueurs) {
+	public Map(int height, int width, int nb_planets, int nb_joueurs) {
 		this.height = height;
 		this.width = width;
-		this.planet_tab = planet_tab;
+		this.planet_tab = new Planet[100];
 		this.nb_planets = nb_planets;
 		this.nb_joueurs = nb_joueurs;
 	}
@@ -41,7 +51,7 @@ public class Map {
 	public Planet[] getPlanet_tab() {
 		return planet_tab;
 	}
-	public void setPlanet_tab(Planet[] planet_tab) {
+	public void setPlanet_tab(Planet planet_tab[]) {
 		this.planet_tab = planet_tab;
 	}
 	public int getNb_planets() {
@@ -57,5 +67,64 @@ public class Map {
 		this.nb_joueurs = nb_joueurs;
 	}
 	
+	public void add_planets(int nb_p) {
+		
+		int i=0;
+		Random gen = new Random();
+		while(i<nb_p) {
+			Point2D point = new Point2D(0,0);
+			point =point.add(gen.nextInt(this.width - (int)this.size),gen.nextInt(this.height - (int)this.size));
+			if(Is_Location_Valid(point,this.planet_tab)) {
+				planet_tab[i] = new Square_Planet(1 , 1, "square", point, 1, this.size, this.size);
+				
+				//System.out.println(planet_tab[i].getCentre());
+				
+				this.nb_planets++;
+				
+				i++;
+				
+			}
+			
+		}
+		
+		
+	}
 	
+	public boolean Is_Location_Valid(Point2D p,Planet planet_tab[]) {
+		if(nb_planets == 0)return true;
+		
+		for (int i =0 ; i< 10;i++) {
+			if(planet_tab[i]!=null) {
+				Point2D pos = planet_tab[i].getCentre();
+				if(pos.distance(p)<this.min_dist) {
+					return false;
+				}
+			}
+			
+		}
+		
+		return true;
+		
+	}
+	
+	public void draw_Planets(Planet planet_tab[],Group root) {
+		
+		for (int i = 0 ; i<this.nb_planets;i++) {
+			if(planet_tab[i]!=null) {
+		Planet p = planet_tab[i];
+		System.out.println(p);
+		
+		double x = p.getCentre().getX();
+		double y = p.getCentre().getY();
+		double width = p.getWidth();
+		double height = p.getHeight();
+	    Rectangle rect = new Rectangle(x,y,width,height);
+	    
+	    rect.setFill(Color.ORANGE);
+
+	    rect.setStroke(Color.ORANGE);
+	    root.getChildren().add(rect);
+	}
+		}
+	}
 }

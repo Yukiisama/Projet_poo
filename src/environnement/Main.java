@@ -1,7 +1,5 @@
 package environnement;
 
-import java.util.Iterator;
-
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -10,14 +8,16 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import view.Map;
+import view.Map_view;
 
 public class Main extends Application {
-	private final static int WIDTH = 1900;
-	private final static int HEIGHT = 1080;
+	private final static int WIDTH = 800;
+	private final static int HEIGHT = 600;
 	
 	public static String getRessourcePathByName(String name) {
 		return Main.class.getResource('/' + name).toString();
@@ -40,11 +40,15 @@ public class Main extends Application {
 		gc.setFill(Color.BISQUE);
 		gc.setStroke(Color.RED);
 		gc.setLineWidth(1);
-		
 		stage.setScene(scene);
 		stage.show();
 		Image space = new Image(getRessourcePathByName("images/wallpaper.jpg"), WIDTH, HEIGHT, false, false);
-		
+		Map map = new Map(HEIGHT, WIDTH, 10, 1);
+		map.add_planets(map.getNb_planets());
+		map.draw_Planets(map.getPlanet_tab(), root);
+	    
+			
+
 		
 		
 		new AnimationTimer() {
