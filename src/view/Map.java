@@ -4,16 +4,12 @@ package view;
 import java.util.Random;
 
 import javafx.geometry.Point2D;
-import javafx.scene.Group;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
+import javafx.scene.canvas.GraphicsContext;
 import planet.Planet;
 import planet.Square_Planet;
 
 public class Map {
-	private final double size = 30;
+	private final double size = 40;
 	private final double min_dist = size*2;
 	private int height ; private int width;
 	private Planet planet_tab[];
@@ -113,29 +109,21 @@ public class Map {
 		
 	}
 	
-	public void draw_Planets(Planet planet_tab[],Group root) {
+	public void draw_Planets(Planet planet_tab[],GraphicsContext gc) {
 		
 		for (int i = 0 ; i<this.nb_planets;i++) {
 			if(planet_tab[i]!=null) {
-		Planet p = planet_tab[i];
-		System.out.println(p);
+				Planet p = planet_tab[i];
+		//System.out.println(p);
 		
 		double x = p.getCentre().getX();
 		double y = p.getCentre().getY();
 		double width = p.getWidth();
 		double height = p.getHeight();
-	    Rectangle rect = new Rectangle(x,y,width,height);
-	    rect.setFill(Color.ORANGE);
+		
+		gc.fillRect(x,y,width,height);
 
-	    rect.setStroke(Color.ORANGE);
-	    root.getChildren().add(rect);
 	    
-	    int police =  (int)(10 + (p.getHeight()+p.getWidth())/2)/2;
-	    int nb = p.getNb_ship();
-	    Text number = new Text(x+width/4, y+height/2+height/4, String.valueOf(nb));
-	    number.setFont(new Font(police));
-	    number.setFill(Color.WHITE);
-	    root.getChildren().add(number);
 	 
 	}
 		}

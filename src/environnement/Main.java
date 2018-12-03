@@ -33,29 +33,43 @@ public class Main extends Application {
 		Scene scene = new Scene(root);
 		Canvas canvas = new Canvas(WIDTH, HEIGHT);
 		root.getChildren().add(canvas);
+		Canvas canvas2 = new Canvas(WIDTH, HEIGHT);
+		root.getChildren().add(canvas2);
 		
 		GraphicsContext gc = canvas.getGraphicsContext2D();
+		GraphicsContext gc2 = canvas2.getGraphicsContext2D();
 		gc.setFont(Font.font("Helvetica", FontWeight.BOLD, 24));
 		gc.setFill(Color.BISQUE);
-		gc.setStroke(Color.RED);
+		gc.setStroke(Color.WHITE);
 		gc.setLineWidth(1);
+		gc2.setFont(Font.font("Helvetica", FontWeight.NORMAL, 24));
+		gc2.setFill(Color.RED);
+		gc2.setStroke(Color.RED);
 		stage.setScene(scene);
 		stage.show();
 		Image space = new Image(getRessourcePathByName("images/wallpaper.jpg"), WIDTH, HEIGHT, false, false);
 		Map map = new Map(HEIGHT, WIDTH, 10, 1);
 		map.add_planets(map.getNb_planets());
-		map.draw_Planets(map.getPlanet_tab(), root);
 		Planet tab[] = map.getPlanet_tab();
-		Planet e = tab[0];
-		e.setNb_ship(5);
+		map.draw_Planets(map.getPlanet_tab(), gc);
 		
 		new AnimationTimer() {
+			int i =0;
 			public void handle(long arg0) {
 				gc.drawImage(space, 0, 0);
+				gc2.clearRect(0, 0, WIDTH, HEIGHT);
+				map.draw_Planets(map.getPlanet_tab(), gc);
+				for (int i =0 ; i<map.getNb_planets();i++) {
+					if(tab[i]!= null) {
+						String pointsText =  String.valueOf( tab[i].getNb_ship());
+						
+						gc2.fillText( pointsText, tab[i].getCentre().getX() + tab[i].getWidth()/6, tab[i].getCentre().getY() + tab[i].getHeight()/2 +tab[i].getHeight()/4 );
+						gc2.strokeText( pointsText, tab[i].getCentre().getX() + tab[i].getWidth()/6, tab[i].getCentre().getY() + tab[i].getHeight()/2 + tab[i].getHeight()/4);
+					}
+				}
+				i++;
+				tab[0].setNb_ship(i);
 				
-				
-				
-					
 				//v.render(gc);
 				//p.render(gc);
 
