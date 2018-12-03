@@ -128,4 +128,15 @@ public class Map {
 	}
 		}
 	}
+	
+	public void draw_text_planets(GraphicsContext gc2) {
+		for (int i =0 ; i<this.getNb_planets();i++) {
+			if(planet_tab[i]!= null) {
+				String pointsText =  String.valueOf( planet_tab[i].getNb_ship());
+				
+				gc2.fillText( pointsText, planet_tab[i].getCentre().getX() + planet_tab[i].getWidth()/6, planet_tab[i].getCentre().getY() + planet_tab[i].getHeight()/2 +planet_tab[i].getHeight()/4 );
+				gc2.strokeText( pointsText,planet_tab[i].getCentre().getX() + planet_tab[i].getWidth()/6, planet_tab[i].getCentre().getY() + planet_tab[i].getHeight()/2 +planet_tab[i].getHeight()/4);
+			}
+		}
+	}
 }
