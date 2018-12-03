@@ -45,15 +45,14 @@ public class Main extends Application {
 		Map map = new Map(HEIGHT, WIDTH, 10, 1);
 		map.add_planets(map.getNb_planets());
 		map.draw_Planets(map.getPlanet_tab(), root);
-		
-			
-			
-
-		
+		Planet tab[] = map.getPlanet_tab();
+		Planet e = tab[0];
+		e.setNb_ship(5);
 		
 		new AnimationTimer() {
 			public void handle(long arg0) {
 				gc.drawImage(space, 0, 0);
+				
 				
 				
 					
@@ -62,6 +61,9 @@ public class Main extends Application {
 
 			}
 		}.start();
+		
+		
+		
 		
 	}
 

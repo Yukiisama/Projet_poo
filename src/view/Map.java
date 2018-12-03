@@ -7,6 +7,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import planet.Planet;
 import planet.Square_Planet;
@@ -128,7 +129,14 @@ public class Map {
 
 	    rect.setStroke(Color.ORANGE);
 	    root.getChildren().add(rect);
-	    Text number = new Text(x, y, "1");
+	    
+	    int police =  (int)(10 + (p.getHeight()+p.getWidth())/2)/2;
+	    int nb = p.getNb_ship();
+	    Text number = new Text(x+width/4, y+height/2+height/4, String.valueOf(nb));
+	    number.setFont(new Font(police));
+	    number.setFill(Color.WHITE);
+	    root.getChildren().add(number);
+	 
 	}
 		}
 	}
