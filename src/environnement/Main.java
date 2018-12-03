@@ -8,12 +8,11 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import planet.Planet;
 import view.Map;
-import view.Map_view;
 
 public class Main extends Application {
 	private final static int WIDTH = 800;
@@ -46,7 +45,8 @@ public class Main extends Application {
 		Map map = new Map(HEIGHT, WIDTH, 10, 1);
 		map.add_planets(map.getNb_planets());
 		map.draw_Planets(map.getPlanet_tab(), root);
-	    
+		
+			
 			
 
 		
@@ -54,6 +54,9 @@ public class Main extends Application {
 		new AnimationTimer() {
 			public void handle(long arg0) {
 				gc.drawImage(space, 0, 0);
+				
+				
+					
 				//v.render(gc);
 				//p.render(gc);
 

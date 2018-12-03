@@ -7,13 +7,13 @@ import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import planet.Planet;
 import planet.Square_Planet;
-import planet.Rect_planet;
 
 public class Map {
-	private final double size = 50;
-	private final double min_dist = 100;
+	private final double size = 30;
+	private final double min_dist = size*2;
 	private int height ; private int width;
 	private Planet planet_tab[];
 	private int nb_planets;
@@ -32,7 +32,7 @@ public class Map {
 	public Map(int height, int width, int nb_planets, int nb_joueurs) {
 		this.height = height;
 		this.width = width;
-		this.planet_tab = new Planet[100];
+		this.planet_tab = new Planet[10000];
 		this.nb_planets = nb_planets;
 		this.nb_joueurs = nb_joueurs;
 	}
@@ -70,11 +70,14 @@ public class Map {
 	public void add_planets(int nb_p) {
 		
 		int i=0;
+		
 		Random gen = new Random();
 		while(i<nb_p) {
 			Point2D point = new Point2D(0,0);
+			
 			point =point.add(gen.nextInt(this.width - (int)this.size),gen.nextInt(this.height - (int)this.size));
-			if(Is_Location_Valid(point,this.planet_tab)) {
+			
+			if( Is_Location_Valid(point,this.planet_tab)) {
 				planet_tab[i] = new Square_Planet(1 , 1, "square", point, 1, this.size, this.size);
 				
 				//System.out.println(planet_tab[i].getCentre());
@@ -84,6 +87,7 @@ public class Map {
 				i++;
 				
 			}
+		 
 			
 		}
 		
@@ -93,9 +97,10 @@ public class Map {
 	public boolean Is_Location_Valid(Point2D p,Planet planet_tab[]) {
 		if(nb_planets == 0)return true;
 		
-		for (int i =0 ; i< 10;i++) {
+		for (int i =0 ; i< this.nb_planets;i++) {
 			if(planet_tab[i]!=null) {
 				Point2D pos = planet_tab[i].getCentre();
+				
 				if(pos.distance(p)<this.min_dist) {
 					return false;
 				}
@@ -119,11 +124,11 @@ public class Map {
 		double width = p.getWidth();
 		double height = p.getHeight();
 	    Rectangle rect = new Rectangle(x,y,width,height);
-	    
 	    rect.setFill(Color.ORANGE);
 
 	    rect.setStroke(Color.ORANGE);
 	    root.getChildren().add(rect);
+	    Text number = new Text(x, y, "1");
 	}
 		}
 	}
