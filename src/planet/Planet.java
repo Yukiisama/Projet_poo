@@ -10,6 +10,8 @@ abstract public class Planet  {
 	private int ID_player;
 	private double width;
 	private double height;
+	private long left_time;
+	private long production_time;
 	
 	/**
 	 * @param rate_production  
@@ -19,6 +21,12 @@ abstract public class Planet  {
 	 * @param neutral
 	 */
 	public Planet(float rate_production,int nb_ship, String ships_type, Point2D centre, int ID_player,double width , double height) {
+		if (ships_type == "Square") {
+            this.production_time = 3000000;
+        }
+        else if (ships_type == "Rect") {
+            this.production_time = 2000000;
+        }
 		this.rate_production = rate_production;
 		this.nb_ship = nb_ship;
 		this.ships_type = ships_type;
@@ -34,6 +42,30 @@ abstract public class Planet  {
 		this.ships_type = ships_type;
 		this.centre = centre;
 		this.ID_player = -1;
+	}
+
+	public long getLeft_time() {
+		return left_time;
+	}
+
+	public void setLeft_time(long left_time) {
+		this.left_time = left_time;
+	}
+
+	public long getProduction_time() {
+		return production_time;
+	}
+
+	public void setProduction_time(long production_time) {
+		this.production_time = production_time;
+	}
+
+	public void setWidth(double width) {
+		this.width = width;
+	}
+
+	public void setHeight(double height) {
+		this.height = height;
 	}
 
 	public Point2D getCentre() {

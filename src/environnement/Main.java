@@ -1,5 +1,4 @@
 package environnement;
-
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -65,13 +64,12 @@ public class Main extends Application {
 		
 		new AnimationTimer() {
 			int i =0;
-			public void handle(long arg0) {
+			public void handle(long now) {
 				gc.drawImage(space, 0, 0);
 				gc2.clearRect(0, 0, WIDTH, HEIGHT); // CLEAR TXT RECT
 				map.draw_Planets(map.getPlanet_tab(), gc); // Draw planets each tick
 				map.draw_text_planets(gc2);
-				i++;
-				tab[0].setNb_ship(i);
+				map.onUpdate(now);
 				
 				//v.render(gc);
 				//p.render(gc);

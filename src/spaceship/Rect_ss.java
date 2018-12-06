@@ -4,8 +4,8 @@ import planet.Planet;
 
 public class Rect_ss extends SpaceShip {
 	private int width; private int height;
-	public Rect_ss(int speed, int product_time, int attack_power, int width , int height) {
-		super(speed, product_time, attack_power);
+	public Rect_ss(int speed, int attack_power, int width , int height) {
+		super(speed, attack_power);
 		this.width = width; this.height = height;
 		
 	}

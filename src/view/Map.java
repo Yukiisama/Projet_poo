@@ -15,6 +15,7 @@ public class Map {
 	private Planet planet_tab[];
 	private int nb_planets;
 	private int nb_joueurs;
+	private long last_time;
 	
 	
 	
@@ -75,7 +76,7 @@ public class Map {
 			point =point.add(gen.nextInt(this.width - (int)this.size),gen.nextInt(this.height - (int)this.size));
 			
 			if( Is_Location_Valid(point,this.planet_tab)) {
-				planet_tab[i] = new Square_Planet(1 , 1, "square", point, 1, this.size, this.size);
+				planet_tab[i] = new Square_Planet(1.5f , 0, "Square", point, 1, this.size, this.size);
 				
 				//System.out.println(planet_tab[i].getCentre());
 				
@@ -138,5 +139,24 @@ public class Map {
 				gc2.strokeText( pointsText,planet_tab[i].getCentre().getX() + planet_tab[i].getWidth()/6, planet_tab[i].getCentre().getY() + planet_tab[i].getHeight()/2 +planet_tab[i].getHeight()/4);
 			}
 		}
+	}
+	
+	public void onUpdate(long now) {
+		
+		long passed_time = (now - this.last_time)/1000;
+		this.last_time = now;
+		
+		int i = 0;
+		while (i < this.getNb_planets() && this.planet_tab[i] != null) {
+			this.planet_tab[i].setLeft_time(this.planet_tab[i].getLeft_time()-passed_time);
+			if (this.planet_tab[i].getLeft_time() <= 0) {
+				long new_left_time = this.planet_tab[i].getProduction_time() * (long)this.planet_tab[i].getRate_production();
+				long new_left_time_dot = (long)(this.planet_tab[i].getProduction_time() * (this.planet_tab[i].getRate_production() - (long)this.planet_tab[i].getRate_production()));
+				this.planet_tab[i].setLeft_time(new_left_time + new_left_time_dot);
+				this.planet_tab[i].setNb_ship(this.planet_tab[i].getNb_ship()+1);
+			}
+			i++;
+		}
+		
 	}
 }
