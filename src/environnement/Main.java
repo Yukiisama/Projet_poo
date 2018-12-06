@@ -1,6 +1,7 @@
 package environnement;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -9,8 +10,11 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import planet.Planet;
+import spaceship.SpaceShip;
+import spaceship.Squadron;
 import view.Map;
 
 public class Main extends Application {
@@ -38,22 +42,39 @@ public class Main extends Application {
 		//CANVAS for text on planets
 		Canvas canvas2 = new Canvas(WIDTH, HEIGHT);
 		root.getChildren().add(canvas2);
+		
+		//CANVAS for ships
+		Canvas canvas3 = new Canvas(WIDTH, HEIGHT);
+		root.getChildren().add(canvas3);
 		// graphic canvas for drawing planet & original
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.setFont(Font.font("Helvetica", FontWeight.BOLD, 24));
+		
 		gc.setFill(Color.BISQUE);
 		gc.setStroke(Color.WHITE);
 		gc.setLineWidth(1);
 		// graphic canvas for drawing text 
 		GraphicsContext gc2 = canvas2.getGraphicsContext2D();
 		gc2.setFont(Font.font("Helvetica", FontWeight.NORMAL, 24));
+		gc2.setTextAlign(TextAlignment.CENTER);
+        gc2.setTextBaseline(VPos.CENTER);
 		gc2.setFill(Color.RED);
 		gc2.setStroke(Color.RED);
 		gc2.setLineWidth(1);
 		
+		// graphic canvas for drawing text 
+		GraphicsContext gc3 = canvas3.getGraphicsContext2D();
+		gc3.setFont(Font.font("Helvetica", FontWeight.NORMAL, 24));
+		
+		gc3.setFill(Color.GREEN);
+		gc3.setStroke(Color.GREEN);
+		gc3.setLineWidth(1);
 		// Map ressources
-		Map map = new Map(HEIGHT, WIDTH, 30, 1);
-		map.add_planets(map.getNb_planets());
+		Map map = new Map(HEIGHT, WIDTH, 0, 1);
+		map.add_planets(13,"Square","Square",1);
+		map.add_planets(7,"Rect","Rect",2);
+		map.add_planets(5,"Square" ,"Square", -1);
+		map.add_planets(5,"Rect","Rect",3);
 		Planet tab[] = map.getPlanet_tab();
 		
 		
@@ -69,8 +90,18 @@ public class Main extends Application {
 				gc2.clearRect(0, 0, WIDTH, HEIGHT); // CLEAR TXT RECT
 				map.draw_Planets(map.getPlanet_tab(), gc); // Draw planets each tick
 				map.draw_text_planets(gc2);
+				map.form_squadron(tab[6]);
+				Squadron squads[] = map.getSquadron_tab();
+				if(squads[0]!=null) {
+				for(int i=0;i<squads[0].getSize();i++) {
+					SpaceShip tabsq[] = squads[0].getTab(); 
+					SpaceShip s = tabsq[i];
+					if(s!=null)
+						System.out.println(s.getCenter().getX());
+				}
+				map.draw_squadron(gc3, squads[0]);
+				}
 				map.onUpdate(now);
-				
 				//v.render(gc);
 				//p.render(gc);
 

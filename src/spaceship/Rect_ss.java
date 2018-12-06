@@ -1,27 +1,15 @@
 package spaceship;
 
+import javafx.geometry.Point2D;
 import planet.Planet;
 
 public class Rect_ss extends SpaceShip {
-	private int width; private int height;
-	public Rect_ss(int speed, int attack_power, int width , int height) {
-		super(speed, attack_power);
-		this.width = width; this.height = height;
+	
+	
+	public Rect_ss(Point2D center,int ID_player, double width, double height, int speed, int attack_power) {
+		super(center,"Rect",ID_player, width, height, speed, attack_power);
 		
 	}
-	public int getWidth() {
-		return width;
-	}
-	public void setWidth(int width) {
-		this.width = width;
-	}
-	public int getHeight() {
-		return height;
-	}
-	public void setHeight(int height) {
-		this.height = height;
-	}
-	
-	
+
 	
 }

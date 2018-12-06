@@ -5,7 +5,7 @@ import javafx.geometry.Point2D;
 abstract public class Planet  {
 	private float rate_production;
 	private int nb_ship;
-	private String ships_type;
+	private String ships_type,planet_type;
 	private Point2D centre;
 	private int ID_player;
 	private double width;
@@ -20,7 +20,7 @@ abstract public class Planet  {
 	 * @param tab_ship
 	 * @param neutral
 	 */
-	public Planet(float rate_production,int nb_ship, String ships_type, Point2D centre, int ID_player,double width , double height) {
+	public Planet(float rate_production,int nb_ship, String ships_type,String planet_type, Point2D centre, int ID_player,double width , double height) {
 		if (ships_type == "Square") {
             this.production_time = 3000000;
         }
@@ -30,16 +30,18 @@ abstract public class Planet  {
 		this.rate_production = rate_production;
 		this.nb_ship = nb_ship;
 		this.ships_type = ships_type;
+		this.planet_type=planet_type;
 		this.centre = centre;
 		this.ID_player = ID_player;
 		this.width = width;
 		this.height = height;
 	}
 	
-	public Planet(float rate_production,int nb_ship, String ships_type, Point2D centre) {
+	public Planet(float rate_production,int nb_ship, String ships_type,String planet_type, Point2D centre) {
 		this.rate_production = rate_production;
 		this.nb_ship = nb_ship;
 		this.ships_type = ships_type;
+		this.planet_type=planet_type;
 		this.centre = centre;
 		this.ID_player = -1;
 	}
@@ -48,6 +50,13 @@ abstract public class Planet  {
 		return left_time;
 	}
 
+	public String getPlanet_type() {
+		return planet_type;
+	}
+	
+	public void setPlanet_type(String planet_type) {
+		this.planet_type = planet_type;
+	}
 	public void setLeft_time(long left_time) {
 		this.left_time = left_time;
 	}
@@ -99,7 +108,9 @@ abstract public class Planet  {
 	public void setShips_type(String ships_type) {
 		this.ships_type = ships_type;
 	}
-
+	
+	
+	
 	public int getID_player() {
 		return ID_player;
 	}
