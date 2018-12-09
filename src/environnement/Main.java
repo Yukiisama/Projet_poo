@@ -89,9 +89,9 @@ public class Main extends Application {
 		// Map ressources
 		Map map = new Map(HEIGHT, WIDTH, 0, 1);
 		map.add_planets(13, "Square", "Square", 1);
-		map.add_planets(7, "Rect", "Rect", -1);
+		map.add_planets(7, "Rect", "Rect", 2);
+		map.add_planets(5, "Rect", "Rect", 1);
 		map.add_planets(5, "Square", "Square", -1);
-		map.add_planets(5, "Rect", "Rect", 3);
 		Planet tab[] = map.getPlanet_tab();
 		boolean selected[] = new boolean[map.getNb_planets()];
 		Mouse_handler mouse_event = new Mouse_handler(WIDTH, HEIGHT);
@@ -111,21 +111,25 @@ public class Main extends Application {
 				gc2.clearRect(0, 0, WIDTH, HEIGHT); // CLEAR TXT RECT
 				map.draw_Planets(map.getPlanet_tab(), gc, selected, gc4); // Draw planets each tick
 				map.draw_text_planets(gc2);
-				map.form_squadron(tab[6]);
-				Squadron squads[] = map.getSquadron_tab();
-				if (squads[0] != null) {
-					for (int i = 0; i < squads[0].getSize(); i++) {
-						SpaceShip tabsq[] = squads[0].getTab();
-						SpaceShip s = tabsq[i];
-						// if(s!=null)
-						// System.out.println(s.getCenter().getX());
-					}
-					map.draw_squadron(gc3, squads[0]);
-				}
-				map.onUpdate(now);
-				// v.render(gc);
-				// p.render(gc);
 
+				Squadron squads[] = map.getSquadron_tab();
+				for (int j = 0; j < 10000; j++) {
+					if (squads[j] != null) {
+						/*for (int i = 0; i < squads[j].getSize(); i++) {
+							SpaceShip tabsq[] = squads[j].getTab();
+							SpaceShip s = tabsq[i];
+							// if(s!=null)
+							// System.out.println(s.getCenter().getX());
+						}*/
+						map.draw_squadron(gc3, squads[j]);
+						squads[j].conquer_planet(map,1);
+					}
+						
+					map.onUpdate(now);
+					// v.render(gc);
+					// p.render(gc);
+
+				}
 			}
 		}.start();
 

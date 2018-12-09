@@ -21,6 +21,13 @@ public final class Mouse_handler {
 			selected[i] = false;
 		}
 	}
+	public void form_squadron_by_planet (boolean selected[], int size,Map map,int target,int player) {
+		Planet tab[] = map.getPlanet_tab();
+		for (int i = 0; i < size; i++) {
+			if(selected[i])
+				map.form_squadron(tab[i],target,player);
+		}
+	}
 	public boolean is_someone_selected (boolean selected[], int size) {
 		for (int i = 0; i < size; i++) {
 			if(selected[i])
@@ -46,6 +53,7 @@ public final class Mouse_handler {
 								selected[i] = true;
 							else if (selected[i] == false && player != 1 && is_someone_selected(selected, size)) {
 								System.out.println("go violer la planete : " + i);
+								form_squadron_by_planet(selected, size, map,i,player);
 								falsify(selected, size);
 								gc4.clearRect(0, 0, WIDTH, HEIGHT);
 							} else {

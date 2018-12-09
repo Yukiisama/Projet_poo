@@ -263,8 +263,8 @@ public class Map {
 
 	}
 
-	public void form_squadron(Planet p) {
-		Squadron new_squadron = new Squadron();
+	public void form_squadron(Planet p,int target,int player) {
+		Squadron new_squadron = new Squadron(target,player);
 		Point2D center = new Point2D(p.getWidth(), p.getHeight());
 		if (p.getNb_ship() > 6) {
 			if (p.getShips_type() == "Square") {
