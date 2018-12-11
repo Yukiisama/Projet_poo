@@ -57,7 +57,7 @@ public final class Squadron {
 	}
 
 	public boolean add_spaceship(SpaceShip s) {
-		if (cpt == size - 1)
+		if (cpt == size)
 			return false;
 		this.tab[this.cpt] = s;
 		cpt++;

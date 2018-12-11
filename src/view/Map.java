@@ -138,17 +138,18 @@ public class Map {
 		int ry1 = (int) pos.getY();
 
 		// We check there width height size *2
-		// to verify intersection AND minimum distance between planets ( min_dist = size
-		// * 2)
-
+		// to verify intersection AND minimum distance between planets ( min_dist = size * factor)
+		
+		long factor = 2;
+		if(this.size_h < 70 || this.size_w < 70) factor = 3;
 		long tx2 = tx1;
-		tx2 += this.size_w * 2;
+		tx2 += this.size_w * factor;
 		long ty2 = ty1;
-		ty2 += this.size_h * 2;
+		ty2 += this.size_h * factor;
 		long rx2 = rx1;
-		rx2 += plan.getWidth() * 2;
+		rx2 += plan.getWidth() * factor;
 		long ry2 = ry1;
-		ry2 += plan.getHeight() * 2;
+		ry2 += plan.getHeight() * factor;
 		if (tx1 < rx1)
 			tx1 = rx1;
 		if (ty1 < ry1)
@@ -265,14 +266,23 @@ public class Map {
 
 	public void form_squadron(Planet p,int target,int player) {
 		Squadron new_squadron = new Squadron(target,player);
-		Point2D center = new Point2D(p.getWidth(), p.getHeight());
+		SpaceShip tab[]= new_squadron.getTab();
+		Point2D center = new Point2D(p.getCentre().getX(),p.getCentre().getY()-p.getHeight()/2);
 		if (p.getNb_ship() > 6) {
 			if (p.getShips_type() == "Square") {
-				for (int i = 0; i < 6; i++) {
-					center = center.add(5, 5);
-					SpaceShip s = new Square_ss(center, p.getID_player(), 4, 20, 20);
+				for (int i = 0; i < new_squadron.getSize(); i++) {
+	                double angle = (double) (2*Math.PI/new_squadron.getSize()) * (i);
+	                double x = Math.cos(angle) * p.getWidth();
+	                double y = Math.sin(angle) * p.getHeight();
+	                System.out.println(i);
+					center = center.add(x, y);
+					
+					
+					SpaceShip s = new Square_ss(center, p.getID_player(), 10, 1, 1);
 					new_squadron.add_spaceship(s);
 					p.setNb_ship(p.getNb_ship() - 1);
+					
+					
 				}
 				this.squadron_tab[this.squadron_cpt] = new_squadron;
 				this.squadron_cpt++;
@@ -287,6 +297,7 @@ public class Map {
 		SpaceShip tab[] = s.getTab();
 		for (int i = 0; i < s.getSize(); i++) {
 			if (tab[i] != null && tab[i].getType() == "Square") {
+				
 				double x = tab[i].getCenter().getX();
 				double y = tab[i].getCenter().getY();
 				double width = tab[i].getWidth();
