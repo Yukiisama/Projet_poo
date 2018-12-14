@@ -249,7 +249,8 @@ public class Map {
 		this.last_time = now;
 
 		int i = 0;
-		while (i < this.getNb_planets() && this.planet_tab[i] != null && this.planet_tab[i].getID_player() != -1) {
+		while (i < this.getNb_planets() && this.planet_tab[i] != null ) {
+			if(this.planet_tab[i].getID_player() != -1) {
 			this.planet_tab[i].setLeft_time(this.planet_tab[i].getLeft_time() - passed_time);
 			if (this.planet_tab[i].getLeft_time() <= 0) {
 				long new_left_time = this.planet_tab[i].getProduction_time()
@@ -258,6 +259,7 @@ public class Map {
 						* (this.planet_tab[i].getRate_production() - (long) this.planet_tab[i].getRate_production()));
 				this.planet_tab[i].setLeft_time(new_left_time + new_left_time_dot);
 				this.planet_tab[i].setNb_ship(this.planet_tab[i].getNb_ship() + 1);
+			}
 			}
 			i++;
 		}
@@ -296,7 +298,7 @@ public class Map {
 
 		SpaceShip tab[] = s.getTab();
 		for (int i = 0; i < s.getSize(); i++) {
-			if (tab[i] != null && tab[i].getType() == "Square") {
+			if (tab[i] != null && tab[i].getType() == "Square" || tab[i].getType()=="Rect") {
 				
 				double x = tab[i].getCenter().getX();
 				double y = tab[i].getCenter().getY();

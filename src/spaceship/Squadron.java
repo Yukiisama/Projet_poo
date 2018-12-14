@@ -1,6 +1,7 @@
 package spaceship;
 
 import planet.Planet;
+import planet.Rect_planet;
 import view.Map;
 
 public final class Squadron {
@@ -72,7 +73,7 @@ public final class Squadron {
 		this.attack_done = attack_done;
 	}
 	
-	public void conquer_planet (Map m, int caller) {
+	public void conquer_planet (Map m, int caller,boolean selected[]) {
 		if(this.attack_done) {
 			Planet tab[] = m.getPlanet_tab();
 			Planet tar = tab[this.target];
@@ -81,8 +82,13 @@ public final class Squadron {
 			if(to_substract >=0)
 				tar.setNb_ship(to_substract);
 			else {
-				tar.setNb_ship(0);
-				tar.setID_player(caller);
+		        Planet p = new Rect_planet(1.5f, 0, "Rect", "Rect", tar.getCentre(),1, tar.getWidth(), tar.getHeight());
+		       
+				tab[this.target] = p;
+				m.setPlanet_tab(tab);
+				
+				
+				
 			}
 		}
 	}

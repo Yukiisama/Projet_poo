@@ -122,9 +122,11 @@ public class Main extends Application {
 							// System.out.println(s.getCenter().getX());
 						}*/
 						map.draw_squadron(gc3, squads[j]);
-						squads[j].conquer_planet(map,1);
+						squads[j].conquer_planet(map,1,selected);
+						map.onUpdate(now);
+						squads[j]=null;
 					}
-						
+				
 					map.onUpdate(now);
 					// v.render(gc);
 					// p.render(gc);
