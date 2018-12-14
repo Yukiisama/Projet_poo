@@ -1,5 +1,9 @@
 package planet;
 
+
+
+import java.awt.Rectangle;
+
 import javafx.geometry.Point2D;
 
 abstract public class Planet {
@@ -12,6 +16,7 @@ abstract public class Planet {
 	private double height;
 	private long left_time;
 	private long production_time;
+	
 
 	/**
 	 * @param rate_production
@@ -20,6 +25,7 @@ abstract public class Planet {
 	 * @param tab_ship
 	 * @param neutral
 	 */
+	
 	public Planet(float rate_production, int nb_ship, String ships_type, String planet_type, Point2D centre,
 			int ID_player, double width, double height) {
 		if (ships_type == "Square") {
@@ -35,6 +41,7 @@ abstract public class Planet {
 		this.ID_player = ID_player;
 		this.width = width;
 		this.height = height;
+		
 	}
 
 	public Planet(float rate_production, int nb_ship, String ships_type, String planet_type, Point2D centre) {
@@ -133,5 +140,15 @@ abstract public class Planet {
 	public void setNb_ship(int nb_ship) {
 		this.nb_ship = nb_ship;
 	}
+	
+	public boolean pt_contains_polygon(int x , int y) {
+		boolean state = false;
+		if(this.planet_type=="Rect" || this.planet_type =="Square") {
+			java.awt.Rectangle _r = new Rectangle((int)centre.getX()-10,(int)centre.getY()-10,(int)width+20,(int)height+20);
+			state = _r.contains(x, y);
+		}
+		return state;
+	}
+	
 
 }

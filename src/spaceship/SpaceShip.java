@@ -35,7 +35,9 @@ public abstract class SpaceShip {
 	public int getID_player() {
 		return ID_player;
 	}
-
+	
+	
+	
 	public void setID_player(int iD_player) {
 		ID_player = iD_player;
 	}

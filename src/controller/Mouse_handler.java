@@ -24,10 +24,15 @@ public final class Mouse_handler {
 	public void form_squadron_by_planet (boolean selected[], int size,Map map,int target,int player) {
 		Planet tab[] = map.getPlanet_tab();
 		for (int i = 0; i < size; i++) {
-			if(selected[i])
+			if(selected[i]) {
+				System.out.println(i);
+				System.out.println(selected[i]);
 				map.form_squadron(tab[i],target,player);
 		}
+		}
 	}
+	
+	
 	public boolean is_someone_selected (boolean selected[], int size) {
 		for (int i = 0; i < size; i++) {
 			if(selected[i])

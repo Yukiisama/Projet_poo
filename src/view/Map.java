@@ -9,9 +9,8 @@ import javafx.scene.paint.Color;
 import planet.Planet;
 import planet.Rect_planet;
 import planet.Square_Planet;
-import spaceship.SpaceShip;
-import spaceship.Squadron;
-import spaceship.Square_ss;
+
+import spaceship.*;
 
 public class Map {
 	private double size_w = 40;
@@ -271,16 +270,18 @@ public class Map {
 		SpaceShip tab[]= new_squadron.getTab();
 		Point2D center = new Point2D(p.getCentre().getX(),p.getCentre().getY()-p.getHeight()/2);
 		if (p.getNb_ship() > 6) {
-			if (p.getShips_type() == "Square") {
+			if (p.getShips_type() == "Square" || p.getShips_type()=="Rect") {
 				for (int i = 0; i < new_squadron.getSize(); i++) {
 	                double angle = (double) (2*Math.PI/new_squadron.getSize()) * (i);
 	                double x = Math.cos(angle) * p.getWidth();
 	                double y = Math.sin(angle) * p.getHeight();
-	                System.out.println(i);
+	                //System.out.println(i);
 					center = center.add(x, y);
-					
-					
-					SpaceShip s = new Square_ss(center, p.getID_player(), 10, 1, 1);
+					SpaceShip s ;
+					if(p.getShips_type()=="Square")
+						s = new Square_ss(center, p.getID_player(), 10, 1, 1);
+					else
+						s = new Rect_ss(center, p.getID_player(), 10, 10, 1, 1);
 					new_squadron.add_spaceship(s);
 					p.setNb_ship(p.getNb_ship() - 1);
 					
@@ -291,7 +292,8 @@ public class Map {
 			}
 
 		}
-
+		
+		new_squadron.squadron_move(this, this.width, this.height);
 	}
 
 	public void draw_squadron(GraphicsContext gc3, Squadron s) {
@@ -305,6 +307,7 @@ public class Map {
 				double width = tab[i].getWidth();
 				double height = tab[i].getHeight();
 				choose_color(tab[i].getID_player(), gc3);
+				gc3.clearRect(x-5, y-5, width+10, height+10);
 				gc3.fillRect(x, y, width, height);
 			}
 		}

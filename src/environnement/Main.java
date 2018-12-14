@@ -19,6 +19,9 @@ import planet.Planet;
 import spaceship.SpaceShip;
 import spaceship.Squadron;
 import view.Map;
+
+
+
 import controller.Mouse_handler;
 
 public class Main extends Application {
@@ -36,7 +39,7 @@ public class Main extends Application {
 	public void start(Stage stage) {
 		stage.setTitle("Pooooooo");
 		stage.setResizable(false);
-
+		
 		Group root = new Group();
 		Scene scene = new Scene(root);
 
@@ -102,6 +105,7 @@ public class Main extends Application {
 		Image space = new Image(getRessourcePathByName("images/wallpaper.jpg"), WIDTH, HEIGHT, false, false);
 		stage.setScene(scene);
 		stage.show();
+		
 
 		new AnimationTimer() {
 			int i = 0;
@@ -122,16 +126,17 @@ public class Main extends Application {
 							// System.out.println(s.getCenter().getX());
 						}*/
 						map.draw_squadron(gc3, squads[j]);
-						squads[j].conquer_planet(map,1,selected);
-						map.onUpdate(now);
-						squads[j]=null;
+						squads[j].squadron_move(map, WIDTH , HEIGHT);
+						//map.draw_squadron(gc3, squads[j]);
+						//squads[j].conquer_planet(map,1,selected,j); à annuler tant que pathfinding pas condition de conquete
+						//squads[j]=null;
 					}
 				
-					map.onUpdate(now);
 					// v.render(gc);
 					// p.render(gc);
 
 				}
+				map.onUpdate(now);
 			}
 		}.start();
 
