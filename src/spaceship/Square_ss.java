@@ -2,12 +2,11 @@ package spaceship;
 
 import javafx.geometry.Point2D;
 
-public class Square_ss extends Rect_ss {
+public class Square_SS extends SpaceShip {
 
-	public Square_ss(Point2D center, int ID_player, double width, int speed, int attack_power) {
-		super(center, ID_player, width, width, speed, attack_power);
-		this.setType("Square");
-		// TODO Auto-generated constructor stub
+	public static final int DEFAULT_PRODUCTION_TIME = 3000000;
+	
+	public Square_SS(Point2D center, int id_player) {
+		super(center, 10, 10, 2, 1, id_player);
 	}
-
 }

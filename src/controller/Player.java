@@ -1,46 +1,33 @@
 package controller;
-
-import planet.Planet;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 public class Player {
 
 	private int ID;
-	private Planet tab_planets[];
-	private int nb_ship_total;
-
-	/**
-	 * @param iD
-	 * @param tab_planets
-	 * @param nb_ship_total
-	 */
-	public Player(int iD, Planet[] tab_planets, int nb_ship_total) {
-		ID = iD;
-		this.tab_planets = tab_planets;
-		this.nb_ship_total = nb_ship_total;
+	private Paint color;
+	
+	public Player(int id) {
+		this.ID = id;
+		switch (ID) {
+			case 0:
+				this.color = Color.YELLOW;
+				break;
+			case 1:
+				this.color = Color.LIGHTBLUE;
+				break;
+			case 2:
+				this.color = Color.HOTPINK;
+				break;
+			case 3:
+				this.color = Color.LIGHTSLATEGREY;
+				break;
+		}
 	}
+	
+	public int getID() { return ID; }
+	public void setID(int id) { ID = id; }
 
-	public int getID() {
-		return ID;
-	}
-
-	public void setID(int iD) {
-		ID = iD;
-	}
-
-	public Planet[] getTab_planets() {
-		return tab_planets;
-	}
-
-	public void setTab_planets(Planet[] tab_planets) {
-		this.tab_planets = tab_planets;
-	}
-
-	public int getNb_ship_total() {
-		return nb_ship_total;
-	}
-
-	public void setNb_ship_total(int nb_ship_total) {
-		this.nb_ship_total = nb_ship_total;
-	}
-
+	public Paint getColor() { return color; }
+	public void setColor(Paint color) { this.color = color; }
 }

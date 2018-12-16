@@ -1,83 +1,51 @@
 package controller;
 
-import javafx.event.EventHandler;
-import javafx.scene.input.MouseEvent;
+
+import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import planet.Planet;
 import view.Map;
-public final class Mouse_handler {
-	// Contiendra les fonctions de listen/handle de la souris
-	private int WIDTH;private int HEIGHT;
+
+public final class Mouse_Handler {
+	private Planet clicked_one;
+	private boolean clicked;
+	private int clicked_y;
 	
-	public Mouse_handler(int wIDTH, int hEIGHT) {
+
+	public void apply_event_mouse (Map map, GraphicsContext gc4, Scene scene){
 		
-		WIDTH = wIDTH;
-		HEIGHT = hEIGHT;
-	}
-	
-	public void falsify (boolean selected[], int size) {
-		for (int i = 0; i < size; i++) {
-			selected[i] = false;
-		}
-	}
-	public void form_squadron_by_planet (boolean selected[], int size,Map map,int target,int player) {
-		Planet tab[] = map.getPlanet_tab();
-		for (int i = 0; i < size; i++) {
-			if(selected[i]) {
-				System.out.println(i);
-				System.out.println(selected[i]);
-				map.form_squadron(tab[i],target,player);
-		}
-		}
-	}
-	
-	
-	public boolean is_someone_selected (boolean selected[], int size) {
-		for (int i = 0; i < size; i++) {
-			if(selected[i])
-				return selected[i];
-		}
-		return false;
-	}
-	
-	//A déplacer bien evidemment dans la classe mouse_handler mais en phase de test 
-	public void apply_event_mouse (Map map, Planet tab[],boolean selected[],GraphicsContext gc4,Scene scene){
-			EventHandler<MouseEvent> mouseHandler = new EventHandler<MouseEvent>() {
-			public void handle(MouseEvent e) {
-				int size = map.getNb_planets();
-				if (e.isPrimaryButtonDown()) {
-					for (int i = 0; i < map.getNb_planets(); i++) {
-						double x = tab[i].getCentre().getX();
-						double y = tab[i].getCentre().getY();
-						double width = tab[i].getWidth();
-						double height = tab[i].getHeight();
-						if (e.getX() >= x && e.getX() <= x + width && e.getY() >= y && e.getY() <= y + height) {
-							int player = tab[i].getID_player();
-							if (selected[i] == false && player == 1)
-								selected[i] = true;
-							else if (selected[i] == false && player != 1 && is_someone_selected(selected, size)) {
-								System.out.println("go violer la planete : " + i);
-							
-								form_squadron_by_planet(selected, size, map,i,player);
-								
-								falsify(selected, size);
-								gc4.clearRect(0, 0, WIDTH, HEIGHT);
-							} else {
-								selected[i] = false;
-								gc4.clearRect(x - 10, y - 10, width + 20, height + 20);
-							}
-						}
-
+		scene.setOnMousePressed(event -> {
+			int size = map.getNb_planets();
+			Planet planet_tab[] = map.getPlanet_tab();
+			boolean clicked_on_planet = false;
+			for (int i = 0 ; i < size ; i++) {
+				int id_player = planet_tab[i].getID_player();
+				if (planet_tab[i].is_inside(new Point2D(event.getX(), event.getY()))) { // If clicked on a planet
+					clicked_on_planet = true;
+					if (id_player == 0) { // If it's a planet of its own, select it
+						this.clicked_one = planet_tab[i];
+						this.clicked = true;
+						this.clicked_y = (int)event.getY();
 					}
-
+					else if (id_player != 0) { // Otherwise, if we have planets selected, we're attacking
+						for (int j = 0 ; j < size ; j++) if (planet_tab[j].getNb_ship() > 0 && planet_tab[j].getSelected()*100/planet_tab[j].getNb_ship() > 0)
+							planet_tab[j].attack(planet_tab[i]);
+					}
 				}
-
 			}
-			};
-
-			scene.setOnMouseDragged(mouseHandler);
-			scene.setOnMousePressed(mouseHandler);
-	
-}
+			if (!clicked_on_planet) { for (int j = 0 ; j < size ; j++) { planet_tab[j].setSelected(0); } } // If clicked elsewhere, unselect every planet
+		});
+		
+		scene.setOnMouseDragged(event -> {
+			if (this.clicked) {
+				int deltaY = (int)event.getY() - this.clicked_y;
+				int new_selected = -deltaY*100/this.clicked_one.getHeight();
+				if (new_selected >= 0 && new_selected <= 100) this.clicked_one.setSelected(new_selected);
+				else if (new_selected < 0) this.clicked_one.setSelected(0);
+			}
+		});
+		
+		scene.setOnMouseReleased(event -> { this.clicked = false; });
+	}
 }
