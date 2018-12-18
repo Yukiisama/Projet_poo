@@ -175,7 +175,7 @@ public class Map implements Serializable {
 			planet_type = "Circle";
 			break;
 		}
-
+		/* Each planet random location , random size */
 		for (int i = 0 ; i < this.nb_planets ; i++) {
 			Point2D point = new Point2D(gen.nextInt(Map.WIDTH - this.min_dist), gen.nextInt(Map.HEIGHT - this.min_dist));
 			if(is_location_valid(point, size_factor, planet_type)) {

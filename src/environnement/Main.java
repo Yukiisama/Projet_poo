@@ -24,7 +24,7 @@ public class Main extends Application {
 	/**
 	 * Gets the ressource path by name.
 	 *
-	 * @param name the name
+	 * @param name the name of the ressource
 	 * @return the ressource path by name
 	 */
 	public static String getRessourcePathByName(String name) {
@@ -44,7 +44,8 @@ public class Main extends Application {
 	 * @see javafx.application.Application#start(javafx.stage.Stage)
 	 */
 	public void start(Stage stage) {
-		stage.setTitle("Pooooooo");
+		/* Stage Init */
+		stage.setTitle("Projet Poo");
 		stage.setResizable(false);
 
 		Group root = new Group();
@@ -60,7 +61,8 @@ public class Main extends Application {
 		Canvas canvas3 = new Canvas(Map.WIDTH, Map.HEIGHT);
 		root.getChildren().add(canvas3);
 
-		// graphic canvas for drawing planet & original
+		/* graphic canvas for drawing planet & original */
+		
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.setFont(Font.font("Helvetica", FontWeight.BOLD, 24));
 		gc.setFill(Color.BISQUE);
@@ -90,9 +92,9 @@ public class Main extends Application {
 		
 		
 		
-		// STAGE INIT
+		// Load the "wallpaper" of the application
 		Image space = new Image(getRessourcePathByName("images/wallpaper.jpg"), Map.WIDTH, Map.HEIGHT, false, false);
-	
+		// Apply the scene
 		stage.setScene(scene);
 		stage.show();
 		
@@ -101,14 +103,15 @@ public class Main extends Application {
 				save_load.save_load(map, scene); 
 				//save_load.load(map, scene);
 		
+		//Tick of the application
 		new AnimationTimer() {	
 			public void handle(long now) {
 				gc.drawImage(space, 0, 0);
 				gc2.clearRect(0, 0, Map.WIDTH, Map.HEIGHT); // CLEAR TXT RECT
 				map.draw_planets(gc); // Draw planets each tick
-				map.draw_text_planets(gc2);
-				map.draw_squadrons(gc3);
-				map.update_ships_numbers(now);
+				map.draw_text_planets(gc2); // Draw text production of planets each tick
+				map.draw_squadrons(gc3); // If squadron exists draw each tick his new position
+				map.update_ships_numbers(now); // Production function of planets's ships
 				
 				//v.render(gc);
 				//p.render(gc);

@@ -31,10 +31,12 @@ public final class Save_Load {
 
 		scene.setOnKeyPressed(event -> {
 			String str = event.getCode().toString();
+			/*  Save call */
 			if (event.getCode() == KeyCode.S) {
 				this.save(m);
 				
 			}
+			/* Load call */
 			if (event.getCode() == KeyCode.C) {
 				this.load(m, scene);
 			}
@@ -49,17 +51,17 @@ public final class Save_Load {
 	 */
 	void save(Map m) {
 		System.out.println("******************SAVE DONE **************************");
-		ObjectOutputStream object = null;
+		ObjectOutputStream object = null; // object flux 
 		Planet tab[] = m.getPlanet_tab();
 		try {
 
-			final FileOutputStream fichier = new FileOutputStream("mon_objet.ser");
+			final FileOutputStream fichier = new FileOutputStream("mon_objet.ser"); //output file to save the current map object
 			
 			object = new ObjectOutputStream(fichier);
 			for (int i = 0; i < m.getNb_planets(); i++) {
-				tab[i].setXY_serialize();
+				tab[i].setXY_serialize();  // bypass the unserializable Point2D
 			}
-			object.writeObject(m);
+			object.writeObject(m); // Write the map in the object flux
 			object.flush();
 		} catch (final java.io.IOException e) {
 
@@ -95,8 +97,8 @@ public final class Save_Load {
 	 */
 	void load(Map m, Scene scene) {
 
-		ObjectInputStream object = null;
-		Map new_m = null;
+		ObjectInputStream object = null; // object flux
+		Map new_m = null;	// the new_map loaded from file
 
 				System.out.println("******************LOAD DONE **************************");
 				try {
