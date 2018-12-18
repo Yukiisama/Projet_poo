@@ -12,18 +12,37 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import planet.Planet;
 import view.Map;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Main.
+ */
 public class Main extends Application {
 	
+	/**
+	 * Gets the ressource path by name.
+	 *
+	 * @param name the name
+	 * @return the ressource path by name
+	 */
 	public static String getRessourcePathByName(String name) {
 		return Main.class.getResource('/' + name).toString();
 	}
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}
 
+	/* (non-Javadoc)
+	 * @see javafx.application.Application#start(javafx.stage.Stage)
+	 */
 	public void start(Stage stage) {
 		stage.setTitle("Pooooooo");
 		stage.setResizable(false);
@@ -69,10 +88,18 @@ public class Main extends Application {
 		mouse_event.apply_event_mouse(map, gc, scene);
 		
 		
+		
+		
 		// STAGE INIT
 		Image space = new Image(getRessourcePathByName("images/wallpaper.jpg"), Map.WIDTH, Map.HEIGHT, false, false);
+	
 		stage.setScene(scene);
 		stage.show();
+		
+		//Save load object
+				Save_Load save_load = new Save_Load();
+				save_load.save_load(map, scene); 
+				//save_load.load(map, scene);
 		
 		new AnimationTimer() {	
 			public void handle(long now) {

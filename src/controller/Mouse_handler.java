@@ -7,12 +7,29 @@ import javafx.scene.canvas.GraphicsContext;
 import planet.Planet;
 import view.Map;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Mouse_Handler.
+ */
 public final class Mouse_Handler {
+	
+	/** The clicked one. */
 	private Planet clicked_one;
+	
+	/** The clicked. */
 	private boolean clicked;
+	
+	/** The clicked y. */
 	private int clicked_y;
 	
 
+	/**
+	 * Apply event mouse.
+	 *
+	 * @param map   the map
+	 * @param gc4   the gc 4
+	 * @param scene the scene
+	 */
 	public void apply_event_mouse (Map map, GraphicsContext gc4, Scene scene){
 		
 		scene.setOnMousePressed(event -> {

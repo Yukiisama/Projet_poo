@@ -1,5 +1,6 @@
 package view;
 
+import java.io.Serializable;
 import java.util.Random;
 
 import controller.Player;
@@ -13,17 +14,42 @@ import planet.Planet;
 import planet.Square_Planet;
 import spaceship.SpaceShip;
 
-public class Map {
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Map.
+ */
+public class Map implements Serializable {
+	
+	/** The Constant WIDTH. */
 	public final static int WIDTH = 1600;
+	
+	/** The Constant HEIGHT. */
 	public final static int HEIGHT = 920;
 	
+	/** The min dist. */
 	private final int min_dist = 200;
+	
+	/** The planet tab. */
 	private Planet planet_tab[];
+	
+	/** The player tab. */
 	private Player player_tab[];
+	
+	/** The nb planets. */
 	private int nb_planets;
+	
+	/** The nb players. */
 	private int nb_players;
+	
+	/** The last time. */
 	private long last_time;
 	
+	/**
+	 * Instantiates a new map.
+	 *
+	 * @param nb_planets the nb planets
+	 * @param nb_players the nb players
+	 */
 	public Map(int nb_planets, int nb_players) {
 		this.planet_tab = new Planet[nb_planets];
 		this.player_tab = new Player[nb_players];
@@ -33,25 +59,80 @@ public class Map {
 		this.add_players();
 	}
 
+	/**
+	 * Gets the planet tab.
+	 *
+	 * @return the planet tab
+	 */
 	public Planet[] getPlanet_tab() { return planet_tab; }
+	
+	/**
+	 * Sets the planet tab.
+	 *
+	 * @param planet_tab the new planet tab
+	 */
 	public void setPlanet_tab(Planet planet_tab[]) { this.planet_tab = planet_tab; }
 
+	/**
+	 * Gets the nb planets.
+	 *
+	 * @return the nb planets
+	 */
 	public int getNb_planets() { return nb_planets; }
+	
+	/**
+	 * Sets the nb planets.
+	 *
+	 * @param nb_planets the new nb planets
+	 */
 	public void setNb_planets(int nb_planets) { this.nb_planets = nb_planets; }
 
+	/**
+	 * Gets the player tab.
+	 *
+	 * @return the player tab
+	 */
 	public Player[] getPlayer_tab() { return player_tab; }
+	
+	/**
+	 * Sets the player tab.
+	 *
+	 * @param player_tab the new player tab
+	 */
 	public void setPlayer_tab(Player[] player_tab) { this.player_tab = player_tab; }
 
+	/**
+	 * Gets the nb players.
+	 *
+	 * @return the nb players
+	 */
 	public int getNb_players() { return nb_players; }
+	
+	/**
+	 * Sets the nb players.
+	 *
+	 * @param nb_players the new nb players
+	 */
 	public void setNb_players(int nb_players) { this.nb_players = nb_players; }
 
 
+	/**
+	 * Adds the players.
+	 */
 	public void add_players() {
 		for (int i = 0 ; i < this.nb_players ; i++) {
 			player_tab[i] = new Player(i);
 		}
 	}
 	
+	/**
+	 * Checks if is location valid.
+	 *
+	 * @param p           the p
+	 * @param size_factor the size factor
+	 * @param planet_type the planet type
+	 * @return true, if is location valid
+	 */
 	public boolean is_location_valid(Point2D p, double size_factor, String planet_type) {
 		
 		//Out of bounds detection
@@ -77,6 +158,9 @@ public class Map {
 		return true;
 	}
 	
+	/**
+	 * Adds the planets.
+	 */
 	public void add_planets() {
 		int id = -1;
 
@@ -119,6 +203,11 @@ public class Map {
 		}
 	}
 	
+	/**
+	 * Draw planets.
+	 *
+	 * @param gc the gc
+	 */
 	public void draw_planets(GraphicsContext gc) {
 		
 		for (int i = 0 ; i < this.nb_planets ; i++) {
@@ -151,6 +240,11 @@ public class Map {
 		}
 	}
 	
+	/**
+	 * Draw text planets.
+	 *
+	 * @param gc2 the gc 2
+	 */
 	public void draw_text_planets(GraphicsContext gc2) {
 		for (int i = 0 ; i < this.getNb_planets() ; i++) {
 			String nb_ships =  String.valueOf(planet_tab[i].getNb_ship());
@@ -166,6 +260,11 @@ public class Map {
 		}
 	}
 	
+	/**
+	 * Draw squadrons.
+	 *
+	 * @param gc3 the gc 3
+	 */
 	public void draw_squadrons(GraphicsContext gc3) {
 		for (int i = 0 ; i < this.nb_planets ; i++) {
 			for (int j = 0 ; j < this.planet_tab[i].getNb_squadron() ; j++) {
@@ -187,6 +286,11 @@ public class Map {
 		}
 	}
 	
+	/**
+	 * Update ships numbers.
+	 *
+	 * @param now the now
+	 */
 	public void update_ships_numbers(long now) {
 		long passed_time = (now - this.last_time)/1000;
 		this.last_time = now;
