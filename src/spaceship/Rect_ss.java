@@ -2,9 +2,9 @@ package spaceship;
 
 import javafx.geometry.Point2D;
 
-// TODO: Auto-generated Javadoc
+
 /**
- * The Class Rect_SS.
+ * The Class Rect_SS represents spaceship with rectangle form , herits of SpaceShip.
  */
 public class Rect_SS extends SpaceShip {
 
@@ -12,7 +12,7 @@ public class Rect_SS extends SpaceShip {
 	public static final int DEFAULT_PRODUCTION_TIME = 2000000;
 	
 	/**
-	 * Instantiates a new rect SS.
+	 * Instantiates a new rect SS (i.e ship).
 	 *
 	 * @param center    the center
 	 * @param id_player the id player

@@ -2,7 +2,7 @@ package planet;
 
 import javafx.geometry.Point2D;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Square_Planet.
  */

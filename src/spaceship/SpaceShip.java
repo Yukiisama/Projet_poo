@@ -2,9 +2,9 @@ package spaceship;
 
 import javafx.geometry.Point2D;
 
-// TODO: Auto-generated Javadoc
+
 /**
- * The Class SpaceShip.
+ * The Class SpaceShip can't be instanciate .
  */
 public abstract class SpaceShip {
 	

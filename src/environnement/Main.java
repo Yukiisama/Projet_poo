@@ -15,9 +15,9 @@ import javafx.stage.Stage;
 import planet.Planet;
 import view.Map;
 
-// TODO: Auto-generated Javadoc
+
 /**
- * The Class Main.
+ * The Class Main runs the application.
  */
 public class Main extends Application {
 	
@@ -32,9 +32,9 @@ public class Main extends Application {
 	}
 
 	/**
-	 * The main method.
+	 * The main method to launch the game
 	 *
-	 * @param args the arguments
+	 * @param args the main arguments
 	 */
 	public static void main(String[] args) {
 		launch(args);

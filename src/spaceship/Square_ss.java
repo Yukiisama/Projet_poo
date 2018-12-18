@@ -2,9 +2,9 @@ package spaceship;
 
 import javafx.geometry.Point2D;
 
-// TODO: Auto-generated Javadoc
+
 /**
- * The Class Square_SS.
+ * The Class Square_SS represents spaceship with square form.
  */
 public class Square_SS extends SpaceShip {
 

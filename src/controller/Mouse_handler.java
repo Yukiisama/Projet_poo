@@ -7,28 +7,29 @@ import javafx.scene.canvas.GraphicsContext;
 import planet.Planet;
 import view.Map;
 
-// TODO: Auto-generated Javadoc
+
 /**
- * The Class Mouse_Handler.
+ * The Class Mouse_Handler handles all interractions with mouse 
+ * 
  */
 public final class Mouse_Handler {
 	
-	/** The clicked one. */
+	/** The clicked one design the planet selected by the user. */
 	private Planet clicked_one;
 	
-	/** The clicked. */
+	/** The clicked is a boolean state to indicate if a clic has occured. */
 	private boolean clicked;
 	
-	/** The clicked y. */
+	/** The clicked y represents the ordered (Y) coordinates. */
 	private int clicked_y;
 	
 
 	/**
-	 * Apply event mouse.
+	 * Apply the event mouse which is basically actually used for the selection of planets and to proceed to the attack.
 	 *
-	 * @param map   the map
-	 * @param gc4   the gc 4
-	 * @param scene the scene
+	 * @param map   the actual map ( i.e represents the model of the application) 
+	 * @param gc4   the GraphicsContext we use for drawing the planets and their informations
+	 * @param scene the scene  See <a href="https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Scene.html">https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Scene.html</a>
 	 */
 	public void apply_event_mouse (Map map, GraphicsContext gc4, Scene scene){
 		

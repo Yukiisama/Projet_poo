@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 import javafx.geometry.Point2D;
 
-// TODO: Auto-generated Javadoc
+
 /**
- * The Class Circle_Planet.
+ * The Class Circle_Planet which extends Planet.
  */
 public class Circle_Planet extends Planet  {
 	
@@ -20,10 +20,10 @@ public class Circle_Planet extends Planet  {
 	 * Instantiates a new circle planet.
 	 *
 	 * @param rate_production the rate production
-	 * @param nb_ship         the nb ship
+	 * @param nb_ship         the number of ship to initialize
 	 * @param ships_type      the ships type
-	 * @param centre          the centre
-	 * @param ID_player       the i D player
+	 * @param centre          the centre (i.e POINT2D)
+	 * @param ID_player       the ID of the player
 	 * @param size_factor     the size factor
 	 */
 	public Circle_Planet(double rate_production, int nb_ship, String ships_type, Point2D centre, int ID_player, double size_factor) {

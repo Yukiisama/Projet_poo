@@ -2,9 +2,9 @@ package planet;
 
 import javafx.geometry.Point2D;
 
-// TODO: Auto-generated Javadoc
+
 /**
- * The Class Rect_Planet.
+ * The Class Rect_Planet which extends Planet.
  */
 public class Rect_Planet extends Planet {
 	
@@ -26,7 +26,7 @@ public class Rect_Planet extends Planet {
 	 * @param rate_production the rate production
 	 * @param nb_ship         the nb ship
 	 * @param ships_type      the ships type
-	 * @param centre          the centre
+	 * @param centre          the centre (POINT2D)
 	 * @param ID_player       the i D player
 	 * @param size_factor     the size factor
 	 */

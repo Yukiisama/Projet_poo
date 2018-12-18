@@ -14,9 +14,9 @@ import planet.Planet;
 import planet.Square_Planet;
 import spaceship.SpaceShip;
 
-// TODO: Auto-generated Javadoc
+
 /**
- * The Class Map.
+ * The Class Map represents each informations we need to draw the actual content of the game .
  */
 public class Map implements Serializable {
 	
@@ -128,7 +128,7 @@ public class Map implements Serializable {
 	/**
 	 * Checks if is location valid.
 	 *
-	 * @param p           the p
+	 * @param p           the point p to test location
 	 * @param size_factor the size factor
 	 * @param planet_type the planet type
 	 * @return true, if is location valid
@@ -206,7 +206,7 @@ public class Map implements Serializable {
 	/**
 	 * Draw planets.
 	 *
-	 * @param gc the gc
+	 * @param gc  the GraphicsContext we use for drawing the planets and their informations
 	 */
 	public void draw_planets(GraphicsContext gc) {
 		
@@ -243,7 +243,7 @@ public class Map implements Serializable {
 	/**
 	 * Draw text planets.
 	 *
-	 * @param gc2 the gc 2
+	 * @param gc2  the GraphicsContext we use for drawing text of the planets (production ..)
 	 */
 	public void draw_text_planets(GraphicsContext gc2) {
 		for (int i = 0 ; i < this.getNb_planets() ; i++) {
@@ -263,7 +263,7 @@ public class Map implements Serializable {
 	/**
 	 * Draw squadrons.
 	 *
-	 * @param gc3 the gc 3
+	 * @param gc3  the GraphicsContext we use for drawing the spaceships in squadrons
 	 */
 	public void draw_squadrons(GraphicsContext gc3) {
 		for (int i = 0 ; i < this.nb_planets ; i++) {

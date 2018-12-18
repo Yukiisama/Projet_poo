@@ -7,9 +7,9 @@ import spaceship.Rect_SS;
 import spaceship.Squadron;
 import spaceship.Square_SS;
 
-// TODO: Auto-generated Javadoc
+
 /**
- * The Class Planet.
+ * The Class Planet which is abstract and implements Serializable for save_load functions.
  */
 abstract public class Planet implements Serializable {
 	
@@ -22,13 +22,13 @@ abstract public class Planet implements Serializable {
 	/** The ships type. */
 	private String ships_type;
     
-    /** The center. */
+    /** The center (i.e Point2D javafx). */
     transient private Point2D center;
     
-    /** The y. */
+    /** The  x_y @deprecated USE THIS JUST TO TEST SAVE LOAD. */
     public int x , y;
 	
-	/** The I D player. */
+	/** The I D of the player which controll this planet. */
 	private int ID_player;
 	
 	/** The left time. */
@@ -37,7 +37,7 @@ abstract public class Planet implements Serializable {
 	/** The production time. */
 	private long production_time;
 	
-	/** The selected. */
+	/** The selected target. */
 	private int selected;
 	
 	/** The squadron tab. */
@@ -220,7 +220,7 @@ abstract public class Planet implements Serializable {
 	/**
 	 * Checks if is inside.
 	 *
-	 * @param p the p
+	 * @param p the point p we want to test
 	 * @return true, if is inside
 	 */
 	public abstract boolean is_inside(Point2D p);
@@ -241,7 +241,7 @@ abstract public class Planet implements Serializable {
 	
 	
 	/**
-	 * Attack.
+	 * Attack the planet target.
 	 *
 	 * @param target the target
 	 */

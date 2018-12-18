@@ -14,17 +14,18 @@ import planet.Planet;
 import planet.Square_Planet;
 import view.Map;
 
-// TODO: Auto-generated Javadoc
+
 /**
- * The Class Save_Load.
+ * The Class Save_Load is used to save and load map object .
+ * The S key is for saving ,  The C key is for loading.
  */
 public final class Save_Load {
 
 	/**
-	 * Save load.
+	 * Save_load selects which mode to launch .
 	 *
-	 * @param m     the m
-	 * @param scene the scene
+	 * @param m     the actual map ( i.e represents the model of the application) 
+	 * @param scene the scene  See <a href="https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Scene.html">https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Scene.html</a>
 	 */
 	void save_load(Map m, Scene scene) {
 
@@ -42,9 +43,9 @@ public final class Save_Load {
 	}
 
 	/**
-	 * Save.
+	 * Save function which is called by save_load if key pressed S
 	 *
-	 * @param m the m
+	 * @param m the actual map ( i.e represents the model of the application) 
 	 */
 	void save(Map m) {
 		System.out.println("******************SAVE DONE **************************");
@@ -87,10 +88,10 @@ public final class Save_Load {
 
 
 	/**
-	 * Load.
+	 * Load function which is called by save_load if key pressed C
 	 *
-	 * @param m     the m
-	 * @param scene the scene
+	 * @param m     the actual map ( i.e represents the model of the application) 
+	 * @param scene the scene  See <a href="https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Scene.html">https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Scene.html</a>
 	 */
 	void load(Map m, Scene scene) {
 

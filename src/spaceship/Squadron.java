@@ -5,9 +5,9 @@ import planet.Circle_Planet;
 import planet.Planet;
 import planet.Square_Planet;
 
-// TODO: Auto-generated Javadoc
+
 /**
- * The Class Squadron.
+ * The Class Squadron which contain multiples spaceship from a planet in order to attack a new one .
  */
 public final class Squadron {
 	
@@ -26,8 +26,8 @@ public final class Squadron {
 	/**
 	 * Instantiates a new squadron.
 	 *
-	 * @param Origin the origin
-	 * @param Target the target
+	 * @param Origin the origin planet
+	 * @param Target the target planet
 	 */
 	public Squadron(Planet Origin, Planet Target){
 		this.origin = Origin;
