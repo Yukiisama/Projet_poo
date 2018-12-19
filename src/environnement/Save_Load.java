@@ -1,10 +1,14 @@
 package environnement;
 
+import java.awt.BorderLayout;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.File;
+
 
 import controller.Player;
 import geometry.Point2D;
@@ -15,6 +19,8 @@ import javafx.scene.paint.Color;
 import planet.Circle_Planet;
 import planet.Planet;
 import planet.Square_Planet;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import view.Map;
 
 
@@ -31,29 +37,56 @@ public final class Save_Load {
 	 * @param scene the scene  See <a href="https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Scene.html">https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Scene.html</a>
 	 */
 	void save_load(Map m, Scene scene) {
+		
 		scene.setOnKeyPressed(event -> {
-			/*  Save call */
+			/*  Save call Fast one */
 			if (event.getCode() == KeyCode.S) {
-				this.save(m);
+				this.save(m,true);
 			}
-			/* Load call */
+			//Selection one
+			if (event.getCode() == KeyCode.X) {
+				this.save(m,false);
+			}
+			/* Load fast call */
 			if (event.getCode() == KeyCode.C) {
-				this.load(m, scene);
+				this.load(m, scene,true);
 			}
+			//Selection one
+			if (event.getCode() == KeyCode.V) {
+				this.load(m, scene,false);
+			}
+			
 		});
 	}
+	 public String choose_Path(final Stage primaryStage, boolean save) throws IOException{
+		 	String path; File file;
+	        FileChooser fileChooser = new FileChooser();
+	      //Set extension filter for text files
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("SER files (*.ser)", "*.ser");
+            fileChooser.getExtensionFilters().add(extFilter);
+            if(save)
+            	 file = fileChooser.showSaveDialog(primaryStage);
+            else
+            	file = fileChooser.showOpenDialog(primaryStage);
+            if(file!=null)return file.toString();
+	        else System.out.println("fail to choose  , default one \n");
+	        return "save_001.ser";
+	    }
 
 	/**
 	 * Save function which is called by save_load if key pressed S
 	 *
 	 * @param m the actual map ( i.e represents the model of the application) 
 	 */
-	void save(Map m) {
+	void save(Map m, boolean fast_save) {
 		System.out.println("******************SAVE DONE **************************");
+		
 		ObjectOutputStream object = null; // object flux 
 		try {
 			//output file to save the current map object
-			final FileOutputStream fichier = new FileOutputStream("mon_objet.ser"); 
+			String path = "fast_save.ser";
+			if(!fast_save) path = choose_Path(null,true);
+			final FileOutputStream fichier = new FileOutputStream(path); 
 			object = new ObjectOutputStream(fichier);
 			// Write the map in the object flux then terminate
 			object.writeObject(m);
@@ -81,15 +114,18 @@ public final class Save_Load {
 	 * @param m     the actual map ( i.e represents the model of the application) 
 	 * @param scene the scene  See <a href="https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Scene.html">https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Scene.html</a>
 	 */
-	void load(Map m, Scene scene) {
+	void load(Map m, Scene scene,boolean fast_load ) {
 		// object flux
 		ObjectInputStream object = null;
 		// the new_map loaded from file
 		Map new_m = null;	
-
+		final FileInputStream fichier;
 				System.out.println("******************LOAD DONE **************************");
 				try {
-					final FileInputStream fichier = new FileInputStream("mon_objet.ser");
+					if(fast_load)
+						fichier = new FileInputStream("fast_save.ser");
+					else
+					  fichier = new FileInputStream(choose_Path(null,false));
 					object = new ObjectInputStream(fichier);
 					new_m = (Map) object.readObject();
 					
