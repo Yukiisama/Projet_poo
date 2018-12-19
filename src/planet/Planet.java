@@ -27,7 +27,7 @@ abstract public class Planet implements Serializable {
 	/** The ships type. */
 	private String ships_type;
     
-    /** The center (i.e Point2D javafx). */
+    /** The center (i.e Point2D ). */
     private Point2D center;
 	
 	/** The I D of the player which control this planet. */

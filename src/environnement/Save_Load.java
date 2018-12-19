@@ -31,18 +31,15 @@ public final class Save_Load {
 	 * @param scene the scene  See <a href="https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Scene.html">https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Scene.html</a>
 	 */
 	void save_load(Map m, Scene scene) {
-
 		scene.setOnKeyPressed(event -> {
 			/*  Save call */
 			if (event.getCode() == KeyCode.S) {
 				this.save(m);
-				
 			}
 			/* Load call */
 			if (event.getCode() == KeyCode.C) {
 				this.load(m, scene);
 			}
-
 		});
 	}
 
@@ -54,35 +51,24 @@ public final class Save_Load {
 	void save(Map m) {
 		System.out.println("******************SAVE DONE **************************");
 		ObjectOutputStream object = null; // object flux 
-		Planet tab[] = m.getPlanet_tab();
 		try {
-
-			final FileOutputStream fichier = new FileOutputStream("mon_objet.ser"); //output file to save the current map object
-			
+			//output file to save the current map object
+			final FileOutputStream fichier = new FileOutputStream("mon_objet.ser"); 
 			object = new ObjectOutputStream(fichier);
-			
-			object.writeObject(m); // Write the map in the object flux
+			// Write the map in the object flux then terminate
+			object.writeObject(m);
 			object.flush();
+			object.close();
 		} catch (final java.io.IOException e) {
-
 			e.printStackTrace();
-
 		} finally {
-
 			try {
-
 				if (object != null) {
-
 					object.flush();
-
 					object.close();
-
 				}
-
 			} catch (final IOException ex) {
-
 				ex.printStackTrace();
-
 			}
 
 		}
@@ -96,53 +82,41 @@ public final class Save_Load {
 	 * @param scene the scene  See <a href="https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Scene.html">https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Scene.html</a>
 	 */
 	void load(Map m, Scene scene) {
-
-		ObjectInputStream object = null; // object flux
-		Map new_m = null;	// the new_map loaded from file
+		// object flux
+		ObjectInputStream object = null;
+		// the new_map loaded from file
+		Map new_m = null;	
 
 				System.out.println("******************LOAD DONE **************************");
 				try {
-
 					final FileInputStream fichier = new FileInputStream("mon_objet.ser");
-
 					object = new ObjectInputStream(fichier);
 					new_m = (Map) object.readObject();
+					
 					Planet tab[] = new_m.getPlanet_tab();
 					Planet tab_map_param[] = m.getPlanet_tab();
 					Player tabp[] = m.getPlayer_tab();
-					m.setNb_planets(new_m.getNb_planets());
-					m.setNb_players(new_m.getNb_players());
-					for (int i = 0 ; i<20 ;i++)
+					// Set the new map ( the load one) and change the current map values
+					m.setNb_planets(new_m.getNb_planets());  m.setNb_players(new_m.getNb_players());
+					for (int i = 0 ; i < new_m.getNb_planets() ;i++)
 						tab_map_param[i] = tab[i];
+					m.setPlayer_tab(tabp);  m.setPlanet_tab(tab_map_param);
+					object.close();
 					
-					m.setPlayer_tab(tabp);
-					m.setPlanet_tab(tab_map_param);
-					
-					
-
 				} catch (final java.io.IOException e) {
-
 					e.printStackTrace();
-
 				} catch (final ClassNotFoundException e) {
-
 					e.printStackTrace();
-
-				} finally {
-
+				} 
+				finally {
+					
 					try {
-
 						if (object != null) {
-
 							object.close();
-
 						}
-
 					} catch (final IOException ex) {
-
 						ex.printStackTrace();
-
-					}
+						}
 
 				}
 

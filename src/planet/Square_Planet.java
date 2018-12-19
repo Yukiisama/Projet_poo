@@ -13,10 +13,10 @@ public class Square_Planet extends Planet {
 	private static final long serialVersionUID = -4250546456196443463L;
 
 	/** The Constant DEFAULT_SIZE. */
-	transient public static final int DEFAULT_SIZE = 120;
+	public static final int DEFAULT_SIZE = 120;
 	
 	/** The size. */
-	transient private int size = DEFAULT_SIZE;
+	private int size = DEFAULT_SIZE;
 
 	/**
 	 * Instantiates a new square planet.
