@@ -10,7 +10,10 @@ import javafx.scene.paint.Paint;
  */
 public class Player implements Serializable {
 
-	/** The id. If ID is one then the players is the humain playing,others are bots  */
+	/** The Serial version UID */
+	private static final long serialVersionUID = 1L;
+
+	/** The id. If ID is one then the players is the human playing,others are IAs  */
 	private int ID;
 	
 	/** The color , each player is characterize by one specific color ( Player One is LIGHTBLUE). */

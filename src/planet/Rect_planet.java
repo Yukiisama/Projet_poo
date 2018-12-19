@@ -1,6 +1,7 @@
 package planet;
 
-import javafx.geometry.Point2D;
+import geometry.Point2D;
+import javafx.scene.canvas.GraphicsContext;
 
 
 /**
@@ -8,6 +9,9 @@ import javafx.geometry.Point2D;
  */
 public class Rect_Planet extends Planet {
 	
+	/** The Serial version UID */
+	private static final long serialVersionUID = 1L;
+
 	/** The Constant DEFAULT_HEIGHT. */
 	public static final int DEFAULT_HEIGHT = 90;
 	
@@ -21,17 +25,17 @@ public class Rect_Planet extends Planet {
 	private int width = DEFAULT_WIDTH;
 	
 	/**
-	 * Instantiates a new rect planet.
+	 * Instantiates a new rectangle planet.
 	 *
 	 * @param rate_production the rate production
-	 * @param nb_ship         the nb ship
+	 * @param nb_ship         the number of ships
 	 * @param ships_type      the ships type
-	 * @param centre          the centre (POINT2D)
+	 * @param center          the center (POINT2D)
 	 * @param ID_player       the i D player
 	 * @param size_factor     the size factor
 	 */
-	public Rect_Planet(double rate_production, int nb_ship, String ships_type, Point2D centre, int ID_player, double size_factor) {
-		super(rate_production, nb_ship, ships_type, centre, ID_player);
+	public Rect_Planet(double rate_production, int nb_ship, String ships_type, Point2D center, int ID_player, double size_factor) {
+		super(rate_production, nb_ship, ships_type, center, ID_player);
 		this.height *= size_factor;
 		this.width *= size_factor;
 		
@@ -69,6 +73,14 @@ public class Rect_Planet extends Planet {
 	@Override
 	public boolean is_inside(Point2D p) {
 		return Math.abs(p.getX() - this.getCenter().getX()) < this.width/2 && Math.abs(p.getY() - this.getCenter().getY()) < this.height/2;
+	}
+	
+	/* (non_Javadoc)
+	 * @see planet.Planet#draw(javafx.scene.canvas.GraphicsContext)
+	 */
+	@Override
+	public void draw(GraphicsContext gc) {
+		gc.fillRect(this.getCenter().getX()-this.width/2, this.getCenter().getY()-this.height/2, this.width, this.height);
 	}
 
 }

@@ -1,6 +1,7 @@
 package planet;
 
-import javafx.geometry.Point2D;
+import geometry.Point2D;
+import javafx.scene.canvas.GraphicsContext;
 
 
 /**
@@ -8,6 +9,9 @@ import javafx.geometry.Point2D;
  */
 public class Square_Planet extends Planet {
 	
+	/** The Serial version UID */
+	private static final long serialVersionUID = -4250546456196443463L;
+
 	/** The Constant DEFAULT_SIZE. */
 	transient public static final int DEFAULT_SIZE = 120;
 	
@@ -18,14 +22,14 @@ public class Square_Planet extends Planet {
 	 * Instantiates a new square planet.
 	 *
 	 * @param rate_production the rate production
-	 * @param nb_ship         the nb ship
+	 * @param nb_ship         the number of ships
 	 * @param ships_type      the ships type
-	 * @param centre          the centre
+	 * @param center          the center
 	 * @param ID_player       the i D player
 	 * @param size_factor     the size factor
 	 */
-	public Square_Planet(double rate_production, int nb_ship, String ships_type, Point2D centre, int ID_player, double size_factor) {
-		super(rate_production, nb_ship, ships_type, centre, ID_player);
+	public Square_Planet(double rate_production, int nb_ship, String ships_type, Point2D center, int ID_player, double size_factor) {
+		super(rate_production, nb_ship, ships_type, center, ID_player);
 		this.size *= size_factor;
 	}
 
@@ -50,6 +54,15 @@ public class Square_Planet extends Planet {
 	public boolean is_inside(Point2D p) {
 		return Math.abs(p.getX() - this.getCenter().getX()) < this.size/2 && Math.abs(p.getY() - this.getCenter().getY()) < this.size/2;
 	}
+	
+	/* (non_Javadoc)
+	 * @see planet.Planet#draw(javafx.scene.canvas.GraphicsContext)
+	 */
+	@Override
+	public void draw(GraphicsContext gc) {
+		gc.fillRect(this.getCenter().getX()-this.size/2, this.getCenter().getY()-this.size/2, this.size, this.size);
+	}
+
 	
 	/* (non-Javadoc)
 	 * @see planet.Planet#getWidth()

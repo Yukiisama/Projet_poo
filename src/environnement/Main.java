@@ -12,7 +12,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import planet.Planet;
 import view.Map;
 
 
@@ -44,7 +43,7 @@ public class Main extends Application {
 	 * @see javafx.application.Application#start(javafx.stage.Stage)
 	 */
 	public void start(Stage stage) {
-		/* Stage Init */
+		/* Stage initialisation */
 		stage.setTitle("Projet Poo");
 		stage.setResizable(false);
 
@@ -63,6 +62,7 @@ public class Main extends Application {
 
 		/* graphic canvas for drawing planet & original */
 		
+		// graphic canvas for drawing planets
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.setFont(Font.font("Helvetica", FontWeight.BOLD, 24));
 		gc.setFill(Color.BISQUE);
@@ -89,19 +89,16 @@ public class Main extends Application {
 		Mouse_Handler mouse_event = new Mouse_Handler();
 		mouse_event.apply_event_mouse(map, gc, scene);
 		
-		
-		
-		
 		// Load the "wallpaper" of the application
 		Image space = new Image(getRessourcePathByName("images/wallpaper.jpg"), Map.WIDTH, Map.HEIGHT, false, false);
+
 		// Apply the scene
 		stage.setScene(scene);
 		stage.show();
 		
 		//Save load object
-				Save_Load save_load = new Save_Load();
-				save_load.save_load(map, scene); 
-				//save_load.load(map, scene);
+		Save_Load save_load = new Save_Load();
+		
 		
 		//Tick of the application
 		new AnimationTimer() {	
@@ -112,7 +109,7 @@ public class Main extends Application {
 				map.draw_text_planets(gc2); // Draw text production of planets each tick
 				map.draw_squadrons(gc3); // If squadron exists draw each tick his new position
 				map.update_ships_numbers(now); // Production function of planets's ships
-				
+				save_load.save_load(map, scene);
 				//v.render(gc);
 				//p.render(gc);
 

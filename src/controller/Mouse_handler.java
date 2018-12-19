@@ -1,7 +1,7 @@
 package controller;
 
 
-import javafx.geometry.Point2D;
+import geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import planet.Planet;
@@ -39,7 +39,7 @@ public final class Mouse_Handler {
 			boolean clicked_on_planet = false;
 			for (int i = 0 ; i < size ; i++) {
 				int id_player = planet_tab[i].getID_player();
-				if (planet_tab[i].is_inside(new Point2D(event.getX(), event.getY()))) { // If clicked on a planet
+				if (planet_tab[i].is_inside(new Point2D((int)event.getX(), (int)event.getY()))) { // If clicked on a planet
 					clicked_on_planet = true;
 					if (id_player == 0) { // If it's a planet of its own, select it
 						this.clicked_one = planet_tab[i];

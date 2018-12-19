@@ -1,6 +1,7 @@
 package spaceship;
 
-import javafx.geometry.Point2D;
+import geometry.Point2D;
+import javafx.scene.canvas.GraphicsContext;
 
 
 /**
@@ -125,4 +126,11 @@ public abstract class SpaceShip {
 	 * @param id_player the new id player
 	 */
 	public void setId_player(int id_player) { this.id_player = id_player; }
+	
+	/**
+	 * Draw the spaceship on a GraphicsContext.
+	 *
+	 * @param gc the GraphicsContext.
+	 */
+	public abstract void draw(GraphicsContext gc);
 }

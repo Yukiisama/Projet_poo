@@ -6,9 +6,12 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import javafx.geometry.Point2D;
+import controller.Player;
+import geometry.Point2D;
 import javafx.scene.Scene;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
+import javafx.scene.paint.Color;
 import planet.Circle_Planet;
 import planet.Planet;
 import planet.Square_Planet;
@@ -30,7 +33,6 @@ public final class Save_Load {
 	void save_load(Map m, Scene scene) {
 
 		scene.setOnKeyPressed(event -> {
-			String str = event.getCode().toString();
 			/*  Save call */
 			if (event.getCode() == KeyCode.S) {
 				this.save(m);
@@ -58,9 +60,7 @@ public final class Save_Load {
 			final FileOutputStream fichier = new FileOutputStream("mon_objet.ser"); //output file to save the current map object
 			
 			object = new ObjectOutputStream(fichier);
-			for (int i = 0; i < m.getNb_planets(); i++) {
-				tab[i].setXY_serialize();  // bypass the unserializable Point2D
-			}
+			
 			object.writeObject(m); // Write the map in the object flux
 			object.flush();
 		} catch (final java.io.IOException e) {
@@ -107,31 +107,18 @@ public final class Save_Load {
 
 					object = new ObjectInputStream(fichier);
 					new_m = (Map) object.readObject();
-					System.out.println(m);
-					System.out.println(new_m);
 					Planet tab[] = new_m.getPlanet_tab();
 					Planet tab_map_param[] = m.getPlanet_tab();
-					System.out.println(new_m.getNb_planets());
-					System.out.println(new_m.getNb_players());
-					for (int i = 0; i < new_m.getNb_planets(); i++) {
-						Point2D p = new Point2D(tab[i].x,tab[i].y);
-						tab_map_param[i].setCenter(p);
-						if(tab[i] instanceof Square_Planet) {
-							Square_Planet sq_p = (Square_Planet) tab_map_param[i];
-							sq_p.setSize(((Square_Planet)tab[i]).getSize());
-							tab[i]=sq_p;
-						}
-						else if(tab[i] instanceof Circle_Planet) {
-							Circle_Planet circle_p = (Circle_Planet) tab_map_param[i];
-							circle_p.setRadius(((Circle_Planet)tab[i]).getRadius());
-							tab[i]=circle_p;
-							
-						}
-					}
+					Player tabp[] = m.getPlayer_tab();
 					m.setNb_planets(new_m.getNb_planets());
 					m.setNb_players(new_m.getNb_players());
+					for (int i = 0 ; i<20 ;i++)
+						tab_map_param[i] = tab[i];
+					
+					m.setPlayer_tab(tabp);
 					m.setPlanet_tab(tab_map_param);
-					m.setPlayer_tab(m.getPlayer_tab());
+					
+					
 
 				} catch (final java.io.IOException e) {
 

@@ -1,8 +1,9 @@
 package spaceship;
 
-import javafx.geometry.Point2D;
+import geometry.Point2D;
 import planet.Circle_Planet;
 import planet.Planet;
+import planet.Rect_Planet;
 import planet.Square_Planet;
 
 
@@ -32,6 +33,8 @@ public final class Squadron {
 	public Squadron(Planet Origin, Planet Target){
 		this.origin = Origin;
 		this.target = Target;
+		
+		// defining the size of the squadron depending on its origin's radius
 		this.spaceship_tab = new SpaceShip[6];
 		if (this.origin.getNb_ship() >= 6) this.size = 6;
 		else this.size = this.origin.getNb_ship();
@@ -40,11 +43,13 @@ public final class Squadron {
 			int radius = 0;
 			if (this.origin instanceof Circle_Planet) radius = ((Circle_Planet)this.origin).getRadius();
 			else if (this.origin instanceof Square_Planet) radius = (int)Math.sqrt(Math.pow((double)((Square_Planet) this.origin).getSize(), 2));
+			else if (this.origin instanceof Rect_Planet) radius = Math.max((int)Math.sqrt(Math.pow((double)((Rect_Planet) this.origin).getHeight(), 2)), (int)Math.sqrt(Math.pow((double)((Rect_Planet) this.origin).getWidth(), 2)));
 			double x = Math.cos(angle) * radius;
 			double y = Math.sin(angle) * radius;
-			Point2D where = new Point2D(this.origin.getCenter().getX()+x, this.origin.getCenter().getY()+y);
+			Point2D where = new Point2D((int)(this.origin.getCenter().getX()+x), (int)(this.origin.getCenter().getY()+y));
 			if (this.origin.getShips_type()=="Square") spaceship_tab[i] = new Square_SS(where, this.origin.getID_player());
 			else if (this.origin.getShips_type()=="Rect") spaceship_tab[i] = new Rect_SS(where, this.origin.getID_player());
+			else if (this.origin.getShips_type()=="Circle") spaceship_tab[i] = new Circle_SS(where, this.origin.getID_player());
 			this.origin.setNb_ship(this.origin.getNb_ship() - 1);
 		}
 	}

@@ -2,10 +2,12 @@ package planet;
 
 import java.io.Serializable;
 
-import javafx.geometry.Point2D;
+import geometry.Point2D;
+import javafx.scene.canvas.GraphicsContext;
+import spaceship.Circle_SS;
 import spaceship.Rect_SS;
-import spaceship.Squadron;
 import spaceship.Square_SS;
+import spaceship.Squadron;
 
 
 /**
@@ -13,22 +15,22 @@ import spaceship.Square_SS;
  */
 abstract public class Planet implements Serializable {
 	
+	/** The Serial version UID */
+	private static final long serialVersionUID = 1L;
+
 	/** The rate production. */
 	private double rate_production;
 	
-	/** The nb ship. */
+	/** The number of ships. */
 	private int nb_ship;
 	
 	/** The ships type. */
 	private String ships_type;
     
     /** The center (i.e Point2D javafx). */
-    transient private Point2D center;
-    
-    /** The  x_y @deprecated USE THIS JUST TO TEST SAVE LOAD. */
-    public int x , y;
+    private Point2D center;
 	
-	/** The I D of the player which controll this planet. */
+	/** The I D of the player which control this planet. */
 	private int ID_player;
 	
 	/** The left time. */
@@ -43,7 +45,7 @@ abstract public class Planet implements Serializable {
 	/** The squadron tab. */
 	private Squadron[] squadron_tab;
 	
-	/** The nb squadron. */
+	/** The number of squadron. */
 	private int nb_squadron;
 
 	/**
@@ -61,6 +63,9 @@ abstract public class Planet implements Serializable {
         }
         else if (ships_type == "Rect") {
             this.production_time = Rect_SS.DEFAULT_PRODUCTION_TIME; // 2 seconds
+        }
+        else if (ships_type == "Circle") {
+            this.production_time = Circle_SS.DEFAULT_PRODUCTION_TIME; // 2 seconds
         }
 		this.rate_production = rate_production;
 		this.nb_ship = nb_ship;
@@ -157,16 +162,16 @@ abstract public class Planet implements Serializable {
 	public void setRate_production(double rate_production) { this.rate_production = rate_production; }
 
 	/**
-	 * Gets the nb ship.
+	 * Gets the number of ships.
 	 *
-	 * @return the nb ship
+	 * @return the numbers ship
 	 */
 	public int getNb_ship() { return nb_ship; }
 	
 	/**
-	 * Sets the nb ship.
+	 * Sets the number of ships.
 	 *
-	 * @param nb_ship the new nb ship
+	 * @param nb_ship the new number of ships
 	 */
 	public void setNb_ship(int nb_ship) { this.nb_ship = nb_ship; }
 
@@ -199,29 +204,25 @@ abstract public class Planet implements Serializable {
 	public void setSquadron_tab(Squadron[] squadron_tab) { this.squadron_tab = squadron_tab; }
 
 	/**
-	 * Gets the nb squadron.
+	 * Gets the number of squadrons.
 	 *
-	 * @return the nb squadron
+	 * @return the number of squadrons
 	 */
 	public int getNb_squadron() { return nb_squadron; }
 	
 	/**
-	 * Sets the nb squadron.
+	 * Sets the number of squadrons.
 	 *
-	 * @param nb_squadron the new nb squadron
+	 * @param nb_squadron the new number of squadrons
 	 */
 	public void setNb_squadron(int nb_squadron) { this.nb_squadron = nb_squadron; }
 	
-	/**
-	 * Sets the X Y serialize.
-	 */
-	public void setXY_serialize() { x=(int)this.center.getX();y=(int)this.center.getY();};
 
 	/**
-	 * Checks if is inside.
+	 * Checks if a point is inside the planet.
 	 *
 	 * @param p the point p we want to test
-	 * @return true, if is inside
+	 * @return true, if it's inside, false if not
 	 */
 	public abstract boolean is_inside(Point2D p);
 	
@@ -238,6 +239,13 @@ abstract public class Planet implements Serializable {
 	 * @return the height
 	 */
 	public abstract int getHeight();
+	
+	/**
+	 * Draw the planet on a GraphicsContext
+	 * 
+	 * @param gc the GraphicsContext
+	 */
+	public abstract void draw(GraphicsContext gc);
 	
 	
 	/**
