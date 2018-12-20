@@ -5,15 +5,18 @@ import javafx.scene.canvas.GraphicsContext;
 
 
 /**
- * The Class SpaceShip can't be instanciate .
+ * The Class SpaceShip can't be instantiate.
  */
-public abstract class SpaceShip {
+public class SpaceShip {
 	
 	/** The center. */
 	private Point2D center;
 	
 	/** The height. */
 	private int width, height;
+	
+	/** The height. */
+	private String shape;
 	
 	/** The speed. */
 	private int speed;
@@ -34,12 +37,37 @@ public abstract class SpaceShip {
 	 * @param attack_power the attack power
 	 * @param id_player    the id player
 	 */
-	public SpaceShip(Point2D center, int width, int height, int speed, int attack_power, int id_player) {
+	public SpaceShip(Point2D center, String shape, int id_player) {
 		this.center = center;
-		this.width = width;
-		this.height = height;
-		this.speed = speed;
-		this.attack_power = attack_power;
+		this.shape = shape;
+		if (shape == "Square") {
+			this.width = 10;
+			this.height = 10;
+			this.speed = 1;
+			this.attack_power = 3;
+			
+		}
+		else if (shape == "Rectangle") {
+			this.width = 15;
+			this.height = 5;
+			this.speed = 2;
+			this.attack_power = 3;
+			
+		}
+		else if (shape == "Circle") {
+			this.width = 10;
+			this.height = 10;
+			this.speed = 2;
+			this.attack_power = 1;
+			
+		}
+		else if (shape == "Oval") {
+			this.width = 5;
+			this.height = 15;
+			this.speed = 3;
+			this.attack_power = 1;
+			
+		}
 		this.id_player = id_player;
 	}
 
@@ -132,5 +160,12 @@ public abstract class SpaceShip {
 	 *
 	 * @param gc the GraphicsContext.
 	 */
-	public abstract void draw(GraphicsContext gc);
+	public void draw(GraphicsContext gc) {
+		if (this.shape == "Rectangle" || this.shape == "Square") {
+			gc.fillRect(this.center.getX()-this.width/2, this.center.getY()-this.height/2, this.width, this.height);
+		}
+		else if(this.shape == "Circle" || this.shape == "Oval"){
+			gc.fillOval(this.center.getX()-this.width/2, this.center.getY()-this.height/2, this.width, this.height);
+		}
+	}
 }

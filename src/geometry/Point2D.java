@@ -7,6 +7,8 @@ import java.io.Serializable;
  */
 public class Point2D implements Serializable {
 	
+	/** The seriaVersionUID */
+	private static final long serialVersionUID = -223459058008132259L;
 	/** The x. */
 	private int x;
 	/** The y. */

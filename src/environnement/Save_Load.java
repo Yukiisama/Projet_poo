@@ -1,24 +1,17 @@
 package environnement;
 
-import java.awt.BorderLayout;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.File;
 
 
 import controller.Player;
-import geometry.Point2D;
 import javafx.scene.Scene;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
-import javafx.scene.paint.Color;
-import planet.Circle_Planet;
 import planet.Planet;
-import planet.Square_Planet;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import view.Map;
@@ -59,7 +52,7 @@ public final class Save_Load {
 		});
 	}
 	 public String choose_Path(final Stage primaryStage, boolean save) throws IOException{
-		 	String path; File file;
+		 	File file;
 	        FileChooser fileChooser = new FileChooser();
 	      //Set extension filter for text files
             FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("SER files (*.ser)", "*.ser");
@@ -134,8 +127,21 @@ public final class Save_Load {
 					Player tabp[] = m.getPlayer_tab();
 					// Set the new map ( the load one) and change the current map values
 					m.setNb_planets(new_m.getNb_planets());  m.setNb_players(new_m.getNb_players());
-					for (int i = 0 ; i < new_m.getNb_planets() ;i++)
+					for (int i = 0 ; i < new_m.getNb_planets() ;i++) {
 						tab_map_param[i] = tab[i];
+						tab_map_param[i].setShape(tab[i].getShape().toString());
+						System.out.print(tab_map_param[i].getShape() + ", ");
+						System.out.print(tab_map_param[i].getWidth()+ ", ");
+						System.out.print(tab_map_param[i].getHeight()+ ", ");
+						System.out.print(tab_map_param[i].getCenter().getX()+ ", ");
+						System.out.println(tab_map_param[i].getCenter().getY());
+						System.out.print(tab[i].getShape() + ", ");
+						System.out.print(tab[i].getWidth()+ ", ");
+						System.out.print(tab[i].getHeight()+ ", ");
+						System.out.print(tab[i].getCenter().getX()+ ", ");
+						System.out.println(tab[i].getCenter().getY());
+						
+					}
 					m.setPlayer_tab(tabp);  m.setPlanet_tab(tab_map_param);
 					object.close();
 					

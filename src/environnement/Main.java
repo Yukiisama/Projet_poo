@@ -83,7 +83,7 @@ public class Main extends Application {
 		gc3.setLineWidth(1);
 
 		// Map ressources
-		Map map = new Map(20, 4);
+		Map map = new Map(10, 4);
 		
 		// Mouse handler
 		Mouse_Handler mouse_event = new Mouse_Handler();

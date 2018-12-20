@@ -9,10 +9,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import planet.Circle_Planet;
 import planet.Planet;
-import planet.Rect_Planet;
-import planet.Square_Planet;
 import spaceship.SpaceShip;
 
 
@@ -31,7 +28,7 @@ public class Map implements Serializable {
 	public final static int HEIGHT = 920;
 	
 	/** The min dist. */
-	private final int min_dist = 200;
+	private final int min_dist = 250;
 	
 	/** The planet tab. */
 	private Planet planet_tab[];
@@ -140,18 +137,20 @@ public class Map implements Serializable {
 	public boolean is_location_valid(Point2D p, double size_factor, String planet_type) {
 		
 		//Out of bounds detection
+		int half_size = 0;
 		if (planet_type == "Square") {
-			int half_size = (int)(Square_Planet.DEFAULT_SIZE*size_factor)/2;
-			if (p.getX() - half_size < 0 || p.getX() + half_size > Map.WIDTH || p.getY() - half_size < 0 || p.getY() + half_size > Map.HEIGHT) return false;
+			half_size = (int)(Planet.sq_width*size_factor)/2;
 		}
-		else if (planet_type == "Rect") {
-			int half_size = Math.max((int)(Rect_Planet.DEFAULT_HEIGHT*size_factor/2), (int)(Rect_Planet.DEFAULT_WIDTH*size_factor/2));
-			if (p.getX() - half_size < 0 || p.getX() + half_size > Map.WIDTH || p.getY() - half_size < 0 || p.getY() + half_size > Map.HEIGHT) return false;
+		else if (planet_type == "Rectangle") {
+			half_size = Math.max((int)(Planet.re_width*size_factor), (int)(Planet.re_height*size_factor)/2);
 		}
 		else if (planet_type == "Circle") {
-			int half_size = (int)(Circle_Planet.DEFAULT_RADIUS*size_factor)/2;
-			if (p.getX() - half_size < 0 || p.getX() + half_size > Map.WIDTH || p.getY() - half_size < 0 || p.getY() + half_size > Map.HEIGHT) return false;
+			half_size = (int)(Planet.ci_width*size_factor)/2;
 		}
+		else if (planet_type == "Oval") {
+			half_size = Math.max((int)(Planet.ov_width*size_factor), (int)(Planet.ov_height*size_factor)/2);
+		}
+		if (p.getX() - half_size < 0 || p.getX() + half_size > Map.WIDTH || p.getY() - half_size < 0 || p.getY() + half_size > Map.HEIGHT) return false;
 		
 		//No other planets detection
 		if (nb_planets == 0) return true;
@@ -167,6 +166,29 @@ public class Map implements Serializable {
 	}
 	
 	/**
+	 * Randomly picks a return the name of a shape
+	 * @return the name of picked shape
+	 */
+	private String random_shape() {
+		String res = "Square";
+		Random gen = new Random();
+	
+		switch (gen.nextInt(4)) {
+		case 1:
+			res = "Circle";
+			break;
+		case 2:
+			res = "Rectangle";
+			break;
+		case 3:
+			res = "Oval";
+			break;
+		}
+		
+		return res;
+	}
+	
+	/**
 	 * Adds the planets.
 	 */
 	public void add_planets() {
@@ -177,64 +199,24 @@ public class Map implements Serializable {
 		double size_factor = 0.0f;
 		while (size_factor < 0.4f) size_factor = gen.nextDouble();
 		
-		String planet_type = "Square";
-		switch (gen.nextInt(3)) {
-		case 1:
-			planet_type = "Circle";
-			break;
-		case 2:
-			planet_type = "Rect";
-			break;
-		}
-		
-		String spaceship_type = "Square";
-			switch (gen.nextInt(3)) {
-			case 1:
-				spaceship_type = "Circle";
-				break;
-			case 2:
-				spaceship_type = "Rect";
-				break;
-		}
+		String planet_shape = random_shape();
+		String spaceship_shape = random_shape();
 
 		/* Each planet random location, random size, random form, random spaceships */
 		for (int i = 0 ; i < this.nb_planets ; i++) {
 			Point2D point = new Point2D(gen.nextInt(Map.WIDTH - this.min_dist), gen.nextInt(Map.HEIGHT - this.min_dist));
-			if(is_location_valid(point, size_factor, planet_type)) {
+			if(is_location_valid(point, size_factor, planet_shape)) {
 					int nb_ship = 0;
 					if (id == -1) nb_ship = gen.nextInt(30);
-					if (planet_type == "Square") planet_tab[i] = new Square_Planet(1/size_factor, nb_ship, spaceship_type, point, id, size_factor);
-					if (planet_type == "Rect") planet_tab[i] = new Rect_Planet(1/size_factor, nb_ship, spaceship_type, point, id, size_factor);
-					else if (planet_type == "Circle") planet_tab[i] = new Circle_Planet(1/size_factor, nb_ship, spaceship_type, point, id, size_factor);
+					planet_tab[i] = new Planet(1/size_factor, nb_ship, planet_shape, spaceship_shape, point, id, size_factor);
 					id++;
 					if (id >= this.nb_players) {
 						size_factor = 0.0f;
 						while (size_factor < 0.4f) size_factor = gen.nextDouble();
 						id = -1;
 						
-						switch (gen.nextInt(3)) {
-						case 0:
-							planet_type = "Square";
-							break;
-						case 1:
-							planet_type = "Circle";
-							break;
-						case 2:
-							planet_type = "Rect";
-							break;
-						}
-						
-						switch (gen.nextInt(3)) {
-						case 0:
-							spaceship_type = "Square";
-							break;
-						case 1:
-							spaceship_type = "Circle";
-							break;
-						case 2:
-							spaceship_type = "Rect";
-							break;
-						}
+						planet_shape = random_shape();
+						spaceship_shape = random_shape();
 					}
 			}
 			else i--;
@@ -295,11 +277,9 @@ public class Map implements Serializable {
 			for (int j = 0 ; j < this.planet_tab[i].getNb_squadron() ; j++) {
 				SpaceShip tab[] = this.planet_tab[i].getSquadron_tab()[j].getSpaceship_tab();
 				for (int k = 0; k < this.planet_tab[i].getSquadron_tab()[j].getSize(); k++) {
-					if (tab[j] != null) {
-						int id_player = this.planet_tab[i].getSquadron_tab()[j].getOrigin().getID_player();
-						for (int l = 0 ; l < nb_players ; l++) if (this.player_tab[l].getID() == id_player) gc3.setFill(this.player_tab[l].getColor());
-						tab[k].draw(gc3);
-					}
+					int id_player = this.planet_tab[i].getSquadron_tab()[j].getOrigin().getID_player();
+					for (int l = 0 ; l < nb_players ; l++) if (this.player_tab[l].getID() == id_player) gc3.setFill(this.player_tab[l].getColor());
+					tab[k].draw(gc3);
 				}
 			}
 		}

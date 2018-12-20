@@ -4,28 +4,31 @@ import java.io.Serializable;
 
 import geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
-import spaceship.Circle_SS;
-import spaceship.Rect_SS;
-import spaceship.Square_SS;
 import spaceship.Squadron;
 
 
 /**
  * The Class Planet which is abstract and implements Serializable for save_load functions.
  */
-abstract public class Planet implements Serializable {
+public class Planet implements Serializable {
 	
 	/** The Serial version UID */
 	private static final long serialVersionUID = 1L;
 
+	/** The dimensions. */
+	private int width, height;
+	
 	/** The rate production. */
 	private double rate_production;
 	
 	/** The number of ships. */
 	private int nb_ship;
 	
-	/** The ships type. */
-	private String ships_type;
+	/** The shape. */
+	private String shape;
+	
+	/** The ships shape. */
+	private String ships_shape;
     
     /** The center (i.e Point2D ). */
     private Point2D center;
@@ -39,7 +42,7 @@ abstract public class Planet implements Serializable {
 	/** The production time. */
 	private long production_time;
 	
-	/** The selected target. */
+	/** If the planet is selected by player. */
 	private int selected;
 	
 	/** The squadron tab. */
@@ -47,6 +50,12 @@ abstract public class Planet implements Serializable {
 	
 	/** The number of squadron. */
 	private int nb_squadron;
+	
+	/** Default dimensions of planet's shapes */
+	public static int sq_width = 170, sq_height = 170;
+	public static int re_width = 200, re_height = 125;
+	public static int ci_width = 170, ci_height = 170;
+	public static int ov_width = 125, ov_height = 200;
 
 	/**
 	 * Instantiates a new planet.
@@ -57,19 +66,40 @@ abstract public class Planet implements Serializable {
 	 * @param center          the center
 	 * @param ID_player       the i D player
 	 */
-	public Planet(double rate_production, int nb_ship, String ships_type, Point2D center, int ID_player) {
-		if (ships_type == "Square") {
-            this.production_time = Square_SS.DEFAULT_PRODUCTION_TIME; // 3 seconds
+	public Planet(double rate_production, int nb_ship, String shape, String ships_shape, Point2D center, int ID_player, double size_factor) {
+		if (shape == "Square") {
+			this.width = (int)(sq_width*size_factor);
+			this.height = (int)(sq_height*size_factor);
+		}
+		else if (shape == "Rectangle") {
+			this.width = (int)(re_width*size_factor);
+			this.height = (int)(re_height*size_factor);
+		}
+		else if (shape == "Circle") {
+			this.width = (int)(ci_width*size_factor);
+			this.height = (int)(ci_height*size_factor);
+		}
+		else if (shape == "Oval") {
+			this.width = (int)(ov_width*size_factor);
+			this.height = (int)(ov_height*size_factor);
+		}
+		
+		if (ships_shape == "Square") {
+            this.production_time = 4000000; // 4 seconds
         }
-        else if (ships_type == "Rect") {
-            this.production_time = Rect_SS.DEFAULT_PRODUCTION_TIME; // 2 seconds
+        else if (ships_shape == "Rectangle") {
+            this.production_time = 3000000; // 3 seconds
         }
-        else if (ships_type == "Circle") {
-            this.production_time = Circle_SS.DEFAULT_PRODUCTION_TIME; // 2 seconds
+        else if (ships_shape == "Circle") {
+            this.production_time = 3000000; // 3 seconds
+        }
+        else if (ships_shape == "Oval") {
+            this.production_time = 2000000; // 2 seconds
         }
 		this.rate_production = rate_production;
 		this.nb_ship = nb_ship;
-		this.ships_type = ships_type;
+		this.shape = shape;
+		this.ships_shape = ships_shape;
 		this.center = center;
 		this.ID_player = ID_player;
 		this.selected = 0;
@@ -124,14 +154,14 @@ abstract public class Planet implements Serializable {
 	 *
 	 * @return the ships type
 	 */
-	public String getShips_type() { return ships_type; }
+	public String getShips_shape() { return ships_shape; }
 	
 	/**
 	 * Sets the ships type.
 	 *
 	 * @param ships_type the new ships type
 	 */
-	public void setShips_type(String ships_type) { this.ships_type = ships_type; }
+	public void setShips_type(String ships_shape) { this.ships_shape = ships_shape; }
 
 	/**
 	 * Gets the i D player.
@@ -217,35 +247,70 @@ abstract public class Planet implements Serializable {
 	 */
 	public void setNb_squadron(int nb_squadron) { this.nb_squadron = nb_squadron; }
 	
-
 	/**
-	 * Checks if a point is inside the planet.
+	 * Gets the name of shape.
 	 *
-	 * @param p the point p we want to test
-	 * @return true, if it's inside, false if not
+	 * @return the name of shape
 	 */
-	public abstract boolean is_inside(Point2D p);
+	public String getShape() { return shape; }
+	
+	/**
+	 * Sets the name of shape.
+	 *
+	 * @param nb_squadron the new name of shape
+	 */
+	public void setShape(String shape) { this.shape = shape; }
+	
+
+
 	
 	/**
 	 * Gets the width.
 	 *
 	 * @return the width
 	 */
-	public abstract int getWidth();
+	public int getWidth() { return width; }
 	
 	/**
 	 * Gets the height.
 	 *
 	 * @return the height
 	 */
-	public abstract int getHeight();
+	public int getHeight() { return height; }
 	
 	/**
 	 * Draw the planet on a GraphicsContext
 	 * 
 	 * @param gc the GraphicsContext
 	 */
-	public abstract void draw(GraphicsContext gc);
+	public void draw(GraphicsContext gc) {
+		if (this.shape == "Rectangle" || this.shape == "Square") {
+			gc.fillRect(this.center.getX()-this.width/2, this.center.getY()-this.height/2, this.width, this.height);
+		}
+		else if(this.shape == "Circle" || this.shape == "Oval"){
+			gc.fillOval(this.center.getX()-this.width/2, this.center.getY()-this.height/2, this.width, this.height);
+		}
+		System.out.println("Je draw tavu");
+	}
+	
+	/**
+	 * Checks if a point is inside the planet.
+	 *
+	 * @param p the point p we want to test
+	 * @return true, if it's inside, false if not
+	 */
+	public boolean is_inside(Point2D p) {
+		if (this.shape == "Square" || this.shape == "Rectangle") {
+			return Math.abs(p.getX() - this.center.getX()) < this.width/2 && Math.abs(p.getY() - this.center.getY()) < this.height/2;
+		}
+		else if (this.shape == "Circle") {
+			return Math.abs(Math.sqrt(Math.pow((double)(p.getX()-this.center.getX()), 2)+Math.pow((double)(p.getY()-this.center.getY()), 2))) < this.width/2;
+		}
+		else if (this.shape == "Oval") {
+			return ((double)(Math.pow((p.getX()-center.getX()), 2) / Math.pow(this.width/2, 2) + Math.pow((p.getY()-center.getY()), 2) / Math.pow(this.height/2,  2)) <= 1);
+		}
+		return false;
+	}
 	
 	
 	/**

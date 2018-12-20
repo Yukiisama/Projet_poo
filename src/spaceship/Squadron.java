@@ -1,10 +1,7 @@
 package spaceship;
 
 import geometry.Point2D;
-import planet.Circle_Planet;
 import planet.Planet;
-import planet.Rect_Planet;
-import planet.Square_Planet;
 
 
 /**
@@ -41,15 +38,11 @@ public final class Squadron {
 		for (int i = 0 ; i < this.size ; i++) {
 			double angle = (double) (2*Math.PI/this.size) * (i);
 			int radius = 0;
-			if (this.origin instanceof Circle_Planet) radius = ((Circle_Planet)this.origin).getRadius();
-			else if (this.origin instanceof Square_Planet) radius = (int)Math.sqrt(Math.pow((double)((Square_Planet) this.origin).getSize(), 2));
-			else if (this.origin instanceof Rect_Planet) radius = Math.max((int)Math.sqrt(Math.pow((double)((Rect_Planet) this.origin).getHeight(), 2)), (int)Math.sqrt(Math.pow((double)((Rect_Planet) this.origin).getWidth(), 2)));
+			radius = (int)(Math.max(this.origin.getWidth(), this.origin.getHeight())/2*1.4f);
 			double x = Math.cos(angle) * radius;
 			double y = Math.sin(angle) * radius;
 			Point2D where = new Point2D((int)(this.origin.getCenter().getX()+x), (int)(this.origin.getCenter().getY()+y));
-			if (this.origin.getShips_type()=="Square") spaceship_tab[i] = new Square_SS(where, this.origin.getID_player());
-			else if (this.origin.getShips_type()=="Rect") spaceship_tab[i] = new Rect_SS(where, this.origin.getID_player());
-			else if (this.origin.getShips_type()=="Circle") spaceship_tab[i] = new Circle_SS(where, this.origin.getID_player());
+			spaceship_tab[i] = new SpaceShip(where, this.origin.getShips_shape(), this.origin.getID_player());
 			this.origin.setNb_ship(this.origin.getNb_ship() - 1);
 		}
 	}
