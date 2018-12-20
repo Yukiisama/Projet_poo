@@ -252,7 +252,7 @@ public class Planet implements Serializable {
 	 *
 	 * @return the name of shape
 	 */
-	public String getShape() { return shape; }
+	public String getShape() { return new String(this.shape); }
 	
 	/**
 	 * Sets the name of shape.
@@ -284,13 +284,12 @@ public class Planet implements Serializable {
 	 * @param gc the GraphicsContext
 	 */
 	public void draw(GraphicsContext gc) {
-		if (this.shape == "Rectangle" || this.shape == "Square") {
+		if (this.shape.compareTo("Square") == 0 || this.shape.compareTo("Rectangle") == 0) {
 			gc.fillRect(this.center.getX()-this.width/2, this.center.getY()-this.height/2, this.width, this.height);
 		}
-		else if(this.shape == "Circle" || this.shape == "Oval"){
+		else if(this.shape.compareTo("Circle") == 0 || this.shape.compareTo("Oval") == 0){
 			gc.fillOval(this.center.getX()-this.width/2, this.center.getY()-this.height/2, this.width, this.height);
 		}
-		System.out.println("Je draw tavu");
 	}
 	
 	/**

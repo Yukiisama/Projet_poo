@@ -127,21 +127,7 @@ public final class Save_Load {
 					Player tabp[] = m.getPlayer_tab();
 					// Set the new map ( the load one) and change the current map values
 					m.setNb_planets(new_m.getNb_planets());  m.setNb_players(new_m.getNb_players());
-					for (int i = 0 ; i < new_m.getNb_planets() ;i++) {
-						tab_map_param[i] = tab[i];
-						tab_map_param[i].setShape(tab[i].getShape().toString());
-						System.out.print(tab_map_param[i].getShape() + ", ");
-						System.out.print(tab_map_param[i].getWidth()+ ", ");
-						System.out.print(tab_map_param[i].getHeight()+ ", ");
-						System.out.print(tab_map_param[i].getCenter().getX()+ ", ");
-						System.out.println(tab_map_param[i].getCenter().getY());
-						System.out.print(tab[i].getShape() + ", ");
-						System.out.print(tab[i].getWidth()+ ", ");
-						System.out.print(tab[i].getHeight()+ ", ");
-						System.out.print(tab[i].getCenter().getX()+ ", ");
-						System.out.println(tab[i].getCenter().getY());
-						
-					}
+					for (int i = 0 ; i < new_m.getNb_planets() ;i++) tab_map_param[i] = tab[i];
 					m.setPlayer_tab(tabp);  m.setPlanet_tab(tab_map_param);
 					object.close();
 					
