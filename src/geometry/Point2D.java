@@ -60,13 +60,31 @@ public void setY(int y) {this.y = y;}
  */
 public void print() {System.out.println("Point : (" + x + ", " + y + ")");}
 
+public double getAngle(Point2D target) {
+	 double angle = (double) Math.atan2(target.y - this.y, target.x - this.x);
+	 	// in radiant
+	    if(angle < 0){
+	        angle += 360;
+	    }
+
+	    return angle;
+}
 /**
  * Move.
  *
  * @param dx the dx
  * @param dy the dy
  */
+
 public void move(int dx, int dy) {x += dx;y += dy;}
+
+public void move_angle(double speed , double angle_radiant)
+{
+	//In radiant , use Math.todegree if u need
+    x += speed * Math.sin(angle_radiant);
+    y += speed * Math.cos(angle_radiant);
+}
+
 
 /**
  * Replace.
