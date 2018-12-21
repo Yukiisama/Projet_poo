@@ -113,9 +113,10 @@ public final class Squadron {
 			SpaceShip s =  spaceship_tab[i];
 			if(s!=null) {
 			Point2D p = s.getCenter();
+			if(target!=null) {
 			angle = p.getAngle(target.getCenter());
 			p.move_angle(speed, angle);
-			
+			}
 			
 			
 			//TRAITER COLLISION
@@ -127,7 +128,7 @@ public final class Squadron {
 	}
 	public boolean damage_planet(SpaceShip s) {
 		
-		if(target.is_inside(s.getCenter())) {
+		if(target != null && target.is_inside(s.getCenter())) {
 			if(target.getID_player()!=origin.getID_player() && target.getNb_ship()>0) {
 				target.setNb_ship(target.getNb_ship()-1);size--;}
 			else if(target.getID_player()==origin.getID_player())size--;

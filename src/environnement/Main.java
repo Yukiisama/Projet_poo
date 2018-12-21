@@ -1,5 +1,7 @@
 package environnement;
+import controller.IA;
 import controller.Mouse_Handler;
+import controller.Player;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -101,7 +103,7 @@ public class Main extends Application {
 		//Save load object
 		Save_Load save_load = new Save_Load();
 		
-		
+		IA ia = new IA(2);
 		//Tick of the application
 		new AnimationTimer() {	
 			public void handle(long now) {
@@ -113,7 +115,8 @@ public class Main extends Application {
 				map.draw_squadrons(gc3); // If squadron exists draw each tick his new position
 				map.update_ships_numbers(now); // Production function of planets's ships
 				save_load.save_load(map, scene);
-				
+				ia.settabs(map.getPlanet_tab());
+				ia.decisionmaking(0);
 				//v.render(gc);
 				//p.render(gc);
 
