@@ -280,7 +280,9 @@ public class Map implements Serializable {
 					int id_player = this.planet_tab[i].getSquadron_tab()[j].getOrigin().getID_player();
 					for (int l = 0 ; l < nb_players ; l++) if (this.player_tab[l].getID() == id_player) gc3.setFill(this.player_tab[l].getColor());
 					tab[k].draw(gc3);
+					
 				}
+				this.planet_tab[i].getSquadron_tab()[j].squadron_move(5);
 			}
 		}
 	}

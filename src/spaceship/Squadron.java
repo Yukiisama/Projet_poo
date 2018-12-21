@@ -106,7 +106,24 @@ public final class Squadron {
 	/**
 	 * Squadron move.
 	 */
-	public void squadron_move(){
+	public void squadron_move(int speed){
+		double angle;
+		for(SpaceShip s : spaceship_tab) {
+			if(s!=null) {
+			Point2D p = s.getCenter();
+			angle = p.getAngle(target.getCenter());
+			p.move_angle(speed, angle);
+			damage_planet(s);
+			}
 		
+		}
+	}
+	public boolean damage_planet(SpaceShip s) {
+		if(s.getCenter().getX()==target.getCenter().getX() && s.getCenter().getY()==target.getCenter().getY()) {
+			if(target.getNb_ship()>0) {target.setNb_ship(target.getNb_ship()-1);}
+			else target.setID_player(origin.getID_player());
+		}
+			
+		return false;
 	}
 }

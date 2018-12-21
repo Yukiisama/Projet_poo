@@ -26,6 +26,8 @@ public class Main extends Application {
 	 * @param name the name of the ressource
 	 * @return the ressource path by name
 	 */
+	
+	
 	public static String getRessourcePathByName(String name) {
 		return Main.class.getResource('/' + name).toString();
 	}
@@ -105,11 +107,13 @@ public class Main extends Application {
 			public void handle(long now) {
 				gc.drawImage(space, 0, 0);
 				gc2.clearRect(0, 0, Map.WIDTH, Map.HEIGHT); // CLEAR TXT RECT
+				gc3.clearRect(0, 0, Map.WIDTH, Map.HEIGHT); // CLEAR TXT RECT
 				map.draw_planets(gc); // Draw planets each tick
 				map.draw_text_planets(gc2); // Draw text production of planets each tick
 				map.draw_squadrons(gc3); // If squadron exists draw each tick his new position
 				map.update_ships_numbers(now); // Production function of planets's ships
 				save_load.save_load(map, scene);
+				
 				//v.render(gc);
 				//p.render(gc);
 
