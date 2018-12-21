@@ -1,6 +1,6 @@
 package spaceship;
 
-import java.util.Random;
+import java.io.Serializable;
 
 import geometry.Point2D;
 import planet.Planet;
@@ -9,8 +9,11 @@ import planet.Planet;
 /**
  * The Class Squadron which contain multiples spaceship from a planet in order to attack a new one .
  */
-public final class Squadron {
-	
+public final class Squadron implements Serializable {
+
+	/** The Serial version UID */
+	private static final long serialVersionUID = 1L;
+
 	/** The spaceship tab. */
 	private SpaceShip spaceship_tab[];
 	
@@ -110,7 +113,6 @@ public final class Squadron {
 	 */
 	public void squadron_move(int speed, Planet tab[]){
 		double angle;
-		Random g = new Random();
 		
 		for(int i= size -1 ; i>=0;i--) {
 			SpaceShip s =  spaceship_tab[i];

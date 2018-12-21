@@ -1,5 +1,7 @@
 package spaceship;
 
+import java.io.Serializable;
+
 import geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -7,7 +9,10 @@ import javafx.scene.canvas.GraphicsContext;
 /**
  * The Class SpaceShip can't be instantiate.
  */
-public class SpaceShip {
+public class SpaceShip implements Serializable {
+
+	/** The Serial version UID */
+	private static final long serialVersionUID = 1L;
 	
 	/** The center. */
 	private Point2D center;

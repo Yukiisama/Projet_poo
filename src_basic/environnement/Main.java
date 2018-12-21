@@ -1,7 +1,6 @@
 package environnement;
 import controller.IA;
 import controller.Mouse_Handler;
-import controller.Player;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -88,7 +87,7 @@ public class Main extends Application {
 		gc3.setLineWidth(1);
 
 		// Map ressources
-		Map map = new Map(10, 4);
+		Map map = new Map(10);
 		
 		// Mouse handler
 		Mouse_Handler mouse_event = new Mouse_Handler();
@@ -103,10 +102,8 @@ public class Main extends Application {
 		
 		//Save load object
 		Save_Load save_load = new Save_Load();
-		
-		IA ia = new IA(2);
-		//IA iab = new IA(3);
-		//Tick of the application
+		save_load.save_load(map, scene);
+	
 		new AnimationTimer() {	
 			public void handle(long now) {
 				gc.drawImage(space, 0, 0);
@@ -117,13 +114,7 @@ public class Main extends Application {
 				map.draw_squadrons(gc3); // If squadron exists draw each tick his new position
 				map.win_condition();
 				map.update_ships_numbers(now); // Production function of planets's ships
-				save_load.save_load(map, scene);
-				
-				ia.decisionmaking(now,map.getPlanet_tab());
-				//iab.decisionmaking(now, map.getPlanet_tab());
-				//v.render(gc);
-				//p.render(gc);
-
+				((IA) map.getPlayer_tab()[1]).decisionmaking(now,map.getPlanet_tab());
 			}
 		}.start();
 	}

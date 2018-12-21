@@ -3,7 +3,6 @@ import java.io.Serializable;
 
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import planet.Planet;
 
 
 /**
@@ -16,12 +15,12 @@ public class Player implements Serializable {
 
 	/** The id. If ID is one then the players is the human playing,others are IAs  */
 	protected int ID;
-	
+
 	/** The color , each player is characterize by one specific color ( Player One is LIGHTBLUE). */
 	transient private Paint color;
-	
-	
-	
+
+
+
 	/**
 	 * Instantiates a new player and apply the selected color to the current model .
 	 *
@@ -36,23 +35,17 @@ public class Player implements Serializable {
 			case 1:
 				this.color = Color.LIGHTBLUE;
 				break;
-			case 2:
-				this.color = Color.HOTPINK;
-				break;
-			case 3:
-				this.color = Color.LIGHTSLATEGREY;
-				break;
 		}
 	}
-	
-	
+
+
 	/**
 	 * Gets the id.
 	 *
 	 * @return the id
 	 */
 	public int getID() { return ID; }
-	
+
 	/**
 	 * Sets the id.
 	 *
@@ -66,7 +59,7 @@ public class Player implements Serializable {
 	 * @return the color
 	 */
 	public Paint getColor() { return color; }
-	
+
 	/**
 	 * Sets the color.
 	 *

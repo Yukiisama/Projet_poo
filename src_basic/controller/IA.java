@@ -5,10 +5,12 @@ import java.util.Random;
 import planet.Planet;
 
 public class IA extends Player {
+
+	/** The seriaVersionUID */
+	private static final long serialVersionUID = 1L;
 	Random gen = new Random();
 	private int level = 2; // get from option
 	
-	private final int LEVELMAX = 3;
 	public IA(int id) {
 		super(id);
 	}
@@ -16,8 +18,6 @@ public class IA extends Player {
 	
 	public void choose_one(int prod,Planet from,Planet tab[]){
 			int size = tab.length;
-			int score[]= new int[size];
-			Planet p = tab[0];
 			if (prod < 5) return;
 			for(int i = 0 ; i<size;i++){
 				if(tab[i]!=null && tab[i].getID_player()!=ID) {
