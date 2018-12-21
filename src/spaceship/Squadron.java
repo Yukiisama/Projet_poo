@@ -108,7 +108,9 @@ public final class Squadron {
 	 */
 	public void squadron_move(int speed){
 		double angle;
-		for(SpaceShip s : spaceship_tab) {
+		//Parcours à l'envers bcp plus facile pour supprimer
+		for(int i= size -1 ; i>=0;i--) {
+			SpaceShip s =  spaceship_tab[i];
 			if(s!=null) {
 			Point2D p = s.getCenter();
 			angle = p.getAngle(target.getCenter());
@@ -119,8 +121,9 @@ public final class Squadron {
 		}
 	}
 	public boolean damage_planet(SpaceShip s) {
-		if(s.getCenter().getX()==target.getCenter().getX() && s.getCenter().getY()==target.getCenter().getY()) {
-			if(target.getNb_ship()>0) {target.setNb_ship(target.getNb_ship()-1);}
+		
+		if(target.is_inside(s.getCenter())) {
+			if(target.getNb_ship()>0) {target.setNb_ship(target.getNb_ship()-1);size--;}
 			else target.setID_player(origin.getID_player());
 		}
 			
