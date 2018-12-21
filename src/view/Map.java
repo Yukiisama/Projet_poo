@@ -13,6 +13,7 @@ import planet.Planet;
 import spaceship.SpaceShip;
 
 
+
 /**
  * The Class Map represents each informations we need to draw the actual content of the game .
  */
@@ -58,6 +59,7 @@ public class Map implements Serializable {
 		this.nb_players = nb_players;
 		this.add_planets();
 		this.add_players();
+		
 	}
 
 	/**
@@ -207,7 +209,7 @@ public class Map implements Serializable {
 			Point2D point = new Point2D(gen.nextInt(Map.WIDTH - this.min_dist), gen.nextInt(Map.HEIGHT - this.min_dist));
 			if(is_location_valid(point, size_factor, planet_shape)) {
 					int nb_ship = 0;
-					if (id == -1) nb_ship = gen.nextInt(30);
+					nb_ship = gen.nextInt(30);
 					planet_tab[i] = new Planet(1/size_factor, nb_ship, planet_shape, spaceship_shape, point, id, size_factor);
 					id++;
 					if (id >= this.nb_players) {
@@ -282,10 +284,11 @@ public class Map implements Serializable {
 					tab[k].draw(gc3);
 					
 				}
-				this.planet_tab[i].getSquadron_tab()[j].squadron_move(5);
+				this.planet_tab[i].getSquadron_tab()[j].squadron_move(8,planet_tab);
 			}
 		}
 	}
+	
 	
 	/**
 	 * Update ships numbers.
@@ -306,6 +309,19 @@ public class Map implements Serializable {
 				this.planet_tab[i].setNb_ship(this.planet_tab[i].getNb_ship()+1);
 			}
 			i++;
+		}
+	}
+	public void win_condition() {
+		boolean state = true;
+		for(int i = 0 ; i<nb_players;i++) {
+			for(int j = 0 ; j<nb_planets;j++) {
+				if(planet_tab[j].getID_player()!=i)
+					state=false;
+				if(j==nb_planets-1 && state==true) {
+					System.out.println("VOUS AVEZ GAGNEZ");
+					System.exit(0);
+				}
+			}
 		}
 	}
 }

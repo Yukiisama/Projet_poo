@@ -104,7 +104,7 @@ public class Planet implements Serializable {
 		this.ID_player = ID_player;
 		this.selected = 0;
 		this.nb_squadron = 0;
-		this.squadron_tab = new Squadron[1000];
+		this.squadron_tab = new Squadron[100000];
 	}
 
 	/**
@@ -291,7 +291,7 @@ public class Planet implements Serializable {
 			gc.fillOval(this.center.getX()-this.width/2, this.center.getY()-this.height/2, this.width, this.height);
 		}
 	}
-	
+
 	/**
 	 * Checks if a point is inside the planet.
 	 *
@@ -299,18 +299,21 @@ public class Planet implements Serializable {
 	 * @return true, if it's inside, false if not
 	 */
 	public boolean is_inside(Point2D p) {
-		if (this.shape == "Square" || this.shape == "Rectangle") {
+		if (this.shape.compareTo("Square") == 0 || this.shape.compareTo("Rectangle") == 0) {
 			return Math.abs(p.getX() - this.center.getX()) < this.width/2 && Math.abs(p.getY() - this.center.getY()) < this.height/2;
 		}
-		else if (this.shape == "Circle") {
+		else if (this.shape.compareTo("Circle") == 0) {
 			return Math.abs(Math.sqrt(Math.pow((double)(p.getX()-this.center.getX()), 2)+Math.pow((double)(p.getY()-this.center.getY()), 2))) < this.width/2;
 		}
-		else if (this.shape == "Oval") {
+		else if (this.shape.compareTo("Oval") == 0) {
 			return ((double)(Math.pow((p.getX()-center.getX()), 2) / Math.pow(this.width/2, 2) + Math.pow((p.getY()-center.getY()), 2) / Math.pow(this.height/2,  2)) <= 1);
 		}
 		return false;
 	}
 	
+	public boolean is_ship_inside(Point2D p, int speed) {
+		return Math.abs(Math.sqrt(Math.pow((double)(p.getX()-this.center.getX()), 2)+Math.pow((double)(p.getY()-this.center.getY()), 2))) < this.width/2+speed;
+	}
 	
 	/**
 	 * Attack the planet target.
@@ -318,7 +321,9 @@ public class Planet implements Serializable {
 	 * @param target the target
 	 */
 	public void attack(Planet target) {
+		
 		this.squadron_tab[this.nb_squadron] = new Squadron(this, target);
 		this.nb_squadron++;
+		
 	}
 }

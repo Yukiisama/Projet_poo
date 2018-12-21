@@ -30,6 +30,7 @@ public class Main extends Application {
 	 */
 	
 	
+	
 	public static String getRessourcePathByName(String name) {
 		return Main.class.getResource('/' + name).toString();
 	}
@@ -104,6 +105,7 @@ public class Main extends Application {
 		Save_Load save_load = new Save_Load();
 		
 		IA ia = new IA(2);
+		//IA iab = new IA(3);
 		//Tick of the application
 		new AnimationTimer() {	
 			public void handle(long now) {
@@ -113,10 +115,12 @@ public class Main extends Application {
 				map.draw_planets(gc); // Draw planets each tick
 				map.draw_text_planets(gc2); // Draw text production of planets each tick
 				map.draw_squadrons(gc3); // If squadron exists draw each tick his new position
+				map.win_condition();
 				map.update_ships_numbers(now); // Production function of planets's ships
 				save_load.save_load(map, scene);
-				ia.settabs(map.getPlanet_tab());
-				ia.decisionmaking(0);
+				
+				ia.decisionmaking(now,map.getPlanet_tab());
+				//iab.decisionmaking(now, map.getPlanet_tab());
 				//v.render(gc);
 				//p.render(gc);
 

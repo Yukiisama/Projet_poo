@@ -1,5 +1,7 @@
 package spaceship;
 
+import java.util.Random;
+
 import geometry.Point2D;
 import planet.Planet;
 
@@ -32,19 +34,19 @@ public final class Squadron {
 		this.target = Target;
 		
 		// defining the size of the squadron depending on its origin's radius
-		this.spaceship_tab = new SpaceShip[6];
-		if (this.origin.getNb_ship() >= 6) this.size = 6;
-		else this.size = this.origin.getNb_ship();
-		for (int i = 0 ; i < this.size ; i++) {
-			double angle = (double) (2*Math.PI/this.size) * (i);
-			int radius = 0;
-			radius = (int)(Math.max(this.origin.getWidth(), this.origin.getHeight())/2*1.4f);
-			double x = Math.cos(angle) * radius;
-			double y = Math.sin(angle) * radius;
-			Point2D where = new Point2D((int)(this.origin.getCenter().getX()+x), (int)(this.origin.getCenter().getY()+y));
-			spaceship_tab[i] = new SpaceShip(where, this.origin.getShips_shape(), this.origin.getID_player());
-			this.origin.setNb_ship(this.origin.getNb_ship() - 1);
-		}
+			this.spaceship_tab = new SpaceShip[6];
+			if (this.origin.getNb_ship() >= 6) this.size = 6;
+			else this.size = this.origin.getNb_ship();
+			for (int i = 0 ; i < this.size ; i++) {
+				double angle = (double) (2*Math.PI/this.size) * (i);
+				int radius = 0;
+				radius = (int)(Math.max(this.origin.getWidth(), this.origin.getHeight())/2*1.4f);
+				double x = Math.cos(angle) * radius;
+				double y = Math.sin(angle) * radius;
+				Point2D where = new Point2D((int)(this.origin.getCenter().getX()+x), (int)(this.origin.getCenter().getY()+y));
+				spaceship_tab[i] = new SpaceShip(where, this.origin.getShips_shape(), this.origin.getID_player());
+				this.origin.setNb_ship(this.origin.getNb_ship() - 1);
+			}
 	}
 
 	/**
@@ -106,24 +108,32 @@ public final class Squadron {
 	/**
 	 * Squadron move.
 	 */
-	public void squadron_move(int speed){
+	public void squadron_move(int speed, Planet tab[]){
 		double angle;
-		//Parcours à l'envers bcp plus facile pour supprimer
+		Random g = new Random();
+		
 		for(int i= size -1 ; i>=0;i--) {
 			SpaceShip s =  spaceship_tab[i];
 			if(s!=null) {
-			Point2D p = s.getCenter();
-			if(target!=null) {
-			angle = p.getAngle(target.getCenter());
-			p.move_angle(speed, angle);
+				Point2D p = s.getCenter();
+				if(target!=null) {
+					angle = p.getAngle(target.getCenter());
+					Point2D p_test = new Point2D(p.getX(), p.getY());
+					p_test.move_angle(speed, angle);
+					for(int j = 0 ; j<tab.length;j++) {
+						if(!tab[j].equals(origin) && !tab[j].equals(target)) {
+						if(tab[j].is_inside(p_test)) {
+								angle += Math.PI/2 + Math.PI/6;
+								
+						}
+					}
+					}
+					p.move_angle(speed, angle);
+					
+					
+					damage_planet(s);
+				}
 			}
-			
-			
-			//TRAITER COLLISION
-			
-			damage_planet(s);
-			}
-		
 		}
 	}
 	public boolean damage_planet(SpaceShip s) {
@@ -132,7 +142,7 @@ public final class Squadron {
 			if(target.getID_player()!=origin.getID_player() && target.getNb_ship()>0) {
 				target.setNb_ship(target.getNb_ship()-1);size--;}
 			else if(target.getID_player()==origin.getID_player())size--;
-			else target.setID_player(origin.getID_player());
+			else {target.setID_player(origin.getID_player()); size--;}
 		}
 			
 		return false;
