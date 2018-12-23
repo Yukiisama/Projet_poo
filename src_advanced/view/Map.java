@@ -234,7 +234,10 @@ public class Map implements Serializable {
 		Random gen = new Random(); 
 		if(gen.nextDouble()<0.002) {			
 			Point2D p = pirate.getCenter();
-			p.replace(gen.nextInt(1600), 0);
+			if(gen.nextDouble()<0.5)
+				p.replace(gen.nextInt(this.WIDTH), 0);
+			else
+				p.replace(gen.nextInt(this.WIDTH),this.HEIGHT );
 			pirate.setCenter(p);
 			Planet target = this.planet_tab[gen.nextInt(this.getNb_planets())];
 			if(target.getNb_ship()>0)
