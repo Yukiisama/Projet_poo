@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
-
+import spaceship.SpaceShip;
 import spaceship.Squadron;
 
 
@@ -332,4 +332,5 @@ public class Planet implements Serializable {
 		this.nb_squadron++;
 		
 	}
+	
 }

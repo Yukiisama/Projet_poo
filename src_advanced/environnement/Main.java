@@ -9,13 +9,13 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
+
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import planet.Planet;
+
 import view.Map;
 
 
@@ -127,6 +127,7 @@ public class Main extends Application {
 				map.draw_planets(gc); // Draw planets each tick
 				map.draw_text_planets(gc2); // Draw text production of planets each tick
 				map.draw_squadrons(gc3); // If squadron exists draw each tick his new position
+				map.draw_pirates(gc3);
 				map.win_condition();
 				map.update_ships_numbers(now); // Production function of planets's ships
 				for (int i = 1 ; i < map.getNb_players() ; i++)

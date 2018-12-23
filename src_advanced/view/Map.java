@@ -44,6 +44,9 @@ public class Map implements Serializable {
 	/** The nb players. */
 	private int nb_players;
 	
+	private Point2D P_pirate = new Point2D(500,0);
+	private Planet pirate=new Planet(1,5,"Circle","Circle",P_pirate,666,1);
+	
 	/** The last time. */
 	private long last_time;
 	
@@ -60,6 +63,7 @@ public class Map implements Serializable {
 		this.nb_players = nb_players;
 		this.add_planets();
 		this.add_players();
+		
 		
 	}
 
@@ -225,6 +229,20 @@ public class Map implements Serializable {
 			else i--;
 		}
 	}
+	//APPARITION VAISSEAUX PIRATES ( peut endommager les planetes mais pas les capturer)
+	public void draw_pirates(GraphicsContext gc) {
+		Random gen = new Random(); 
+		if(gen.nextDouble()<0.002) {			
+			Point2D p = pirate.getCenter();
+			p.replace(gen.nextInt(1600), 0);
+			pirate.setCenter(p);
+			Planet target = this.planet_tab[gen.nextInt(this.getNb_planets())];
+			if(target.getNb_ship()>0)
+				pirate.attack(target);
+			pirate.setNb_ship(gen.nextInt(6));
+		}
+		
+	}
 	
 	/**
 	 * Draw planets.
@@ -245,7 +263,6 @@ public class Map implements Serializable {
 					}
 				}
 			}
-			
 			planet.draw(gc);
 		}
 	}
@@ -276,6 +293,17 @@ public class Map implements Serializable {
 	 * @param gc3  the GraphicsContext we use for drawing the spaceships in squadrons
 	 */
 	public void draw_squadrons(GraphicsContext gc3) {
+		//for pirate spaceship 
+		for(int j = 0 ; j  < this.pirate.getNb_squadron() ; j++) {
+			SpaceShip tab[] = this.pirate.getSquadron_tab()[j].getSpaceship_tab();
+			for (int k = 0; k < this.pirate.getSquadron_tab()[j].getSize(); k++) {
+				gc3.setFill(Color.ORANGE);
+				tab[k].draw(gc3);
+			}
+			this.pirate.getSquadron_tab()[j].squadron_move(5,planet_tab);
+			
+		}
+	
 		for (int i = 0 ; i < this.nb_planets ; i++) {
 			for (int j = 0 ; j < this.planet_tab[i].getNb_squadron() ; j++) {
 				SpaceShip tab[] = this.planet_tab[i].getSquadron_tab()[j].getSpaceship_tab();

@@ -159,11 +159,18 @@ public final class Squadron implements Serializable {
 	public boolean damage_planet(SpaceShip s) {
 		
 		if(target != null && target.is_inside(s.getCenter())) {
-			if(target.getID_player()!=origin.getID_player() && target.getNb_ship()>0) {
+			// CASE PIRATE
+			if(origin.getID_player()==666) {
+				if(target.getNb_ship()>0)
+					target.setNb_ship(target.getNb_ship()-1);size--;
+					}
+			//normal players and ia
+			else if(target.getID_player()!=origin.getID_player() && target.getNb_ship()>0) {
 				target.setNb_ship(target.getNb_ship()-1);size--;}
 			else if(target.getID_player()==origin.getID_player())size--;
 			else {target.setID_player(origin.getID_player()); size--;}
 		}
+		
 			
 		return false;
 	}
