@@ -133,9 +133,11 @@ public final class Squadron implements Serializable {
 					for(int j = 0 ; j<tab.length;j++) {
 						if(!tab[j].equals(origin) && !tab[j].equals(target)) {
 						if(tab[j].is_inside(p_test)) {
-								angle += Math.PI/2 + Math.PI/6;
+								angle += Math.PI/2+Math.PI/6;
+								
 								
 						}
+						
 					}
 					}
 					p.move_angle(speed, angle);

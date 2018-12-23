@@ -24,7 +24,7 @@ public class Map implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/** The Constant WIDTH. */
-	public final static int WIDTH = 1600;
+	public final static int WIDTH = 1800;
 	
 	/** The Constant HEIGHT. */
 	public final static int HEIGHT = 920;
@@ -285,7 +285,7 @@ public class Map implements Serializable {
 					tab[k].draw(gc3);
 					
 				}
-				this.planet_tab[i].getSquadron_tab()[j].squadron_move(8,planet_tab);
+				this.planet_tab[i].getSquadron_tab()[j].squadron_move(6,planet_tab);
 			}
 		}
 	}
@@ -319,8 +319,8 @@ public class Map implements Serializable {
 				if(planet_tab[j].getID_player()!=i)
 					state=false;
 				if(j==nb_planets-1 && state==true) {
-					System.out.println("VOUS AVEZ GAGNEZ");
-					System.exit(0);
+					System.out.println("Vous avez gagné cette map essayez les autres en changeant grâce au pad numérique 1 2 3 4 5 6 7 8 9");
+					
 				}
 			}
 		}

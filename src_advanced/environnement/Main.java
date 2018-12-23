@@ -1,5 +1,6 @@
 package environnement;
 import controller.IA;
+import controller.Key_Handler;
 import controller.Mouse_Handler;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -8,11 +9,13 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import planet.Planet;
 import view.Map;
 
 
@@ -42,6 +45,8 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+	
+	
 
 	/* (non-Javadoc)
 	 * @see javafx.application.Application#start(javafx.stage.Stage)
@@ -52,8 +57,10 @@ public class Main extends Application {
 		stage.setResizable(false);
 
 		Group root = new Group();
+		
 		Scene scene = new Scene(root);
 		
+	
 		//Original Canvas ( Atm only for drawing planets)
 		Canvas canvas = new Canvas(Map.WIDTH, Map.HEIGHT);
 		root.getChildren().add(canvas);
@@ -87,7 +94,11 @@ public class Main extends Application {
 		gc3.setLineWidth(1);
 
 		// Map ressources
-		Map map = new Map(12, 6);
+		Map map_mult[] = new Map[11];
+		for(int i =1 ; i<11;i++)map_mult[i]=new Map(12,4);
+		Map map = map_mult[1];
+		
+		
 		
 		// Mouse handler
 		Mouse_Handler mouse_event = new Mouse_Handler();
@@ -103,6 +114,10 @@ public class Main extends Application {
 		//Save load object
 		Save_Load save_load = new Save_Load();
 		save_load.save_load(map, scene);
+		Key_Handler key = new Key_Handler();
+		key.nine_instance(scene, map, map_mult);
+			
+	
 		
 		new AnimationTimer() {	
 			public void handle(long now) {

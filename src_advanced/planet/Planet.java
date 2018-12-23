@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
+
 import spaceship.Squadron;
 
 
@@ -312,6 +313,9 @@ public class Planet implements Serializable {
 		}
 		return false;
 	}
+
+	
+	//public boolean is_ship_inside(Point2D p )
 	
 	public boolean is_ship_inside(Point2D p, int speed) {
 		return Math.abs(Math.sqrt(Math.pow((double)(p.getX()-this.center.getX()), 2)+Math.pow((double)(p.getY()-this.center.getY()), 2))) < this.width/2+speed;
