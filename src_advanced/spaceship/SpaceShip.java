@@ -36,10 +36,7 @@ public class SpaceShip implements Serializable {
 	 * Instantiates a new space ship.
 	 *
 	 * @param center       the center
-	 * @param width        the width
-	 * @param height       the height
-	 * @param speed        the speed
-	 * @param attack_power the attack power
+	 * @param shape        the shape
 	 * @param id_player    the id player
 	 */
 	public SpaceShip(Point2D center, String shape, int id_player) {

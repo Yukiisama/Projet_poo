@@ -6,12 +6,13 @@ import geometry.Point2D;
 import planet.Planet;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class Squadron which contain multiples spaceship from a planet in order to attack a new one .
  */
 public final class Squadron implements Serializable {
 
-	/** The Serial version UID */
+	/** The Serial version UID. */
 	private static final long serialVersionUID = 1L;
 
 	/** The spaceship tab. */
@@ -35,10 +36,14 @@ public final class Squadron implements Serializable {
 	public Squadron(Planet Origin, Planet Target){
 		this.origin = Origin;
 		this.target = Target;
+		double nb = 6;
+		if(Origin.getSelected()>0 && Origin.getID_player()!=-1) {
+			 nb = this.origin.getNb_ship()*Origin.getSelected()/100;
+		}
 		
-		// defining the size of the squadron depending on its origin's radius
-			this.spaceship_tab = new SpaceShip[6];
-			if (this.origin.getNb_ship() >= 6) this.size = 6;
+			// defining the size of the squadron depending on its origin's radius
+			this.spaceship_tab = new SpaceShip[(int)nb];
+			if (this.origin.getNb_ship() >= nb) this.size =(int) nb;
 			else this.size = this.origin.getNb_ship();
 			for (int i = 0 ; i < this.size ; i++) {
 				double angle = (double) (2*Math.PI/this.size) * (i);
@@ -50,7 +55,8 @@ public final class Squadron implements Serializable {
 				spaceship_tab[i] = new SpaceShip(where, this.origin.getShips_shape(), this.origin.getID_player());
 				this.origin.setNb_ship(this.origin.getNb_ship() - 1);
 			}
-	}
+		}
+	
 
 	/**
 	 * Gets the spaceship tab.
@@ -110,6 +116,8 @@ public final class Squadron implements Serializable {
 
 	/**
 	 * Squadron move.
+	 * @param speed the speed
+	 * @param tab the planet tab
 	 */
 	public void squadron_move(int speed, Planet tab[]){
 		double angle;
@@ -138,6 +146,14 @@ public final class Squadron implements Serializable {
 			}
 		}
 	}
+	
+	
+	/**
+	 * Damage planet.
+	 *
+	 * @param s the s
+	 * @return true, if successful
+	 */
 	public boolean damage_planet(SpaceShip s) {
 		
 		if(target != null && target.is_inside(s.getCenter())) {

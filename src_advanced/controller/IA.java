@@ -4,19 +4,38 @@ import java.util.Random;
 
 import planet.Planet;
 
+
+/**
+ * The Class IA.
+ */
 public class IA extends Player {
 
-	/** The Serial version UID */
+	/** The Serial version UID. */
 	private static final long serialVersionUID = 1L;
 
+	/** The gen. */
 	Random gen = new Random();
-	private int level = 2; // get from option
 	
+	/** The level. */
+	private int level = 1; // get from option
+	
+	/**
+	 * Instantiates a new ia.
+	 *
+	 * @param id the id
+	 */
 	public IA(int id) {
 		super(id);
 	}
 	
 	
+	/**
+	 * Choose one.
+	 *
+	 * @param prod the prod
+	 * @param from the from
+	 * @param tab  the tab
+	 */
 	public void choose_one(int prod,Planet from,Planet tab[]){
 			int size = tab.length;
 			if (prod < 5) return;
@@ -27,6 +46,12 @@ public class IA extends Player {
 			
 		}
 
+		/**
+		 * Choose multiple.
+		 *
+		 * @param length the length
+		 * @param tab    the tab
+		 */
 		public void choose_multiple(int length,Planet tab[]){
 			int iterations = gen.nextInt(length);
 			Planet choose_planet = tab[gen.nextInt(length)];
@@ -38,6 +63,12 @@ public class IA extends Player {
 			}
 		}
 
+		/**
+		 * Decisionmaking.
+		 *
+		 * @param now the now
+		 * @param tab the tab
+		 */
 		/*public int coupdavance(){
 			comparer 5 ou 10 prochains coups en comparant le score , 
 			prendre le chemin avec le plus grand score ( comparer 3 chemins).
@@ -76,8 +107,8 @@ public class IA extends Player {
 				
 		
 
-		//L'ajout de plus serait de pouvoir calculer quelques coups Ã  l'avance et prendre le max des score Ã©tablis
-		//Cependant comment dÃ©finir ce qu'est le meilleur coup ?
+		//L'ajout de plus serait de pouvoir calculer quelques coups ÃƒÂ  l'avance et prendre le max des score ÃƒÂ©tablis
+		//Cependant comment dÃƒÂ©finir ce qu'est le meilleur coup ?
 
 		}
 

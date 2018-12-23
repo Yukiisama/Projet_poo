@@ -53,9 +53,9 @@ public class Planet implements Serializable {
 	 *
 	 * @param rate_production the rate production
 	 * @param nb_ship         the nb ship
-	 * @param ships_type      the ships type
 	 * @param center          the center
 	 * @param ID_player       the i D player
+	 * @param size_factor 	  the size_factor
 	 */
 	public Planet(double rate_production, int nb_ship, Point2D center, int ID_player, double size_factor) {
 		this.width = (int)(ci_width*size_factor);
@@ -235,7 +235,7 @@ public class Planet implements Serializable {
 	 * @param target the target
 	 */
 	public void attack(Planet target) {
-		
+	
 		this.squadron_tab[this.nb_squadron] = new Squadron(this, target);
 		this.nb_squadron++;
 		

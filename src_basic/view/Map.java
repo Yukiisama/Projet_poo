@@ -112,7 +112,6 @@ public class Map implements Serializable {
 	 *
 	 * @param p           the point p to test location
 	 * @param size_factor the size factor
-	 * @param planet_type the planet type
 	 * @return true, if is location valid
 	 */
 	public boolean is_location_valid(Point2D p, double size_factor) {

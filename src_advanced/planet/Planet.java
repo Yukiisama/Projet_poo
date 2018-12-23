@@ -62,9 +62,11 @@ public class Planet implements Serializable {
 	 *
 	 * @param rate_production the rate production
 	 * @param nb_ship         the nb ship
-	 * @param ships_type      the ships type
+	 * @param shape           the shape
+	 * @param ships_shape     the ships_shape
 	 * @param center          the center
 	 * @param ID_player       the i D player
+	 * @param size_factor     the size factor
 	 */
 	public Planet(double rate_production, int nb_ship, String shape, String ships_shape, Point2D center, int ID_player, double size_factor) {
 		if (shape == "Square") {
@@ -150,16 +152,16 @@ public class Planet implements Serializable {
 	public void setCenter(Point2D center) { this.center = center; }
 
 	/**
-	 * Gets the ships type.
+	 * Gets the ships shape.
 	 *
-	 * @return the ships type
+	 * @return the ships shape
 	 */
 	public String getShips_shape() { return ships_shape; }
 	
 	/**
 	 * Sets the ships type.
 	 *
-	 * @param ships_type the new ships type
+	 * @param ships_shape the new ships shape
 	 */
 	public void setShips_type(String ships_shape) { this.ships_shape = ships_shape; }
 
@@ -257,7 +259,7 @@ public class Planet implements Serializable {
 	/**
 	 * Sets the name of shape.
 	 *
-	 * @param nb_squadron the new name of shape
+	 * @param shape the new name of shape
 	 */
 	public void setShape(String shape) { this.shape = shape; }
 	
