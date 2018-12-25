@@ -95,7 +95,7 @@ public class Main extends Application {
 
 		// Map ressources
 		Map map_mult[] = new Map[11];
-		for(int i =1 ; i<11;i++)map_mult[i]=new Map(40,4);
+		for(int i =1 ; i<11;i++)map_mult[i]=new Map(20,4);
 		Map map = map_mult[1];
 		
 		

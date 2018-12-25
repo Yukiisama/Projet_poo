@@ -24,7 +24,7 @@ public class Map implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/** The Constant WIDTH. */
-	public final static int WIDTH = 1800;
+	public final static int WIDTH = 1400;
 	
 	/** The Constant HEIGHT. */
 	public final static int HEIGHT = 800;
@@ -205,7 +205,7 @@ public class Map implements Serializable {
 		Random gen = new Random();
 		
 		double size_factor = 0.0f;
-		double limit = 0.8f;
+		double limit = 0.9f;
 		if(nb_planets/15>=1) {limit=0.6f;min_dist-=70;}
 		else if(nb_planets/30>=1) {limit=0.4f;}
 		while (size_factor < limit) size_factor = gen.nextDouble();
@@ -319,7 +319,7 @@ public class Map implements Serializable {
 					tab[k].draw(gc3);
 					
 				}
-				this.planet_tab[i].getSquadron_tab()[j].squadron_move(6,planet_tab);
+				this.planet_tab[i].getSquadron_tab()[j].squadron_move(this.planet_tab[i].getSquadron_tab()[j].getSpaceship_tab()[0].getSpeed(),planet_tab);
 			}
 		}
 	}

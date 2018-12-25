@@ -45,28 +45,28 @@ public class SpaceShip implements Serializable {
 		if (shape == "Square") {
 			this.width = 10;
 			this.height = 10;
-			this.speed = 1;
+			this.speed = 5;
 			this.attack_power = 3;
 			
 		}
 		else if (shape == "Rectangle") {
 			this.width = 15;
 			this.height = 5;
-			this.speed = 2;
+			this.speed = 6;
 			this.attack_power = 3;
 			
 		}
 		else if (shape == "Circle") {
 			this.width = 10;
 			this.height = 10;
-			this.speed = 2;
+			this.speed = 5;
 			this.attack_power = 1;
 			
 		}
 		else if (shape == "Oval") {
 			this.width = 5;
 			this.height = 15;
-			this.speed = 3;
+			this.speed = 4;
 			this.attack_power = 1;
 			
 		}

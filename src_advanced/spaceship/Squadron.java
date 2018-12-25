@@ -129,10 +129,13 @@ public final class Squadron implements Serializable {
 				if(target!=null) {
 					angle = p.getAngle(target.getCenter());
 					Point2D p_test = new Point2D(p.getX(), p.getY());
-					p_test.move_angle(speed, angle);
+					
+						p_test.move_angle(speed, angle);
+					
 					for(int j = 0 ; j<tab.length;j++) {
 						if(!tab[j].equals(origin) && !tab[j].equals(target)) {
 						if(tab[j].is_inside(p_test)) {
+								
 								angle += Math.PI/2+Math.PI/6;
 								
 								
@@ -157,17 +160,26 @@ public final class Squadron implements Serializable {
 	 * @return true, if successful
 	 */
 	public boolean damage_planet(SpaceShip s) {
-		
+		int damage_force = this.spaceship_tab[0].getAttack_power();
 		if(target != null && target.is_inside(s.getCenter())) {
 			// CASE PIRATE
 			if(origin.getID_player()==666) {
-				if(target.getNb_ship()>0)
-					target.setNb_ship(target.getNb_ship()-1);size--;
+				if(target.getNb_ship()>0) {
+					if(target.getNb_ship()-damage_force>=0) 
+						target.setNb_ship(target.getNb_ship()-damage_force);
+					else
+						target.setNb_ship(0);	
+					size--;
 					}
+				}
 			//normal players and ia
 			else if(target.getID_player()!=origin.getID_player() && target.getNb_ship()>0) {
-				target.setNb_ship(target.getNb_ship()-1);size--;}
-			else if(target.getID_player()==origin.getID_player())size--;
+				if(target.getNb_ship()-damage_force>=0) 
+					target.setNb_ship(target.getNb_ship()-damage_force);
+				else
+					target.setNb_ship(0);	
+				size--;}
+			else if(target.getID_player()==origin.getID_player()) {target.setNb_ship(target.getNb_ship()+1);size--;}
 			else {target.setID_player(origin.getID_player()); size--;}
 		}
 		
