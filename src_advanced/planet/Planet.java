@@ -53,10 +53,10 @@ public class Planet implements Serializable {
 	private int nb_squadron;
 	
 	/** Default dimensions of planet's shapes */
-	public static int sq_width = 170, sq_height = 170;
-	public static int re_width = 200, re_height = 125;
-	public static int ci_width = 170, ci_height = 170;
-	public static int ov_width = 125, ov_height = 200;
+	public static int sq_width = 100, sq_height = 100;
+	public static int re_width = 100, re_height = 75;
+	public static int ci_width = 100, ci_height = 100;
+	public static int ov_width = 70, ov_height = 120;
 
 	/**
 	 * Instantiates a new planet.

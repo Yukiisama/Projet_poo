@@ -27,10 +27,10 @@ public class Map implements Serializable {
 	public final static int WIDTH = 1800;
 	
 	/** The Constant HEIGHT. */
-	public final static int HEIGHT = 920;
+	public final static int HEIGHT = 800;
 	
 	/** The min dist. */
-	private final int min_dist = 250;
+	private int min_dist = 200;
 	
 	/** The planet tab. */
 	private Planet planet_tab[];
@@ -205,7 +205,10 @@ public class Map implements Serializable {
 		Random gen = new Random();
 		
 		double size_factor = 0.0f;
-		while (size_factor < 0.4f) size_factor = gen.nextDouble();
+		double limit = 0.8f;
+		if(nb_planets/15>=1) {limit=0.6f;min_dist-=70;}
+		else if(nb_planets/30>=1) {limit=0.4f;}
+		while (size_factor < limit) size_factor = gen.nextDouble();
 		int nb_ship = gen.nextInt(20);
 		
 		String planet_shape = random_shape();
@@ -219,7 +222,7 @@ public class Map implements Serializable {
 					id++;
 					if (id >= this.nb_players) {
 						size_factor = 0.0f;
-						while (size_factor < 0.4f) size_factor = gen.nextDouble();
+						while (size_factor < limit) size_factor = gen.nextDouble();
 						id = -1;
 						nb_ship = gen.nextInt(20);
 						planet_shape = random_shape();
