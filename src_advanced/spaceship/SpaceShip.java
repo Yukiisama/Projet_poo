@@ -53,7 +53,7 @@ public class SpaceShip implements Serializable {
 			this.width = 15;
 			this.height = 5;
 			this.speed = 6;
-			this.attack_power = 3;
+			this.attack_power = 4;
 			
 		}
 		else if (shape == "Circle") {
@@ -67,7 +67,7 @@ public class SpaceShip implements Serializable {
 			this.width = 5;
 			this.height = 15;
 			this.speed = 4;
-			this.attack_power = 1;
+			this.attack_power = 2;
 			
 		}
 		this.id_player = id_player;

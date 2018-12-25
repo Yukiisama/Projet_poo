@@ -235,7 +235,7 @@ public class Map implements Serializable {
 	//APPARITION VAISSEAUX PIRATES ( peut endommager les planetes mais pas les capturer)
 	public void draw_pirates(GraphicsContext gc) {
 		Random gen = new Random(); 
-		if(gen.nextDouble()<0.002) {			
+		if(gen.nextDouble()<0.005) {  // possible to set it to 0.002 if u want rare			
 			Point2D p = pirate.getCenter();
 			if(gen.nextDouble()<0.5)
 				p.replace(gen.nextInt(this.WIDTH), 0);
@@ -319,7 +319,7 @@ public class Map implements Serializable {
 					tab[k].draw(gc3);
 					
 				}
-				this.planet_tab[i].getSquadron_tab()[j].squadron_move(this.planet_tab[i].getSquadron_tab()[j].getSpaceship_tab()[0].getSpeed(),planet_tab);
+				this.planet_tab[i].getSquadron_tab()[j].squadron_move(this.planet_tab[i].getSquadron_tab()[j].getSpeed(),planet_tab);
 			}
 		}
 	}

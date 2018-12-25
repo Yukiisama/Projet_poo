@@ -26,6 +26,7 @@ public final class Squadron implements Serializable {
 	
 	/** The size. */
 	private int size;
+	
 
 	/**
 	 * Instantiates a new squadron.
@@ -41,7 +42,7 @@ public final class Squadron implements Serializable {
 			 nb = this.origin.getNb_ship()*Origin.getSelected()/100;
 		}
 		
-			// defining the size of the squadron depending on its origin's radius
+			// defining the size of the squadron depending on its origin's 
 			this.spaceship_tab = new SpaceShip[(int)nb];
 			if (this.origin.getNb_ship() >= nb) this.size =(int) nb;
 			else this.size = this.origin.getNb_ship();
@@ -55,6 +56,7 @@ public final class Squadron implements Serializable {
 				spaceship_tab[i] = new SpaceShip(where, this.origin.getShips_shape(), this.origin.getID_player());
 				this.origin.setNb_ship(this.origin.getNb_ship() - 1);
 			}
+			
 		}
 	
 
@@ -85,7 +87,16 @@ public final class Squadron implements Serializable {
 	 * @param target the new target
 	 */
 	public void setTarget(Planet target) { this.target = target; }
-
+	public int getSpeed() { 
+		switch(origin.getShips_shape()) {
+		case "Square":return 5;			
+		case "Rectangle":return 6;
+		case "Circle":return 5;
+		case "Oval" : return 4;
+		default: break;
+		}
+		return 2;
+		}
 	/**
 	 * Gets the origin.
 	 *
@@ -166,8 +177,8 @@ public final class Squadron implements Serializable {
 			if(origin.getID_player()==666) {
 				if(target.getNb_ship()>0) {
 						target.setNb_ship(target.getNb_ship()-1);	
-						size--;
 					}
+				size--;
 				}
 			//normal players and ia
 			else if(target.getID_player()!=origin.getID_player() && target.getNb_ship()>0) {
@@ -176,7 +187,12 @@ public final class Squadron implements Serializable {
 				else
 					target.setNb_ship(0);	
 				size--;}
-			else if(target.getID_player()==origin.getID_player()) {target.setNb_ship(target.getNb_ship()+1);size--;}
+			else if(target.getID_player()==origin.getID_player()) {
+				if(target.getShips_shape()==origin.getShips_shape())
+					target.setNb_ship(target.getNb_ship()+1);
+				else target=origin;
+				size--;
+				}
 			else {target.setID_player(origin.getID_player()); size--;}
 		}
 		
