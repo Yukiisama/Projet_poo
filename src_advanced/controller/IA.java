@@ -68,7 +68,7 @@ public class IA extends Player {
 		
 		public boolean still_player1_alive(Planet tab[]) {
 			for(Planet p : tab) {
-				if(p.getID_player()==1)
+				if(p.getID_player()==0)
 					return true;
 			}
 			return false;
