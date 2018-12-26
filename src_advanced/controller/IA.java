@@ -19,7 +19,7 @@ public class IA extends Player {
 	
 	/** The level. */
 	//LEVEL MAX = 4
-	private int level = 3; // get from option
+	private int level = 4; // get from option
 	
 	/**
 	 * Instantiates a new ia.
@@ -80,7 +80,8 @@ public class IA extends Player {
 			
 			int index= ThreadLocalRandom.current().nextInt(tab.length);
 			if(still_player1_alive(tab)) {
-				while(tab[index].getID_player()!=1)index= ThreadLocalRandom.current().nextInt(tab.length);
+				
+				while(tab[index].getID_player()!=0)index= ThreadLocalRandom.current().nextInt(tab.length);
 				from.attack(tab[index]);return;
 			}
 			else if(tab[index]!=null && tab[index].getID_player()!=ID) {
