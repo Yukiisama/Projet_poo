@@ -18,9 +18,9 @@ public class IA extends Player {
 	Random gen = new Random();
 	
 	/** The level. */
-	//LEVEL MAX = 4
-	private int level = 4; // get from option
-	
+	private final int LEVEL_MAX = 5;
+	private int level = 1; // get from option
+	//Consider level 4 & 5 are really hard
 	/**
 	 * Instantiates a new ia.
 	 *
@@ -116,21 +116,26 @@ public class IA extends Player {
 						return;
 					break;
 				case 2:
-					if(gen.nextDouble()>0.50)
+					if(gen.nextDouble()>0.025)
 						//do not attack this tick
 						return;
 					break;
+				case 3:
+					if(gen.nextDouble()>0.050)
+						//do not attack this tick
+						return;
+					break;
+				case 4:
+					if(gen.nextDouble()>0.050)
+						//do not attack this tick
+						return;
 				default:break;
 				}
-				if(level==1 && OneofMine != null)
+				if(level==1 || level==2 && OneofMine != null)
 					choose_one(OneofMine.getNb_ship(),OneofMine,tab);
-				if(level==2)
+				else if(level>2 && level<LEVEL_MAX+1)
 					choose_multiple(tab.length,tab);
-				if(level==3)
-					choose_multiple(tab.length,tab);
-				if(level==4)
-					choose_multiple(tab.length,tab);
-			
+				
 				
 		
 

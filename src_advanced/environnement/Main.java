@@ -95,7 +95,7 @@ public class Main extends Application {
 
 		// Map ressources
 		Map map_mult[] = new Map[11];
-		for(int i =1 ; i<11;i++)map_mult[i]=new Map(20,4);
+		for(int i =1 ; i<11;i++)map_mult[i]=new Map(20,2);
 		Map map = map_mult[1];
 		
 		
@@ -132,6 +132,7 @@ public class Main extends Application {
 				map.update_ships_numbers(now); // Production function of planets's ships
 				for (int i = 1 ; i < map.getNb_players() ; i++)
 					((IA) map.getPlayer_tab()[i]).decisionmaking(now,map.getPlanet_tab());
+				
 			}
 		}.start();
 	}
