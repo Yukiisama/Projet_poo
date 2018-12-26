@@ -5,12 +5,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
 
+
 /**
  * The Class Player represents all informations usefull about the actuals players of the game  .
  */
 public class Player implements Serializable {
 
-	/** The Serial version UID */
+	/**  The Serial version UID. */
 	private static final long serialVersionUID = 1L;
 
 	/** The id. If ID is one then the players is the human playing,others are IAs  */

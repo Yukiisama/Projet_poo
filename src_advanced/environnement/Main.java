@@ -9,21 +9,29 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-
 import view.Map;
-
 
 /**
  * The Class Main runs the application.
  */
 public class Main extends Application {
 	
+	/** The menu. */
+	private boolean menu = true;
+	
+	/** The ia. */
+	public static int IA = 1;
+	
+	/** The Planet. */
+	public static int Planet = 20;
+	
+	/** The level IA. */
+	public static int levelIA = 1;
 	/**
 	 * Gets the ressource path by name.
 	 *
@@ -31,23 +39,18 @@ public class Main extends Application {
 	 * @return the ressource path by name
 	 */
 	
-	
-	
-	public static String getRessourcePathByName(String name) {
+	private static String getRessourcePathByName(String name) {
 		return Main.class.getResource('/' + name).toString();
 	}
-
+	
 	/**
-	 * The main method to launch the game
+	 * The main method to launch the game.
 	 *
 	 * @param args the main arguments
 	 */
 	public static void main(String[] args) {
 		launch(args);
 	}
-	
-	
-
 	/* (non-Javadoc)
 	 * @see javafx.application.Application#start(javafx.stage.Stage)
 	 */
@@ -55,13 +58,9 @@ public class Main extends Application {
 		/* Stage initialisation */
 		stage.setTitle("Projet Poo");
 		stage.setResizable(false);
-
 		Group root = new Group();
-		
 		Scene scene = new Scene(root);
-		
-	
-		//Original Canvas ( Atm only for drawing planets)
+		//Original Canvas (drawing planets)
 		Canvas canvas = new Canvas(Map.WIDTH, Map.HEIGHT);
 		root.getChildren().add(canvas);
 		//CANVAS for text on planets
@@ -70,9 +69,6 @@ public class Main extends Application {
 		// CANVAS for ships
 		Canvas canvas3 = new Canvas(Map.WIDTH, Map.HEIGHT);
 		root.getChildren().add(canvas3);
-
-		/* graphic canvas for drawing planet & original */
-		
 		// graphic canvas for drawing planets
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.setFont(Font.font("Helvetica", FontWeight.BOLD, 24));
@@ -95,32 +91,58 @@ public class Main extends Application {
 
 		// Map ressources
 		Map map_mult[] = new Map[11];
-		for(int i =1 ; i<11;i++)map_mult[i]=new Map(20,2);
+		for(int i =1 ; i<11;i++)map_mult[i]=new Map(Planet,(IA+1),levelIA);
 		Map map = map_mult[1];
-		
-		
 		
 		// Mouse handler
 		Mouse_Handler mouse_event = new Mouse_Handler();
 		mouse_event.apply_event_mouse(map, gc, scene);
 		
-		// Load the "wallpaper" of the application
+		// Load the "wallpaper" and menu "wallpaper" of the application
 		Image space = new Image(getRessourcePathByName("images/wallpaper.jpg"), Map.WIDTH, Map.HEIGHT, false, false);
-
+		Image menu_img = new Image(getRessourcePathByName("images/menu.jpg"), Map.WIDTH, Map.HEIGHT, false, false);
+		
+		//Menu initialisation
+		Group root_menu =new Group();
+		Canvas canvas_menu = new Canvas(Map.WIDTH, Map.HEIGHT);
+		GraphicsContext gc_menu = canvas_menu.getGraphicsContext2D();
+		gc_menu.setFont(Font.font("Helvetica", FontWeight.BOLD, 24));
+		gc_menu.setFill(Color.BISQUE);
+		gc_menu.setStroke(Color.WHITE);
+		gc_menu.setLineWidth(1);
+		root_menu.getChildren().add(canvas_menu);
+		Scene scene2 = new Scene(root_menu);
+		
 		// Apply the scene
-		stage.setScene(scene);
+		if(menu) stage.setScene(scene2);
+		else stage.setScene(scene);
 		stage.show();
 		
 		//Save load object
 		Save_Load save_load = new Save_Load();
 		save_load.save_load(map, scene);
 		Key_Handler key = new Key_Handler();
-		key.nine_instance(scene, map, map_mult);
-			
-	
+		key.nine_instance(scene, map, map_mult,scene2,stage);
+		Menu m = new Menu();	
 		
+		//Tick actions
 		new AnimationTimer() {	
 			public void handle(long now) {
+				if(menu) {
+					m.apply_menu(gc_menu, menu_img);
+					menu = !m.increment(scene2);
+					if(!menu) {
+						//Init after you have selected which map you want 
+						//This will be executed once
+						Map map2= new Map(Planet*(IA+1),(IA+1),levelIA);
+						map.setNb_planets(Planet*(IA+1));  map.setNb_players(IA+1);
+						map.setPlanet_tab(map2.getPlanet_tab());  map.setPlayer_tab(map2.getPlayer_tab());
+						for(int i =1 ; i<11;i++)  map_mult[i]=new Map(Planet*(IA+1),(IA+1),levelIA);
+						//Apply the scene of the game
+						stage.setScene(scene);
+						stage.show();}
+					}
+				else{
 				gc.drawImage(space, 0, 0);
 				gc2.clearRect(0, 0, Map.WIDTH, Map.HEIGHT); // CLEAR TXT RECT
 				gc3.clearRect(0, 0, Map.WIDTH, Map.HEIGHT); // CLEAR TXT RECT
@@ -132,7 +154,7 @@ public class Main extends Application {
 				map.update_ships_numbers(now); // Production function of planets's ships
 				for (int i = 1 ; i < map.getNb_players() ; i++)
 					((IA) map.getPlayer_tab()[i]).decisionmaking(now,map.getPlanet_tab());
-				
+				}
 			}
 		}.start();
 	}

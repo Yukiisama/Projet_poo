@@ -6,7 +6,7 @@ import geometry.Point2D;
 import planet.Planet;
 
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Squadron which contain multiples spaceship from a planet in order to attack a new one .
  */
@@ -87,6 +87,12 @@ public final class Squadron implements Serializable {
 	 * @param target the new target
 	 */
 	public void setTarget(Planet target) { this.target = target; }
+	
+	/**
+	 * Gets the speed.
+	 *
+	 * @return the speed
+	 */
 	public int getSpeed() { 
 		switch(origin.getShips_shape()) {
 		case "Square":return 5;			

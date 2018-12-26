@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
-import spaceship.SpaceShip;
+
 import spaceship.Squadron;
 
 
@@ -13,7 +13,7 @@ import spaceship.Squadron;
  */
 public class Planet implements Serializable {
 	
-	/** The Serial version UID */
+	/**  The Serial version UID. */
 	private static final long serialVersionUID = 1L;
 
 	/** The dimensions. */
@@ -52,10 +52,16 @@ public class Planet implements Serializable {
 	/** The number of squadron. */
 	private int nb_squadron;
 	
-	/** Default dimensions of planet's shapes */
+	/**  Default dimensions of planet's shapes. */
 	public static int sq_width = 100, sq_height = 100;
+	
+	/** The re height. */
 	public static int re_width = 100, re_height = 75;
+	
+	/** The ci height. */
 	public static int ci_width = 100, ci_height = 100;
+	
+	/** The ov height. */
 	public static int ov_width = 70, ov_height = 120;
 
 	/**
@@ -282,8 +288,8 @@ public class Planet implements Serializable {
 	public int getHeight() { return height; }
 	
 	/**
-	 * Draw the planet on a GraphicsContext
-	 * 
+	 * Draw the planet on a GraphicsContext.
+	 *
 	 * @param gc the GraphicsContext
 	 */
 	public void draw(GraphicsContext gc) {
@@ -317,6 +323,13 @@ public class Planet implements Serializable {
 	
 	//public boolean is_ship_inside(Point2D p )
 	
+	/**
+	 * Checks if is ship inside.
+	 *
+	 * @param p the p
+	 * @param speed the speed
+	 * @return true, if is ship inside
+	 */
 	public boolean is_ship_inside(Point2D p, int speed) {
 		return Math.abs(Math.sqrt(Math.pow((double)(p.getX()-this.center.getX()), 2)+Math.pow((double)(p.getY()-this.center.getY()), 2))) < this.width/2+speed;
 	}

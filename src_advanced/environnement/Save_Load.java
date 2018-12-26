@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import view.Map;
 
 
+
 /**
  * The Class Save_Load is used to save and load map object .
  * The S key is for saving ,  The C key is for loading.
@@ -51,7 +52,16 @@ public final class Save_Load {
 			
 		});
 	}
-	 public String choose_Path(final Stage primaryStage, boolean save) throws IOException{
+	 
+ 	/**
+ 	 * Choose path.
+ 	 *
+ 	 * @param primaryStage the primary stage
+ 	 * @param save the save
+ 	 * @return the string
+ 	 * @throws IOException Signals that an I/O exception has occurred.
+ 	 */
+ 	public String choose_Path(final Stage primaryStage, boolean save) throws IOException{
 		 	File file;
 	        FileChooser fileChooser = new FileChooser();
 	      //Set extension filter for text files
@@ -67,9 +77,9 @@ public final class Save_Load {
 	    }
 
 	/**
-	 * Save function which is called by save_load if key pressed S
+	 * Save function which is called by save_load if key pressed S.
 	 *
-	 * @param m the actual map ( i.e represents the model of the application) 
+	 * @param m the actual map ( i.e represents the model of the application)
 	 * @param fast_save the boolean to know if you want fast save
 	 */
 	void save(Map m, boolean fast_save) {
@@ -103,9 +113,9 @@ public final class Save_Load {
 
 
 	/**
-	 * Load function which is called by save_load if key pressed C
+	 * Load function which is called by save_load if key pressed C.
 	 *
-	 * @param m     the actual map ( i.e represents the model of the application) 
+	 * @param m     the actual map ( i.e represents the model of the application)
 	 * @param scene the scene  See <a href="https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Scene.html">https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Scene.html</a>
 	 * @param fast_load the boolean to know if you want fast load
 	 */

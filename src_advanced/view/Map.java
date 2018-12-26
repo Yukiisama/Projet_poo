@@ -15,19 +15,20 @@ import spaceship.SpaceShip;
 
 
 
+
 /**
  * The Class Map represents each informations we need to draw the actual content of the game .
  */
 public class Map implements Serializable {
-	
-	/** The Serial version UID */
+	private boolean state_game = true;
+	/**  The Serial version UID. */
 	private static final long serialVersionUID = 1L;
 
 	/** The Constant WIDTH. */
-	public final static int WIDTH = 1400;
+	public final static int WIDTH = 1800;
 	
 	/** The Constant HEIGHT. */
-	public final static int HEIGHT = 800;
+	public final static int HEIGHT = 920;
 	
 	/** The min dist. */
 	private int min_dist = 200;
@@ -44,7 +45,10 @@ public class Map implements Serializable {
 	/** The nb players. */
 	private int nb_players;
 	
+	/** The P pirate. */
 	private Point2D P_pirate = new Point2D(500,0);
+	
+	/** The pirate. */
 	private Planet pirate=new Planet(1,5,"Circle","Circle",P_pirate,666,1);
 	
 	/** The last time. */
@@ -55,14 +59,15 @@ public class Map implements Serializable {
 	 *
 	 * @param nb_planets the nb planets
 	 * @param nb_players the nb players
+	 * @param level_IA the level IA
 	 */
-	public Map(int nb_planets, int nb_players) {
+	public Map(int nb_planets, int nb_players,int level_IA) {
 		this.planet_tab = new Planet[nb_planets];
 		this.player_tab = new Player[nb_players];
 		this.nb_planets = nb_planets;
 		this.nb_players = nb_players;
 		this.add_planets();
-		this.add_players();
+		this.add_players(level_IA);
 		
 		
 	}
@@ -126,11 +131,13 @@ public class Map implements Serializable {
 
 	/**
 	 * Adds the players.
+	 *
+	 * @param level the level
 	 */
-	public void add_players() {
+	public void add_players(int level) {
 		player_tab[0] = new Player(0);
 		for (int i = 1 ; i < this.nb_players ; i++) {
-			player_tab[i] = new IA(i);
+			player_tab[i] = new IA(i,level);
 		}
 	}
 	
@@ -174,7 +181,8 @@ public class Map implements Serializable {
 	}
 	
 	/**
-	 * Randomly picks a return the name of a shape
+	 * Randomly picks a return the name of a shape.
+	 *
 	 * @return the name of picked shape
 	 */
 	private String random_shape() {
@@ -232,15 +240,21 @@ public class Map implements Serializable {
 			else i--;
 		}
 	}
+	
+	/**
+	 * Draw pirates.
+	 *
+	 * @param gc the gc
+	 */
 	//APPARITION VAISSEAUX PIRATES ( peut endommager les planetes mais pas les capturer)
 	public void draw_pirates(GraphicsContext gc) {
 		Random gen = new Random(); 
 		if(gen.nextDouble()<0.005) {  // possible to set it to 0.002 if u want rare			
 			Point2D p = pirate.getCenter();
 			if(gen.nextDouble()<0.5)
-				p.replace(gen.nextInt(this.WIDTH), 0);
+				p.replace(gen.nextInt(WIDTH), 0);
 			else
-				p.replace(gen.nextInt(this.WIDTH),this.HEIGHT );
+				p.replace(gen.nextInt(WIDTH),HEIGHT );
 			pirate.setCenter(p);
 			Planet target = this.planet_tab[gen.nextInt(this.getNb_planets())];
 			if(target.getNb_ship()>0)
@@ -346,15 +360,20 @@ public class Map implements Serializable {
 			i++;
 		}
 	}
+	
+	/**
+	 * Win condition.
+	 */
 	public void win_condition() {
 		boolean state = true;
 		for(int i = 0 ; i<nb_players;i++) {
 			for(int j = 0 ; j<nb_planets;j++) {
 				if(planet_tab[j].getID_player()!=i)
 					state=false;
-				if(j==nb_planets-1 && state==true) {
-					System.out.println("Vous avez gagné cette map essayez les autres en changeant grâce au pad numérique 1 2 3 4 5 6 7 8 9");
-					
+				if(j==nb_planets-1 && state && state_game) {
+					System.out.println("Vous avez gagné cette map essayez les autres \n en changeant grâce au pad numérique 1 2 3 4 5 6 7 8 9 \n Vous pouvez sauvegarder"
+							+ " ou charger une nouvelle partie comme bon vous semble =)");
+					state_game = false;
 				}
 			}
 		}

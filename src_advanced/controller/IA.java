@@ -1,8 +1,6 @@
 package controller;
-
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
-
 import planet.Planet;
 
 
@@ -10,27 +8,26 @@ import planet.Planet;
  * The Class IA.
  */
 public class IA extends Player {
-
 	/** The Serial version UID. */
 	private static final long serialVersionUID = 1L;
-
-	/** The gen. */
-	Random gen = new Random();
-	
-	/** The level. */
+	/** The random generator. */
+	private Random gen = new Random();
+	/** The level max ie 5. */
 	private final int LEVEL_MAX = 5;
-	private int level = 1; // get from option
+	
+	/**  The level. */
+	private int level=1; // get from option
 	//Consider level 4 & 5 are really hard
 	/**
 	 * Instantiates a new ia.
 	 *
 	 * @param id the id
+	 * @param level the level
 	 */
-	public IA(int id) {
+	public IA(int id,int level) {
 		super(id);
+		this.level=level;
 	}
-	
-	
 	/**
 	 * Choose one.
 	 *
@@ -38,22 +35,19 @@ public class IA extends Player {
 	 * @param from the from
 	 * @param tab  the tab
 	 */
-	public void choose_one(int prod,Planet from,Planet tab[]){
-			int size = tab.length;
+	private void choose_one(int prod,Planet from,Planet tab[]){
 			if (prod < 5) return;
-			
 			int index= ThreadLocalRandom.current().nextInt(tab.length);
 			if(tab[index]!=null && tab[index].getID_player()!=ID) {
 				from.attack(tab[index]);return;}
 		}
-
 		/**
 		 * Choose multiple.
 		 *
 		 * @param length the length
 		 * @param tab    the tab
 		 */
-		public void choose_multiple(int length,Planet tab[]){
+		private void choose_multiple(int length,Planet tab[]){
 			int iterations = ThreadLocalRandom.current().nextInt(length);
 			Planet choose_planet = tab[ThreadLocalRandom.current().nextInt(length)];
 			while(iterations>0){
@@ -65,23 +59,32 @@ public class IA extends Player {
 				iterations--;
 			}
 		}
-		
-		public boolean still_player1_alive(Planet tab[]) {
+	
+		/**
+		 * Still player 1 alive.
+		 *
+		 * @param tab the tab
+		 * @return true, if successful
+		 */
+		private boolean still_player1_alive(Planet tab[]) {
 			for(Planet p : tab) {
-				if(p.getID_player()==0)
-					return true;
+				if(p.getID_player()==0)return true;
 			}
 			return false;
 		}
-		
-		public void choose_one_and_focus_player1(int prod,Planet from,Planet tab[]){
-			int size = tab.length;
+	
+		/**
+		 * Choose one and focus player 1.
+		 *
+		 * @param prod the prod
+		 * @param from the from
+		 * @param tab the tab
+		 */
+		private void choose_one_and_focus_player1(int prod,Planet from,Planet tab[]){
 			if (prod < 5) return;
-			
 			int index= ThreadLocalRandom.current().nextInt(tab.length);
 			if(still_player1_alive(tab)) {
-				
-				while(tab[index].getID_player()!=0)index= ThreadLocalRandom.current().nextInt(tab.length);
+				while(tab[index].getID_player()!=0) index= ThreadLocalRandom.current().nextInt(tab.length);
 				from.attack(tab[index]);return;
 			}
 			else if(tab[index]!=null && tab[index].getID_player()!=ID) {
@@ -94,19 +97,12 @@ public class IA extends Player {
 		 * @param now the now
 		 * @param tab the tab
 		 */
-		/*public int coupdavance(){
-			comparer 5 ou 10 prochains coups en comparant le score , 
-			prendre le chemin avec le plus grand score ( comparer 3 chemins).
-		}*/
 		public void decisionmaking(long now,Planet tab[]){
 			boolean state = false;
 			for(int i = 0 ; i<tab.length;i++) {
-				if (tab[i].getID_player()==ID)
-					state =true;
-				if(i==tab.length-1 && state == false)
-					return;
+				if (tab[i].getID_player()==ID)state =true;
+				if(i==tab.length-1 && state == false)return;
 			}
-			
 			Planet OneofMine = tab[ThreadLocalRandom.current().nextInt(tab.length)];
 			while(OneofMine.getID_player()!=ID) OneofMine = tab[ThreadLocalRandom.current().nextInt(tab.length)]; 
 				switch(level) {
@@ -135,12 +131,7 @@ public class IA extends Player {
 					choose_one(OneofMine.getNb_ship(),OneofMine,tab);
 				else if(level>2 && level<LEVEL_MAX+1)
 					choose_multiple(tab.length,tab);
-				
-				
-		
 
-		//L'ajout de plus serait de pouvoir calculer quelques coups ÃƒÂ  l'avance et prendre le max des score ÃƒÂ©tablis
-		//Cependant comment dÃƒÂ©finir ce qu'est le meilleur coup ?
 
 		}
 

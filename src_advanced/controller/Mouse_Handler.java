@@ -8,9 +8,9 @@ import planet.Planet;
 import view.Map;
 
 
+
 /**
- * The Class Mouse_Handler handles all interractions with mouse 
- * 
+ * The Class Mouse_Handler handles all interractions with mouse .
  */
 public final class Mouse_Handler {
 	
