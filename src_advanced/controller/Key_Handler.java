@@ -1,5 +1,6 @@
 package controller;
 
+import environnement.Save_Load;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
@@ -22,28 +23,46 @@ public final class Key_Handler {
 	 * @param scene2 the scene 2
 	 * @param stage the stage
 	 */
-	public void nine_instance (Scene scene ,Map map ,Map map_mult[],Scene scene2 , Stage stage) {
+	public void event_keyboard (Scene scene ,Map map ,Map map_mult[],Scene scene2 , Stage stage) {
 		switch_map(map,map_mult[2]);
 		scene.setOnKeyPressed(event -> {
-	if (event.getCode() == KeyCode.NUMPAD1) 
-		switch_map(map,map_mult[2]);
-	if (event.getCode() == KeyCode.NUMPAD2) 
-		switch_map(map,map_mult[3]);
-	if (event.getCode() == KeyCode.NUMPAD3) 
-		switch_map(map,map_mult[4]);
-	if (event.getCode() == KeyCode.NUMPAD4) 
-		switch_map(map,map_mult[5]);
-	if (event.getCode() == KeyCode.NUMPAD5) 
-		switch_map(map,map_mult[6]);
-	if (event.getCode() == KeyCode.NUMPAD6) 
-		switch_map(map,map_mult[7]);
-	if (event.getCode() == KeyCode.NUMPAD7) 
-		switch_map(map,map_mult[8]);
-	if (event.getCode() == KeyCode.NUMPAD8) 
-		switch_map(map,map_mult[9]);
-	if (event.getCode() == KeyCode.NUMPAD9) 
-		switch_map(map,map_mult[10]);	
-		});
+			Save_Load save_load = new Save_Load();
+			//Fast Save call
+			if (event.getCode() == KeyCode.S) {
+				save_load.save(map,true);
+			}
+			//Selection one
+			if (event.getCode() == KeyCode.X) {
+				save_load.save(map,false);
+			}
+			/* Load fast call */
+			if (event.getCode() == KeyCode.C) {
+				save_load.load(map, scene,true);
+			}
+			//Selection one
+			if (event.getCode() == KeyCode.V) {
+				save_load.load(map, scene,false);
+			}
+			//Nine instance of different map
+			if (event.getCode() == KeyCode.NUMPAD1) 
+				switch_map(map,map_mult[2]);
+			if (event.getCode() == KeyCode.NUMPAD2) 
+				switch_map(map,map_mult[3]);
+			if (event.getCode() == KeyCode.NUMPAD3) 
+				switch_map(map,map_mult[4]);
+			if (event.getCode() == KeyCode.NUMPAD4) 
+				switch_map(map,map_mult[5]);
+			if (event.getCode() == KeyCode.NUMPAD5) 
+				switch_map(map,map_mult[6]);
+			if (event.getCode() == KeyCode.NUMPAD6) 
+				switch_map(map,map_mult[7]);
+			if (event.getCode() == KeyCode.NUMPAD7) 
+				switch_map(map,map_mult[8]);
+			if (event.getCode() == KeyCode.NUMPAD8) 
+				switch_map(map,map_mult[9]);
+			if (event.getCode() == KeyCode.NUMPAD9) 
+				switch_map(map,map_mult[10]);	
+				});
 
 	}
 	

@@ -24,36 +24,7 @@ import view.Map;
  */
 public final class Save_Load {
 
-	/**
-	 * Save_load selects which mode to launch .
-	 *
-	 * @param m     the actual map ( i.e represents the model of the application) 
-	 * @param scene the scene  See <a href="https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Scene.html">https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Scene.html</a>
-	 */
-	void save_load(Map m, Scene scene) {
-		
-		scene.setOnKeyPressed(event -> {
-			/*  Save call Fast one */
-			if (event.getCode() == KeyCode.S) {
-				System.out.println("coucou");
-				this.save(m,true);
-			}
-			//Selection one
-			if (event.getCode() == KeyCode.X) {
-				this.save(m,false);
-			}
-			/* Load fast call */
-			if (event.getCode() == KeyCode.C) {
-				this.load(m, scene,true);
-			}
-			//Selection one
-			if (event.getCode() == KeyCode.V) {
-				this.load(m, scene,false);
-			}
-			
-		});
-	}
-	 
+	
  	/**
  	 * Choose path.
  	 *
@@ -83,7 +54,7 @@ public final class Save_Load {
 	 * @param m the actual map ( i.e represents the model of the application)
 	 * @param fast_save the boolean to know if you want fast save
 	 */
-	void save(Map m, boolean fast_save) {
+	public void save(Map m, boolean fast_save) {
 		System.out.println("******************SAVE DONE **************************");
 		
 		ObjectOutputStream object = null; // object flux 
@@ -120,7 +91,7 @@ public final class Save_Load {
 	 * @param scene the scene  See <a href="https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Scene.html">https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Scene.html</a>
 	 * @param fast_load the boolean to know if you want fast load
 	 */
-	void load(Map m, Scene scene,boolean fast_load ) {
+	public void load(Map m, Scene scene,boolean fast_load ) {
 		// object flux
 		ObjectInputStream object = null;
 		// the new_map loaded from file

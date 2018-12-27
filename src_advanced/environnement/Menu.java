@@ -251,11 +251,10 @@ public class Menu {
 		gc.setFill(Color.GREY);
 		gc.setStroke(Color.GREY);
 		int width = (Map.FOV_WIDTH/2);
-		int height = (Map.FOV_HEIGHT/2)+200;
+		int height = (Map.FOV_HEIGHT/2)+150;
 		int add_to_width_nb = +0;
 		String nb =  String.valueOf(total);
 		gc.setFont(Font.font("Helvetica", FontWeight.NORMAL, 24));
-		gc.fillText("Current nb planets :", width-230, height);
 		gc.fillText(nb, width+add_to_width_nb, height);
 		gc.strokeText(nb,width+add_to_width_nb,height);
 	}
@@ -276,8 +275,8 @@ public class Menu {
 		String nb =  String.valueOf(max_nb_planets);
 		gc.setFont(Font.font("Helvetica", FontWeight.NORMAL, 24));
 		gc.fillText("Max planet possible :", width-230, height);
-		gc.fillText(nb, width+add_to_width_nb, height);
-		gc.strokeText(nb,width+add_to_width_nb,height);
+		gc.fillText(" / "+nb, width+add_to_width_nb, height);
+		gc.strokeText(" / "+nb,width+add_to_width_nb,height);
 	}
 	
 	/**

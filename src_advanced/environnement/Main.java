@@ -118,11 +118,10 @@ public class Main extends Application {
 		stage.show();
 		
 		//Save load object
-		//Key_Handler key = new Key_Handler();
-		//key.nine_instance(scene, map, map_mult,scene2,stage);
+		Key_Handler key = new Key_Handler();
+		key.event_keyboard(scene, map, map_mult,scene2,stage);
 		Menu m = new Menu();	
-		Save_Load save_load = new Save_Load();
-		save_load.save_load(map, scene);
+		
 		
 		//Tick actions
 		new AnimationTimer() {	
@@ -140,8 +139,7 @@ public class Main extends Application {
 						//Apply the scene of the game
 						stage.setWidth(Map.FOV_WIDTH);
 						stage.setHeight(Map.FOV_HEIGHT);
-						Save_Load save_load = new Save_Load();
-						save_load.save_load(map, scene);
+						
 						stage.setScene(scene);
 						stage.show();}
 					}

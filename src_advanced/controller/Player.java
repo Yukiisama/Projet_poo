@@ -29,7 +29,7 @@ public class Player implements Serializable {
 	 */
 	public Player(int id) {
 		this.ID = id;
-		if (id == 0) this.color = Color.DARKRED;
+		if (id == 0) this.color = Color.RED;
 		else this.color = (Color.color(Math.random(), Math.random(), Math.random()));
 	}
 	
