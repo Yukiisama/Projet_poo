@@ -163,13 +163,13 @@ public class SpaceShip implements Serializable {
 	 *
 	 * @param gc the GraphicsContext.
 	 */
-	public void draw(GraphicsContext gc) {
+	public void draw(GraphicsContext gc, Point2D camera) {
 		if (this.shape.compareTo("Square") == 0 || this.shape.compareTo("Rectangle") == 0) {
-			gc.fillRect(this.center.getX()-this.width/2, this.center.getY()-this.height/2, this.width, this.height);
+			gc.fillRect(this.center.getX()-this.width/2-camera.getX(), this.center.getY()-this.height/2-camera.getY(), this.width, this.height);
 			//System.out.println("Je draw tavu");
 		}
 		else if(this.shape.compareTo("Circle") == 0 || this.shape.compareTo("Oval") == 0){
-			gc.fillOval(this.center.getX()-this.width/2, this.center.getY()-this.height/2, this.width, this.height);
+			gc.fillOval(this.center.getX()-this.width/2-camera.getX(), this.center.getY()-this.height/2-camera.getY(), this.width, this.height);
 		}
 	}
 }

@@ -17,11 +17,17 @@ public final class Mouse_Handler {
 	/** The clicked one design the planet selected by the user. */
 	private Planet clicked_one;
 	
-	/** The clicked is a boolean state to indicate if a clic has occured. */
-	private boolean clicked;
+	/** The clicked_on_planet is a boolean state to indicate if a clic has occured. */
+	private boolean clicked_on_planet;
+
+	/** The clicked_elsewhere is a boolean state to indicate if a clic has occured. */
+	private boolean clicked_elsewhere;
 	
 	/** The clicked y represents the ordered (Y) coordinates. */
 	private int clicked_y;
+	
+	/** The clicked y represents the ordered (X) coordinates. */
+	private int clicked_x;
 	
 
 	/**
@@ -39,11 +45,11 @@ public final class Mouse_Handler {
 			boolean clicked_on_planet = false;
 			for (int i = 0 ; i < size ; i++) {
 				int id_player = planet_tab[i].getID_player();
-				if (planet_tab[i].is_inside(new Point2D((int)event.getX(), (int)event.getY()))) { // If clicked on a planet
+				if (planet_tab[i].is_inside(new Point2D((int)event.getX()+map.getCamera().getX(), (int)event.getY()+map.getCamera().getY()))) { // If clicked on a planet
 					clicked_on_planet = true;
 					if (id_player == 0) { // If it's a planet of its own, select it
 						this.clicked_one = planet_tab[i];
-						this.clicked = true;
+						this.clicked_on_planet = true;
 						this.clicked_y = (int)event.getY();
 					}
 					else if (id_player != 0) { // Otherwise, if we have planets selected, we're attacking
@@ -52,18 +58,40 @@ public final class Mouse_Handler {
 					}
 				}
 			}
-			if (!clicked_on_planet) { for (int j = 0 ; j < size ; j++) { planet_tab[j].setSelected(0); } } // If clicked elsewhere, unselect every planet
+			if (!clicked_on_planet) {
+				for (int j = 0 ; j < size ; j++) { planet_tab[j].setSelected(0); }
+				this.clicked_elsewhere = true;
+				this.clicked_y = (int)event.getY();
+				this.clicked_x = (int)event.getX();
+			} // If clicked elsewhere, unselect every planet
 		});
 		
 		scene.setOnMouseDragged(event -> {
-			if (this.clicked) {
-				int deltaY = (int)event.getY() - this.clicked_y;
-				int new_selected = -deltaY*100/this.clicked_one.getHeight();
-				if (new_selected >= 0 && new_selected <= 100) this.clicked_one.setSelected(new_selected);
+			if (this.clicked_on_planet) {
+				int deltaY = this.clicked_y - (int)event.getY();
+				double ratio = (double)deltaY/(double)this.clicked_one.getHeight();
+				double new_selected = ratio*100;
+				if (new_selected > 100) new_selected = 100;
+				if (new_selected >= 0) this.clicked_one.setSelected(new_selected);
 				else if (new_selected < 0) this.clicked_one.setSelected(0);
+			}
+			else if (this.clicked_elsewhere) {
+				int deltaY = this.clicked_y - (int)event.getY();
+				int deltaX = this.clicked_x - (int)event.getX();
+				Point2D new_camera = new Point2D(map.getCamera().getX(), map.getCamera().getY());
+				if (new_camera.getX()+deltaX >= 0 && new_camera.getX()+deltaX < Map.WIDTH - Map.FOV_WIDTH)
+					new_camera.setX(map.getCamera().getX()+deltaX);
+				if ( new_camera.getY()+deltaY >= 0 && new_camera.getY()+deltaY < Map.HEIGHT - Map.FOV_HEIGHT)
+					new_camera.setY(map.getCamera().getY()+deltaY);
+				map.setCamera(new_camera);
+				this.clicked_y = (int)event.getY();
+				this.clicked_x = (int)event.getX();
 			}
 		});
 		
-		scene.setOnMouseReleased(event -> { this.clicked = false; });
+		scene.setOnMouseReleased(event -> {
+			this.clicked_on_planet = false;
+			this.clicked_elsewhere = false;
+		});
 	}
 }

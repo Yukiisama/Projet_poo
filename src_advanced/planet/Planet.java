@@ -44,7 +44,7 @@ public class Planet implements Serializable {
 	private long production_time;
 	
 	/** If the planet is selected by player. */
-	private int selected;
+	private double selected;
 	
 	/** The squadron tab. */
 	private Squadron[] squadron_tab;
@@ -219,14 +219,14 @@ public class Planet implements Serializable {
 	 *
 	 * @return the selected
 	 */
-	public int getSelected() { return selected; }
+	public double getSelected() { return selected; }
 	
 	/**
 	 * Sets the selected.
 	 *
-	 * @param selected the new selected
+	 * @param new_selected the new selected
 	 */
-	public void setSelected(int selected) { this.selected = selected; }
+	public void setSelected(double new_selected) { this.selected = new_selected; }
 
 	/**
 	 * Gets the squadron tab.
@@ -292,12 +292,12 @@ public class Planet implements Serializable {
 	 *
 	 * @param gc the GraphicsContext
 	 */
-	public void draw(GraphicsContext gc) {
+	public void draw(GraphicsContext gc, Point2D cam) {
 		if (this.shape.compareTo("Square") == 0 || this.shape.compareTo("Rectangle") == 0) {
-			gc.fillRect(this.center.getX()-this.width/2, this.center.getY()-this.height/2, this.width, this.height);
+			gc.fillRect(this.center.getX()-this.width/2-cam.getX(), this.center.getY()-this.height/2-cam.getY(), this.width, this.height);
 		}
 		else if(this.shape.compareTo("Circle") == 0 || this.shape.compareTo("Oval") == 0){
-			gc.fillOval(this.center.getX()-this.width/2, this.center.getY()-this.height/2, this.width, this.height);
+			gc.fillOval(this.center.getX()-this.width/2-cam.getX(), this.center.getY()-this.height/2-cam.getY(), this.width, this.height);
 		}
 	}
 

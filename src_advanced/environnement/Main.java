@@ -61,13 +61,13 @@ public class Main extends Application {
 		Group root = new Group();
 		Scene scene = new Scene(root);
 		//Original Canvas (drawing planets)
-		Canvas canvas = new Canvas(Map.WIDTH, Map.HEIGHT);
+		Canvas canvas = new Canvas(Map.FOV_WIDTH, Map.FOV_HEIGHT);
 		root.getChildren().add(canvas);
 		//CANVAS for text on planets
-		Canvas canvas2 = new Canvas(Map.WIDTH, Map.HEIGHT);
+		Canvas canvas2 = new Canvas(Map.FOV_WIDTH, Map.FOV_HEIGHT);
 		root.getChildren().add(canvas2);
 		// CANVAS for ships
-		Canvas canvas3 = new Canvas(Map.WIDTH, Map.HEIGHT);
+		Canvas canvas3 = new Canvas(Map.FOV_WIDTH, Map.FOV_HEIGHT);
 		root.getChildren().add(canvas3);
 		// graphic canvas for drawing planets
 		GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -99,12 +99,12 @@ public class Main extends Application {
 		mouse_event.apply_event_mouse(map, gc, scene);
 		
 		// Load the "wallpaper" and menu "wallpaper" of the application
-		Image space = new Image(getRessourcePathByName("images/wallpaper.jpg"), Map.WIDTH, Map.HEIGHT, false, false);
-		Image menu_img = new Image(getRessourcePathByName("images/menu.jpg"), Map.WIDTH, Map.HEIGHT, false, false);
+		Image space = new Image(getRessourcePathByName("images/wallpaper.jpg"), Map.FOV_WIDTH, Map.FOV_HEIGHT, false, false);
+		Image menu_img = new Image(getRessourcePathByName("images/menu.jpg"), Map.FOV_WIDTH, Map.FOV_HEIGHT, false, false);
 		
 		//Menu initialisation
 		Group root_menu =new Group();
-		Canvas canvas_menu = new Canvas(Map.WIDTH, Map.HEIGHT);
+		Canvas canvas_menu = new Canvas(Map.FOV_WIDTH, Map.FOV_HEIGHT);
 		GraphicsContext gc_menu = canvas_menu.getGraphicsContext2D();
 		gc_menu.setFont(Font.font("Helvetica", FontWeight.BOLD, 24));
 		gc_menu.setFill(Color.BISQUE);
@@ -144,8 +144,8 @@ public class Main extends Application {
 					}
 				else{
 				gc.drawImage(space, 0, 0);
-				gc2.clearRect(0, 0, Map.WIDTH, Map.HEIGHT); // CLEAR TXT RECT
-				gc3.clearRect(0, 0, Map.WIDTH, Map.HEIGHT); // CLEAR TXT RECT
+				gc2.clearRect(0, 0, Map.FOV_WIDTH, Map.FOV_HEIGHT); // CLEAR TXT RECT
+				gc3.clearRect(0, 0, Map.FOV_WIDTH, Map.FOV_HEIGHT); // CLEAR TXT RECT
 				map.draw_planets(gc); // Draw planets each tick
 				map.draw_text_planets(gc2); // Draw text production of planets each tick
 				map.draw_squadrons(gc3); // If squadron exists draw each tick his new position

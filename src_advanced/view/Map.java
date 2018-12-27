@@ -25,10 +25,19 @@ public class Map implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/** The Constant WIDTH. */
-	public final static int WIDTH = 1800;
+	public final static int WIDTH = 3600;
 	
 	/** The Constant HEIGHT. */
-	public final static int HEIGHT = 920;
+	public final static int HEIGHT = 1840;
+	
+	/** The Constant FOV_WIDTH. */
+	public final static int FOV_WIDTH = 1800;
+	
+	/** The Constant FOV_HEIGHT. */
+	public final static int FOV_HEIGHT = 920;
+	
+	/** The point representing the camera's position */
+	private Point2D camera;
 	
 	/** The min dist. */
 	private int min_dist = 200;
@@ -68,6 +77,7 @@ public class Map implements Serializable {
 		this.nb_players = nb_players;
 		this.add_planets();
 		this.add_players(level_IA);
+		this.camera = new Point2D(0,0);
 		
 		
 	}
@@ -127,7 +137,21 @@ public class Map implements Serializable {
 	 * @param nb_players the new nb players
 	 */
 	public void setNb_players(int nb_players) { this.nb_players = nb_players; }
+	
+	
+	/**
+	 * Gets the camera.
+	 *
+	 * @return the camera
+	 */
+	public Point2D getCamera() { return camera; }
 
+	/**
+	 * Sets the camera.
+	 *
+	 * @param came the new camera
+	 */
+	public void setCamera(Point2D camera) { this.camera = camera; }
 
 	/**
 	 * Adds the players.
@@ -283,7 +307,7 @@ public class Map implements Serializable {
 					}
 				}
 			}
-			planet.draw(gc);
+			planet.draw(gc, camera);
 		}
 	}
 	
@@ -296,13 +320,13 @@ public class Map implements Serializable {
 		for (int i = 0 ; i < this.getNb_planets() ; i++) {
 			String nb_ships =  String.valueOf(planet_tab[i].getNb_ship());
 			gc2.setFont(Font.font("Helvetica", FontWeight.NORMAL, 24));
-			gc2.fillText(nb_ships, this.planet_tab[i].getCenter().getX(), this.planet_tab[i].getCenter().getY()+6);
-			gc2.strokeText(nb_ships, this.planet_tab[i].getCenter().getX(), this.planet_tab[i].getCenter().getY()+6);
+			gc2.fillText(nb_ships, this.planet_tab[i].getCenter().getX()-camera.getX(), this.planet_tab[i].getCenter().getY()-camera.getY()+6);
+			gc2.strokeText(nb_ships, this.planet_tab[i].getCenter().getX()-camera.getX(), this.planet_tab[i].getCenter().getY()-camera.getY()+6);
 			gc2.setFont(Font.font("Helvetica", FontWeight.NORMAL, 12));
 			if (planet_tab[i].getID_player() == 0) {
-				String selected = String.valueOf(planet_tab[i].getSelected())+"%";
-				gc2.fillText(selected, this.planet_tab[i].getCenter().getX(), this.planet_tab[i].getCenter().getY()+18);
-				gc2.strokeText(selected, this.planet_tab[i].getCenter().getX(), this.planet_tab[i].getCenter().getY()+18);
+				String selected = String.valueOf((int)planet_tab[i].getSelected())+"%";
+				gc2.fillText(selected, this.planet_tab[i].getCenter().getX()-camera.getX(), this.planet_tab[i].getCenter().getY()-camera.getY()+18);
+				gc2.strokeText(selected, this.planet_tab[i].getCenter().getX()-camera.getX(), this.planet_tab[i].getCenter().getY()-camera.getY()+18);
 			}
 		}
 	}
@@ -318,7 +342,7 @@ public class Map implements Serializable {
 			SpaceShip tab[] = this.pirate.getSquadron_tab()[j].getSpaceship_tab();
 			for (int k = 0; k < this.pirate.getSquadron_tab()[j].getSize(); k++) {
 				gc3.setFill(Color.ORANGE);
-				tab[k].draw(gc3);
+				tab[k].draw(gc3, camera);
 			}
 			this.pirate.getSquadron_tab()[j].squadron_move(5,planet_tab);
 			
@@ -330,7 +354,7 @@ public class Map implements Serializable {
 				for (int k = 0; k < this.planet_tab[i].getSquadron_tab()[j].getSize(); k++) {
 					int id_player = this.planet_tab[i].getSquadron_tab()[j].getOrigin().getID_player();
 					for (int l = 0 ; l < nb_players ; l++) if (this.player_tab[l].getID() == id_player) gc3.setFill(this.player_tab[l].getColor());
-					tab[k].draw(gc3);
+					tab[k].draw(gc3, camera);
 					
 				}
 				this.planet_tab[i].getSquadron_tab()[j].squadron_move(this.planet_tab[i].getSquadron_tab()[j].getSpeed(),planet_tab);

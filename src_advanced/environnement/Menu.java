@@ -14,6 +14,9 @@ import view.Map;
  */
 public class Menu {
 	
+	/** The limit number of planets. */
+	private int max_nb_planets = 200;
+	
 	/** The value P. */
 	private int valueP = 10;
 	
@@ -24,25 +27,25 @@ public class Menu {
 	private int valueLevelIA = 1;
 	
 	/** The p pla plus. */
-	private Point2D p_pla_plus = new Point2D((Map.WIDTH/2)+30, Map.HEIGHT/2);
+	private Point2D p_pla_plus = new Point2D((Map.FOV_WIDTH/2)+30, Map.FOV_HEIGHT/2);
 	
 	/** The p pla less. */
-	private Point2D p_pla_less = new Point2D((Map.WIDTH/2)+80, Map.HEIGHT/2);
+	private Point2D p_pla_less = new Point2D((Map.FOV_WIDTH/2)+80, Map.FOV_HEIGHT/2);
 	
 	/** The p ia plus. */
-	private Point2D p_ia_plus = new Point2D((Map.WIDTH/2)+30, (Map.HEIGHT/2)-50);
+	private Point2D p_ia_plus = new Point2D((Map.FOV_WIDTH/2)+30, (Map.FOV_HEIGHT/2)-50);
 	
 	/** The p ia less. */
-	private Point2D p_ia_less = new Point2D((Map.WIDTH/2)+80, (Map.HEIGHT/2)-50);
+	private Point2D p_ia_less = new Point2D((Map.FOV_WIDTH/2)+80, (Map.FOV_HEIGHT/2)-50);
 	
 	/** The p level I A plus. */
-	private Point2D p_levelIA_plus = new Point2D((Map.WIDTH/2)+30 , (Map.HEIGHT/2)+50);
+	private Point2D p_levelIA_plus = new Point2D((Map.FOV_WIDTH/2)+30 , (Map.FOV_HEIGHT/2)+50);
 	
 	/** The p level I A less. */
-	private Point2D p_levelIA_less = new Point2D((Map.WIDTH/2)+80 , (Map.HEIGHT/2)+50);
+	private Point2D p_levelIA_less = new Point2D((Map.FOV_WIDTH/2)+80 , (Map.FOV_HEIGHT/2)+50);
 	
 	/** The play. */
-	private Point2D play = new Point2D((Map.WIDTH/2)-80, Map.HEIGHT/2-130);
+	private Point2D play = new Point2D((Map.FOV_WIDTH/2)-80, Map.FOV_HEIGHT/2-130);
 	
 	/** The state play. */
 	private boolean state_play = false;
@@ -80,19 +83,24 @@ public class Menu {
 		scene.setOnMousePressed(event2 -> {
 			
 			Point2D p = new Point2D((int)event2.getX(), (int)event2.getY());
-			int total = valueP*(valueIA+1);
-			if(total<50 && p.distance(p_pla_plus)<25)
+
+			// Buttons for planets per IA/player/neutrals incre-decre-mentation | Also checking is the total number of planets won't hit the limit
+			int total = valueP*(valueIA+3); // +3 cause of player + neutrals + IA we wanna add
+			if(total<=max_nb_planets && p.distance(p_pla_plus)<25)
 				valueP+=1;
 			else if(valueP>1 && p.distance(p_pla_less)<20)
 				valueP-=1;
-			
-			if((valueIA+1)*valueP<50 && p.distance(p_ia_plus)<25)
+
+			// Buttons for number of IAs incre-decre-mentation
+			if(total<=max_nb_planets && p.distance(p_ia_plus)<25)
 				valueIA+=1;
 			else if(valueIA>1 && p.distance(p_ia_less)<20)
 				valueIA-=1;
+
+			// Buttons for level of IAs incre-decre-mentation
 			if(valueLevelIA<5 && p.distance(p_levelIA_plus)<25)
 				valueLevelIA+=1;
-			else if (valueIA>2 && p.distance(p_levelIA_less)<20)
+			else if (valueLevelIA>1 && p.distance(p_levelIA_less)<20)
 				valueLevelIA-=1;
 			
 			if(contains(play,p,60,25)) {
@@ -111,8 +119,8 @@ public class Menu {
 	 */
 	private void apply_text_play(GraphicsContext gc) {
 		gc.setFont(Font.font("Helvetica", FontWeight.BOLD, 50));
-		gc.fillText("PLAY", (Map.WIDTH/2)-150, Map.HEIGHT/2-100);
-		gc.strokeText("PLAY",(Map.WIDTH/2)-150, Map.HEIGHT/2-100);
+		gc.fillText("PLAY", (Map.FOV_WIDTH/2)-150, Map.FOV_HEIGHT/2-100);
+		gc.strokeText("PLAY",(Map.FOV_WIDTH/2)-150, Map.FOV_HEIGHT/2-100);
 	}
 	
 	/**
@@ -121,7 +129,7 @@ public class Menu {
 	 * @param gc the gc
 	 */
 	private void apply_text_planets(GraphicsContext gc) {
-		apply_text( gc , valueP , Map.WIDTH/2 , Map.HEIGHT/2,24,"Planets per Player :");
+		apply_text( gc , valueP , Map.FOV_WIDTH/2 , Map.FOV_HEIGHT/2,24,"Planets per Player :");
 	}
 	
 	/**
@@ -130,7 +138,7 @@ public class Menu {
 	 * @param gc the gc
 	 */
 	private void apply_text_IA(GraphicsContext gc) {
-		apply_text( gc , valueIA , Map.WIDTH/2 , (Map.HEIGHT/2)-50,24,"Number of IA :");
+		apply_text( gc , valueIA , Map.FOV_WIDTH/2 , (Map.FOV_HEIGHT/2)-50,24,"Number of IA :");
 	}
 	
 	/**
@@ -139,7 +147,7 @@ public class Menu {
 	 * @param gc the gc
 	 */
 	private void apply_text_LevelIA(GraphicsContext gc) {
-		apply_text( gc , valueLevelIA , Map.WIDTH/2 , (Map.HEIGHT/2)+50,24,"Level of IA :");
+		apply_text( gc , valueLevelIA , Map.FOV_WIDTH/2 , (Map.FOV_HEIGHT/2)+50,24,"Level of IA :");
 	}
 	
 	/**
