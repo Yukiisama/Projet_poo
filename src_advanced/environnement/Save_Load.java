@@ -35,6 +35,7 @@ public final class Save_Load {
 		scene.setOnKeyPressed(event -> {
 			/*  Save call Fast one */
 			if (event.getCode() == KeyCode.S) {
+				System.out.println("coucou");
 				this.save(m,true);
 			}
 			//Selection one
@@ -139,8 +140,11 @@ public final class Save_Load {
 					Player tabp[] = m.getPlayer_tab();
 					// Set the new map ( the load one) and change the current map values
 					m.setNb_planets(new_m.getNb_planets());  m.setNb_players(new_m.getNb_players());
-					for (int i = 0 ; i < new_m.getNb_planets() ;i++) tab_map_param[i] = tab[i];
+					for (int i = 0 ; i < new_m.getNb_planets() ;i++) {
+						tab_map_param[i] = tab[i]; 
+					}
 					m.setPlayer_tab(tabp);  m.setPlanet_tab(tab_map_param);
+					
 					object.close();
 					
 				} catch (final java.io.IOException e) {

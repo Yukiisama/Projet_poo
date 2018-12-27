@@ -107,23 +107,22 @@ public class Main extends Application {
 		Canvas canvas_menu = new Canvas(Map.FOV_WIDTH, Map.FOV_HEIGHT);
 		GraphicsContext gc_menu = canvas_menu.getGraphicsContext2D();
 		gc_menu.setFont(Font.font("Helvetica", FontWeight.BOLD, 24));
-		gc_menu.setFill(Color.BISQUE);
+		gc_menu.setFill(Color.WHITE);
 		gc_menu.setStroke(Color.WHITE);
 		gc_menu.setLineWidth(1);
 		root_menu.getChildren().add(canvas_menu);
 		Scene scene2 = new Scene(root_menu);
-		
 		// Apply the scene
 		if(menu) stage.setScene(scene2);
 		else stage.setScene(scene);
 		stage.show();
 		
 		//Save load object
+		//Key_Handler key = new Key_Handler();
+		//key.nine_instance(scene, map, map_mult,scene2,stage);
+		Menu m = new Menu();	
 		Save_Load save_load = new Save_Load();
 		save_load.save_load(map, scene);
-		Key_Handler key = new Key_Handler();
-		key.nine_instance(scene, map, map_mult,scene2,stage);
-		Menu m = new Menu();	
 		
 		//Tick actions
 		new AnimationTimer() {	
@@ -139,6 +138,10 @@ public class Main extends Application {
 						map.setPlanet_tab(map2.getPlanet_tab());  map.setPlayer_tab(map2.getPlayer_tab());
 						for(int i =1 ; i<11;i++)  map_mult[i]=new Map(Planet*(IA+1),(IA+1),levelIA);
 						//Apply the scene of the game
+						stage.setWidth(Map.FOV_WIDTH);
+						stage.setHeight(Map.FOV_HEIGHT);
+						Save_Load save_load = new Save_Load();
+						save_load.save_load(map, scene);
 						stage.setScene(scene);
 						stage.show();}
 					}

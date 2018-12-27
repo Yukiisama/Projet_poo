@@ -43,28 +43,28 @@ public class SpaceShip implements Serializable {
 	public SpaceShip(Point2D center, String shape, int id_player) {
 		this.center = center;
 		this.shape = shape;
-		if (shape == "Square") {
+		if (this.shape.compareTo("Square")==0) {
 			this.width = 10;
 			this.height = 10;
 			this.speed = 5;
 			this.attack_power = 3;
 			
 		}
-		else if (shape == "Rectangle") {
+		else if (this.shape.compareTo("Rectangle")==0) {
 			this.width = 15;
 			this.height = 5;
 			this.speed = 6;
 			this.attack_power = 4;
 			
 		}
-		else if (shape == "Circle") {
+		else if (this.shape.compareTo("Circle")==0) {
 			this.width = 10;
 			this.height = 10;
 			this.speed = 5;
 			this.attack_power = 1;
 			
 		}
-		else if (shape == "Oval") {
+		else if (this.shape.compareTo("Oval")==0) {
 			this.width = 5;
 			this.height = 15;
 			this.speed = 4;

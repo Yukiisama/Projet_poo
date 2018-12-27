@@ -25,16 +25,16 @@ public class Map implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/** The Constant WIDTH. */
-	public final static int WIDTH = 3600;
+	public  static int WIDTH = 3600;
 	
 	/** The Constant HEIGHT. */
-	public final static int HEIGHT = 1840;
+	public  static int HEIGHT = 1840;
 	
 	/** The Constant FOV_WIDTH. */
-	public final static int FOV_WIDTH = 1800;
+	public  static int FOV_WIDTH = 1900;
 	
 	/** The Constant FOV_HEIGHT. */
-	public final static int FOV_HEIGHT = 920;
+	public  static int FOV_HEIGHT = 1080;
 	
 	/** The point representing the camera's position */
 	private Point2D camera;
@@ -341,7 +341,7 @@ public class Map implements Serializable {
 		for(int j = 0 ; j  < this.pirate.getNb_squadron() ; j++) {
 			SpaceShip tab[] = this.pirate.getSquadron_tab()[j].getSpaceship_tab();
 			for (int k = 0; k < this.pirate.getSquadron_tab()[j].getSize(); k++) {
-				gc3.setFill(Color.ORANGE);
+				gc3.setFill(Color.GREY);
 				tab[k].draw(gc3, camera);
 			}
 			this.pirate.getSquadron_tab()[j].squadron_move(5,planet_tab);
