@@ -135,13 +135,13 @@ public class Menu {
 
 			// Buttons for planets per IA/player/neutrals incre-decre-mentation | Also checking is the total number of planets won't hit the limit
 			int total = valueP*(valueIA+3); // +3 cause of player + neutrals + IA we wanna add
-			if(total<=max_nb_planets && p.distance(p_pla_plus)<25)
+			if(p.distance(p_pla_plus)<25)
 				valueP+=1;
-			else if(valueP>1 && p.distance(p_pla_less)<20)
+			else if(p.distance(p_pla_less)<20)
 				valueP-=1;
 
 			// Buttons for number of IAs incre-decre-mentation
-			if(total<=max_nb_planets && p.distance(p_ia_plus)<25)
+			if( p.distance(p_ia_plus)<25)
 				valueIA+=1;
 			else if(valueIA>1 && p.distance(p_ia_less)<20)
 				valueIA-=1;
@@ -175,8 +175,11 @@ public class Menu {
 				valueHeight-=120;
 			
 			if(contains(play,p,60,25)) {
+				if(max_nb_planets>=valueP*(valueIA+2)) {
 				state_play=true;
 				apply_change();
+				}
+				else System.out.println("capacity planets must be <200");
 			}
 			
 		});
@@ -247,9 +250,11 @@ public class Menu {
 	 * @param gc the gc
 	 */
 	private void apply_text_nbcurrentplanet(GraphicsContext gc) {
-		int total = valueP*(valueIA+2); 
-		gc.setFill(Color.GREY);
-		gc.setStroke(Color.GREY);
+		int total = valueP*(valueIA+2);
+		Color c = Color.GREEN;
+		if(max_nb_planets+1<=total)c=Color.RED; 
+		gc.setFill(c);
+		gc.setStroke(c);
 		int width = (Map.FOV_WIDTH/2);
 		int height = (Map.FOV_HEIGHT/2)+150;
 		int add_to_width_nb = +0;
@@ -265,8 +270,11 @@ public class Menu {
 	 * @param gc the gc
 	 */
 	private void apply_text_nbplanet_possible(GraphicsContext gc) {
-		gc.setFill(Color.GREY);
-		gc.setStroke(Color.GREY);
+		int total = valueP*(valueIA+2);
+		Color c = Color.GREEN;
+		if(max_nb_planets+1<=total)c=Color.RED; 
+			gc.setFill(c);
+			gc.setStroke(c);
 		max_nb_planets = (valueHeight*valueWidth)/ratio_nb_planet;
 		if(max_nb_planets>200)max_nb_planets=200;
 		int width = (Map.FOV_WIDTH/2);
@@ -275,8 +283,8 @@ public class Menu {
 		String nb =  String.valueOf(max_nb_planets);
 		gc.setFont(Font.font("Helvetica", FontWeight.NORMAL, 24));
 		gc.fillText("Max planet possible :", width-230, height);
-		gc.fillText(" / "+nb, width+add_to_width_nb, height);
-		gc.strokeText(" / "+nb,width+add_to_width_nb,height);
+		gc.fillText("  /  "+nb, width+add_to_width_nb, height);
+		gc.strokeText("  /  "+nb,width+add_to_width_nb,height);
 	}
 	
 	/**
