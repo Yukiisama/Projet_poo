@@ -54,6 +54,7 @@ public final class Squadron implements Serializable {
 				double y = Math.sin(angle) * radius;
 				Point2D where = new Point2D((int)(this.origin.getCenter().getX()+x), (int)(this.origin.getCenter().getY()+y));
 				spaceship_tab[i] = new SpaceShip(where, this.origin.getShips_shape(), this.origin.getID_player());
+				if (i == 0) spaceship_tab[0].setLeader(true);
 				this.origin.setNb_ship(this.origin.getNb_ship() - 1);
 			}
 			
@@ -95,10 +96,10 @@ public final class Squadron implements Serializable {
 	 */
 	public int getSpeed() { 
 		switch(origin.getShips_shape()) {
-		case "Square":return 5;			
-		case "Rectangle":return 6;
-		case "Circle":return 5;
-		case "Oval" : return 4;
+		case "Square":return 6;			
+		case "Rectangle":return 5;
+		case "Circle":return 8;
+		case "Oval" : return 6;
 		default: break;
 		}
 		return 2;
@@ -200,6 +201,7 @@ public final class Squadron implements Serializable {
 				size--;
 				}
 			else {target.setID_player(origin.getID_player()); size--;}
+			
 		}
 		
 			

@@ -33,6 +33,9 @@ public class SpaceShip implements Serializable {
 	/** The id player. */
 	private int id_player;
 	
+	/** If it is the leader of its squadron. */
+	private boolean leader = false;
+	
 	/**
 	 * Instantiates a new space ship.
 	 *
@@ -46,28 +49,28 @@ public class SpaceShip implements Serializable {
 		if (this.shape.compareTo("Square")==0) {
 			this.width = 10;
 			this.height = 10;
-			this.speed = 5;
+			this.speed = 6;
 			this.attack_power = 3;
 			
 		}
 		else if (this.shape.compareTo("Rectangle")==0) {
 			this.width = 15;
 			this.height = 5;
-			this.speed = 6;
+			this.speed = 5;
 			this.attack_power = 4;
 			
 		}
 		else if (this.shape.compareTo("Circle")==0) {
 			this.width = 10;
 			this.height = 10;
-			this.speed = 5;
+			this.speed = 8;
 			this.attack_power = 1;
 			
 		}
 		else if (this.shape.compareTo("Oval")==0) {
 			this.width = 5;
 			this.height = 15;
-			this.speed = 4;
+			this.speed = 6;
 			this.attack_power = 2;
 			
 		}
@@ -158,6 +161,21 @@ public class SpaceShip implements Serializable {
 	 */
 	public void setId_player(int id_player) { this.id_player = id_player; }
 	
+	
+	/**
+	 * Gets the leader state.
+	 *
+	 * @return the leader state
+	 */
+	public boolean isLeader() { return leader; }
+
+	/**
+	 * Sets the leader state.
+	 *
+	 * @param leader the new leader state
+	 */
+	public void setLeader(boolean leader) { this.leader = leader; }
+
 	/**
 	 * Draw the spaceship on a GraphicsContext.
 	 *
@@ -166,7 +184,6 @@ public class SpaceShip implements Serializable {
 	public void draw(GraphicsContext gc, Point2D camera) {
 		if (this.shape.compareTo("Square") == 0 || this.shape.compareTo("Rectangle") == 0) {
 			gc.fillRect(this.center.getX()-this.width/2-camera.getX(), this.center.getY()-this.height/2-camera.getY(), this.width, this.height);
-			//System.out.println("Je draw tavu");
 		}
 		else if(this.shape.compareTo("Circle") == 0 || this.shape.compareTo("Oval") == 0){
 			gc.fillOval(this.center.getX()-this.width/2-camera.getX(), this.center.getY()-this.height/2-camera.getY(), this.width, this.height);

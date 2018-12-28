@@ -44,50 +44,50 @@ public class Menu {
 	/** The limit number of planets. */
 	private int max_nb_planets = (valueHeight*valueWidth)/ratio_nb_planet;
 	/** The p pla plus. */
-	private Point2D p_pla_plus = new Point2D((Map.FOV_WIDTH/2)+30, Map.FOV_HEIGHT/2-200);
+	private Point2D p_pla_plus = new Point2D((Map.FOV_WIDTH/2)+70, Map.FOV_HEIGHT/2-200);
 	
 	/** The p pla less. */
-	private Point2D p_pla_less = new Point2D((Map.FOV_WIDTH/2)+80, Map.FOV_HEIGHT/2-200);
+	private Point2D p_pla_less = new Point2D((Map.FOV_WIDTH/2)+120, Map.FOV_HEIGHT/2-200);
 	
 	/** The p ia plus. */
-	private Point2D p_ia_plus = new Point2D((Map.FOV_WIDTH/2)+30, (Map.FOV_HEIGHT/2)-150);
+	private Point2D p_ia_plus = new Point2D((Map.FOV_WIDTH/2)+70, (Map.FOV_HEIGHT/2)-150);
 	
 	/** The p ia less. */
-	private Point2D p_ia_less = new Point2D((Map.FOV_WIDTH/2)+80, (Map.FOV_HEIGHT/2)-150);
+	private Point2D p_ia_less = new Point2D((Map.FOV_WIDTH/2)+120, (Map.FOV_HEIGHT/2)-150);
 	
 	/** The p level I A plus. */
-	private Point2D p_levelIA_plus = new Point2D((Map.FOV_WIDTH/2)+30 , (Map.FOV_HEIGHT/2)-100);
+	private Point2D p_levelIA_plus = new Point2D((Map.FOV_WIDTH/2)+70 , (Map.FOV_HEIGHT/2)-100);
 	
 	/** The p level I A less. */
-	private Point2D p_levelIA_less = new Point2D((Map.FOV_WIDTH/2)+80 , (Map.FOV_HEIGHT/2)-100);
+	private Point2D p_levelIA_less = new Point2D((Map.FOV_WIDTH/2)+120 , (Map.FOV_HEIGHT/2)-100);
 	
 	/** The p level I A plus. */
-	private Point2D p_fovwidth_plus = new Point2D((Map.FOV_WIDTH/2)+30 , (Map.FOV_HEIGHT/2)-50);
+	private Point2D p_fovwidth_plus = new Point2D((Map.FOV_WIDTH/2)+70 , (Map.FOV_HEIGHT/2)-50);
 	
 	/** The p level I A less. */
-	private Point2D p_fovwidth_less = new Point2D((Map.FOV_WIDTH/2)+80 , (Map.FOV_HEIGHT/2)-50);
+	private Point2D p_fovwidth_less = new Point2D((Map.FOV_WIDTH/2)+120 , (Map.FOV_HEIGHT/2)-50);
 	
 	/** The p fovheight plus. */
-	private Point2D p_fovheigth_plus = new Point2D((Map.FOV_WIDTH/2)+30 , (Map.FOV_HEIGHT/2));
+	private Point2D p_fovheigth_plus = new Point2D((Map.FOV_WIDTH/2)+70 , (Map.FOV_HEIGHT/2));
 	
 	/** The p fovheight less. */
-	private Point2D p_fovheight_less = new Point2D((Map.FOV_WIDTH/2)+80 , (Map.FOV_HEIGHT/2));
+	private Point2D p_fovheight_less = new Point2D((Map.FOV_WIDTH/2)+120 , (Map.FOV_HEIGHT/2));
 	
 	
 	/** The p height plus. */
-	private Point2D p_width_plus = new Point2D((Map.FOV_WIDTH/2)+30 , (Map.FOV_HEIGHT/2)+50);
+	private Point2D p_width_plus = new Point2D((Map.FOV_WIDTH/2)+70 , (Map.FOV_HEIGHT/2)+50);
 	
 	/** The p height less. */
-	private Point2D p_width_less = new Point2D((Map.FOV_WIDTH/2)+80 , (Map.FOV_HEIGHT/2)+50);
+	private Point2D p_width_less = new Point2D((Map.FOV_WIDTH/2)+120 , (Map.FOV_HEIGHT/2)+50);
 	
 	/** The p height plus. */
-	private Point2D p_heigth_plus = new Point2D((Map.FOV_WIDTH/2)+30 , (Map.FOV_HEIGHT/2)+100);
+	private Point2D p_heigth_plus = new Point2D((Map.FOV_WIDTH/2)+70 , (Map.FOV_HEIGHT/2)+100);
 	
 	/** The p height less. */
-	private Point2D p_height_less = new Point2D((Map.FOV_WIDTH/2)+80 , (Map.FOV_HEIGHT/2)+100);
+	private Point2D p_height_less = new Point2D((Map.FOV_WIDTH/2)+120 , (Map.FOV_HEIGHT/2)+100);
 	
 	/** The play. */
-	private Point2D play = new Point2D((Map.FOV_WIDTH/2)-80, Map.FOV_HEIGHT/2-250);
+	private Point2D play = new Point2D((Map.FOV_WIDTH/2)-50, Map.FOV_HEIGHT/2-300);
 	
 	/** The state play. */
 	private boolean state_play = false;
@@ -133,8 +133,6 @@ public class Menu {
 			
 			Point2D p = new Point2D((int)event2.getX(), (int)event2.getY());
 
-			// Buttons for planets per IA/player/neutrals incre-decre-mentation | Also checking is the total number of planets won't hit the limit
-			int total = valueP*(valueIA+3); // +3 cause of player + neutrals + IA we wanna add
 			if(p.distance(p_pla_plus)<25)
 				valueP+=1;
 			else if(p.distance(p_pla_less)<20)
@@ -152,23 +150,23 @@ public class Menu {
 			else if (valueLevelIA>1 && p.distance(p_levelIA_less)<20)
 				valueLevelIA-=1;
 			
-			// Buttons for fov width resolution incre-decre-mentation
+			// Buttons for fov's width resolution incre-decre-mentation
 			if(valueFovWidth<1900 && p.distance(p_fovwidth_plus)<25)
 				valueFovWidth+=20;
 			else if (valueFovWidth>800 && p.distance(p_fovwidth_less)<20)
 				valueFovWidth-=20;
-			// Buttons for fov width resolution incre-decre-mentation
+			// Buttons for fov's height resolution incre-decre-mentation
 			if(valueFovHeight<1080 && p.distance(p_fovheigth_plus)<25)
 				valueFovHeight+=20;
 			else if (valueFovHeight>600 && p.distance(p_fovheight_less)<20)
 				valueFovHeight-=20;
 			
-			// Buttons for  width resolution incre-decre-mentation
+			// Buttons for map's width incre-decre-mentation
 			if(p.distance(p_width_plus)<25)
 				valueWidth+=120;
 			else if (valueFovWidth+120<=valueWidth && p.distance(p_width_less)<20)
 				valueWidth-=120;
-			// Buttons for  width resolution incre-decre-mentation
+			// Buttons for map's height incre-decre-mentation
 			if(p.distance(p_heigth_plus)<25)
 				valueHeight+=120;
 			else if (valueFovHeight+120<=valueHeight && p.distance(p_height_less)<20)
@@ -193,8 +191,16 @@ public class Menu {
 	 */
 	private void apply_text_play(GraphicsContext gc) {
 		gc.setFont(Font.font("Helvetica", FontWeight.BOLD, 50));
-		gc.fillText("PLAY", (Map.FOV_WIDTH/2)-150, Map.FOV_HEIGHT/2-250);
-		gc.strokeText("PLAY",(Map.FOV_WIDTH/2)-150, Map.FOV_HEIGHT/2-250);
+		gc.fillText("PLAY", (Map.FOV_WIDTH/2)-100, Map.FOV_HEIGHT/2-300);
+		gc.strokeText("PLAY",(Map.FOV_WIDTH/2)-100, Map.FOV_HEIGHT/2-300);
+
+		int total = valueP*(valueIA+2);
+		if(max_nb_planets+1<=total) {
+			gc.setStroke(Color.RED);
+			gc.setLineWidth(2);
+			gc.strokeLine((Map.FOV_WIDTH/2)-110, (Map.FOV_HEIGHT/2)-290, (Map.FOV_WIDTH/2)+35, (Map.FOV_HEIGHT/2)-345);
+			gc.strokeLine((Map.FOV_WIDTH/2)-110, (Map.FOV_HEIGHT/2)-345, (Map.FOV_WIDTH/2)+35, (Map.FOV_HEIGHT/2)-290);
+		}
 	}
 	
 	/**
@@ -230,8 +236,8 @@ public class Menu {
 	 * @param gc the gc
 	 */
 	private void apply_text_Fov(GraphicsContext gc) {
-		apply_text( gc , valueFovWidth , Map.FOV_WIDTH/2 , (Map.FOV_HEIGHT/2)-50,24,"FOV width :",-50);
-		apply_text( gc , valueFovHeight , Map.FOV_WIDTH/2 , (Map.FOV_HEIGHT/2),24,"FOV height :",-50);
+		apply_text( gc , valueFovWidth , Map.FOV_WIDTH/2 , (Map.FOV_HEIGHT/2)-50,24,"FOV's Width :", 0);
+		apply_text( gc , valueFovHeight , Map.FOV_WIDTH/2 , (Map.FOV_HEIGHT/2),24,"FOV's Height :", 0);
 	}
 	
 	/**
@@ -240,8 +246,8 @@ public class Menu {
 	 * @param gc the gc
 	 */
 	private void apply_text_dimension(GraphicsContext gc) {
-		apply_text( gc , valueWidth , Map.FOV_WIDTH/2 , (Map.FOV_HEIGHT/2)+50,24,"Width :",-50);
-		apply_text( gc , valueHeight , Map.FOV_WIDTH/2 , (Map.FOV_HEIGHT/2)+100,24,"Height  :",-50);
+		apply_text( gc , valueWidth , Map.FOV_WIDTH/2 , (Map.FOV_HEIGHT/2)+50,24,"Map's Width :", 0);
+		apply_text( gc , valueHeight , Map.FOV_WIDTH/2 , (Map.FOV_HEIGHT/2)+100,24,"Map's Height :", 0);
 	}
 	
 	/**
@@ -276,7 +282,7 @@ public class Menu {
 			gc.setFill(c);
 			gc.setStroke(c);
 		max_nb_planets = (valueHeight*valueWidth)/ratio_nb_planet;
-		if(max_nb_planets>200)max_nb_planets=200;
+		if(max_nb_planets>120)max_nb_planets=120;
 		int width = (Map.FOV_WIDTH/2);
 		int height = (Map.FOV_HEIGHT/2)+150;
 		int add_to_width_nb = +30;
@@ -307,8 +313,8 @@ public class Menu {
 		gc.fillText(nb, width+add_to_width_nb, height);
 		gc.strokeText(nb,width+add_to_width_nb,height);
 		gc.setFont(Font.font("Helvetica", FontWeight.BOLD, 40));
-		gc.fillText("+", width+30, height);
-		gc.fillText("-", width+80, height);
+		gc.fillText("+", width+70, height+2);
+		gc.fillText("-", width+120, height+2);
 	}
 	
 	/**

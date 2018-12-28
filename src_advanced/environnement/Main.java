@@ -69,6 +69,9 @@ public class Main extends Application {
 		// CANVAS for ships
 		Canvas canvas3 = new Canvas(Map.FOV_WIDTH, Map.FOV_HEIGHT);
 		root.getChildren().add(canvas3);
+		// CANVAS for UI
+		Canvas canvas4 = new Canvas(Map.FOV_WIDTH, Map.FOV_HEIGHT);
+		root.getChildren().add(canvas4);
 		// graphic canvas for drawing planets
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.setFont(Font.font("Helvetica", FontWeight.BOLD, 24));
@@ -88,11 +91,16 @@ public class Main extends Application {
 		gc3.setFill(Color.GREEN);
 		gc3.setStroke(Color.GREEN);
 		gc3.setLineWidth(1);
+		// graphic canvas for drawing UI elements
+		GraphicsContext gc4 = canvas4.getGraphicsContext2D();
+		gc4.setFont(Font.font("Helvetica", FontWeight.NORMAL, 30));
+		gc4.setFill(Color.WHITE);
+		gc4.setStroke(Color.WHITE);
+		gc4.setLineWidth(1);
 
-		// Map ressources
-		Map map_mult[] = new Map[11];
-		for(int i =1 ; i<11;i++)map_mult[i]=new Map(Planet,(IA+1),levelIA);
-		Map map = map_mult[1];
+	
+	
+		Map map = new Map(Planet,(IA+1),levelIA);
 		
 		// Mouse handler
 		Mouse_Handler mouse_event = new Mouse_Handler();
@@ -119,7 +127,7 @@ public class Main extends Application {
 		
 		//Save load object
 		Key_Handler key = new Key_Handler();
-		key.event_keyboard(scene, map, map_mult,scene2,stage);
+		key.event_keyboard(scene, map, scene2,stage);
 		Menu m = new Menu();	
 		
 		
@@ -132,14 +140,12 @@ public class Main extends Application {
 					if(!menu) {
 						//Init after you have selected which map you want 
 						//This will be executed once
-						Map map2= new Map(Planet*(IA+1),(IA+1),levelIA);
-						map.setNb_planets(Planet*(IA+1));  map.setNb_players(IA+1);
+						Map map2= new Map(Planet*(IA+2),(IA+1),levelIA);
+						map.setNb_planets(Planet*(IA+2));  map.setNb_players(IA+1);
 						map.setPlanet_tab(map2.getPlanet_tab());  map.setPlayer_tab(map2.getPlayer_tab());
-						for(int i =1 ; i<11;i++)  map_mult[i]=new Map(Planet*(IA+1),(IA+1),levelIA);
 						//Apply the scene of the game
 						stage.setWidth(Map.FOV_WIDTH);
 						stage.setHeight(Map.FOV_HEIGHT);
-						
 						stage.setScene(scene);
 						stage.show();}
 					}
@@ -147,10 +153,13 @@ public class Main extends Application {
 				gc.drawImage(space, 0, 0);
 				gc2.clearRect(0, 0, Map.FOV_WIDTH, Map.FOV_HEIGHT); // CLEAR TXT RECT
 				gc3.clearRect(0, 0, Map.FOV_WIDTH, Map.FOV_HEIGHT); // CLEAR TXT RECT
+				gc4.clearRect(0, 0, Map.FOV_WIDTH, Map.FOV_HEIGHT); // CLEAR TXT RECT
 				map.draw_planets(gc); // Draw planets each tick
 				map.draw_text_planets(gc2); // Draw text production of planets each tick
-				map.draw_squadrons(gc3); // If squadron exists draw each tick his new position
 				map.draw_pirates(gc3);
+				map.draw_squadrons(gc3); // If squadron exists draw each tick his new position
+				map.draw_domination_table(gc4);
+				map.draw_selected(gc4);
 				map.win_condition();
 				map.update_ships_numbers(now); // Production function of planets's ships
 				for (int i = 1 ; i < map.getNb_players() ; i++)

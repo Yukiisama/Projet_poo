@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
-
+import javafx.scene.paint.Color;
 import spaceship.Squadron;
 
 
@@ -292,12 +292,25 @@ public class Planet implements Serializable {
 	 *
 	 * @param gc the GraphicsContext
 	 */
-	public void draw(GraphicsContext gc, Point2D cam) {
+	public void draw(GraphicsContext gc, Point2D camera) {
 		if (this.shape.compareTo("Square") == 0 || this.shape.compareTo("Rectangle") == 0) {
-			gc.fillRect(this.center.getX()-this.width/2-cam.getX(), this.center.getY()-this.height/2-cam.getY(), this.width, this.height);
+			gc.fillRect(this.center.getX()-this.width/2-camera.getX(), this.center.getY()-this.height/2-camera.getY(), this.width, this.height);
 		}
 		else if(this.shape.compareTo("Circle") == 0 || this.shape.compareTo("Oval") == 0){
-			gc.fillOval(this.center.getX()-this.width/2-cam.getX(), this.center.getY()-this.height/2-cam.getY(), this.width, this.height);
+			gc.fillOval(this.center.getX()-this.width/2-camera.getX(), this.center.getY()-this.height/2-camera.getY(), this.width, this.height);
+		}
+		gc.setFill(Color.BLACK);
+		if (this.ships_shape.compareTo("Square") == 0) {
+			gc.fillRect(this.center.getX()-camera.getX()-5, this.center.getY()-this.height/2-camera.getY()+1, 10, 10);
+		}
+		else if (this.ships_shape.compareTo("Rectangle") == 0) {
+			gc.fillRect(this.center.getX()-camera.getX()-7, this.center.getY()-this.height/2-camera.getY()+1, 15, 5);
+		}
+		else if(this.ships_shape.compareTo("Circle") == 0){
+			gc.fillOval(this.center.getX()-camera.getX()-5, this.center.getY()-this.height/2-camera.getY()+1, 10, 10);
+		}
+		else if (this.ships_shape.compareTo("Oval") == 0) {
+			gc.fillOval(this.center.getX()-camera.getX()-2, this.center.getY()-this.height/2-camera.getY()+1, 5, 15);
 		}
 	}
 

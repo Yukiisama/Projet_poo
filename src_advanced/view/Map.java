@@ -8,6 +8,7 @@ import controller.Player;
 import geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import planet.Planet;
@@ -35,6 +36,9 @@ public class Map implements Serializable {
 	
 	/** The Constant FOV_HEIGHT. */
 	public  static int FOV_HEIGHT = 1080;
+	
+	/** The Constant squad_dash_limit representing the maximum number of dashed lines rendered. */
+	public  static int squad_dash_limit = 20;
 	
 	/** The point representing the camera's position */
 	private Point2D camera;
@@ -229,7 +233,7 @@ public class Map implements Serializable {
 	}
 	
 	/**
-	 * Adds the planets.
+	 * Adds the planets to the map.
 	 */
 	public void add_planets() {
 		int id = -1;
@@ -291,7 +295,7 @@ public class Map implements Serializable {
 	/**
 	 * Draw planets.
 	 *
-	 * @param gc  the GraphicsContext we use for drawing the planets and their informations
+	 * @param gc the GraphicsContext we use to draw the planets and their informations
 	 */
 	public void draw_planets(GraphicsContext gc) {
 		
@@ -334,15 +338,23 @@ public class Map implements Serializable {
 	/**
 	 * Draw squadrons.
 	 *
-	 * @param gc3  the GraphicsContext we use for drawing the spaceships in squadrons
+	 * @param gc3 the GraphicsContext we use to draw the spaceships
 	 */
 	public void draw_squadrons(GraphicsContext gc3) {
-		//for pirate spaceship 
+		//for pirate spaceship
+		int squad_count = 0;
+		for (int i = 0 ; i < this.nb_planets ; i++)
+			for (int j = 0 ; j < this.planet_tab[i].getNb_squadron() ; j++)
+				if (this.planet_tab[i].getSquadron_tab()[j].getSize() > 0) squad_count += 1;
+		
 		for(int j = 0 ; j  < this.pirate.getNb_squadron() ; j++) {
 			SpaceShip tab[] = this.pirate.getSquadron_tab()[j].getSpaceship_tab();
 			for (int k = 0; k < this.pirate.getSquadron_tab()[j].getSize(); k++) {
 				gc3.setFill(Color.GREY);
+				gc3.setStroke(Color.GREY);
 				tab[k].draw(gc3, camera);
+				if (tab[k].isLeader() && squad_count < squad_dash_limit)
+					draw_dashed_line(gc3, tab[k].getCenter(), pirate.getSquadron_tab()[j].getTarget().getCenter());
 			}
 			this.pirate.getSquadron_tab()[j].squadron_move(5,planet_tab);
 			
@@ -353,18 +365,110 @@ public class Map implements Serializable {
 				SpaceShip tab[] = this.planet_tab[i].getSquadron_tab()[j].getSpaceship_tab();
 				for (int k = 0; k < this.planet_tab[i].getSquadron_tab()[j].getSize(); k++) {
 					int id_player = this.planet_tab[i].getSquadron_tab()[j].getOrigin().getID_player();
-					for (int l = 0 ; l < nb_players ; l++) if (this.player_tab[l].getID() == id_player) gc3.setFill(this.player_tab[l].getColor());
+					for (int l = 0 ; l < nb_players ; l++) if (this.player_tab[l].getID() == id_player) {
+						gc3.setFill(this.player_tab[l].getColor());
+						gc3.setStroke(this.player_tab[l].getColor());
+					}
 					tab[k].draw(gc3, camera);
-					
+					if (tab[k].isLeader() && squad_count < squad_dash_limit)
+						draw_dashed_line(gc3, tab[k].getCenter(), planet_tab[i].getSquadron_tab()[j].getTarget().getCenter());
 				}
 				this.planet_tab[i].getSquadron_tab()[j].squadron_move(this.planet_tab[i].getSquadron_tab()[j].getSpeed(),planet_tab);
 			}
 		}
 	}
 	
+	/**
+	 * Draws a dashed line from a to b.
+	 * 
+	 * @param gc3 the GraphicsContext we use to draw the spaceships
+	 * @param a the Point2D a
+	 * @param b the Point2D b
+	 * @param width the width of the line
+	 */
+	public void draw_dashed_line(GraphicsContext gc3, Point2D a, Point2D b) {
+		int dash_lenght = 20;
+		gc3.setLineDashes(dash_lenght);
+		gc3.setLineWidth(2);
+		gc3.strokeLine(a.getX()-camera.getX(), a.getY()-camera.getY(), b.getX()-camera.getX(), b.getY()-camera.getY());
+	}
 	
 	/**
-	 * Update ships numbers.
+	 * Draws the "Selected" menu in top-left corner of the window.
+	 * 
+	 * @param gc4 the GraphicsContext we use to draw the UI elements
+	 */
+	public void draw_selected(GraphicsContext gc4) {
+		gc4.setFill(Color.WHITE);
+		gc4.setStroke(Color.WHITE);
+		gc4.setLineWidth(2);
+		gc4.strokeText("Selected : ", 35, 60);
+		gc4.fillText("Selected : ", 35, 60);
+		int sq_count = 0, re_count = 0, ci_count = 0, ov_count = 0;
+		int count;
+		
+		for (int i = 0 ; i < nb_planets ; i++) {
+			count = (int)(planet_tab[i].getNb_ship()*planet_tab[i].getSelected()/100);
+			if (planet_tab[i].getID_player() == 0) {
+				if (planet_tab[i].getShips_shape().compareTo("Square") == 0) sq_count += count;
+				else if (planet_tab[i].getShips_shape().compareTo("Rectangle") == 0) re_count += count;
+				else if (planet_tab[i].getShips_shape().compareTo("Circle") == 0) ci_count += count;
+				else if (planet_tab[i].getShips_shape().compareTo("Oval") == 0) ov_count += count;
+			}
+		}
+		
+		gc4.fillRect(35, 85, 20, 20);
+		gc4.strokeText(" : " + sq_count, 85, 100);
+		gc4.fillText(" : " + sq_count, 85, 100);
+
+		gc4.fillRect(35, 125, 30, 10);
+		gc4.strokeText(" : " + re_count, 85, 140);
+		gc4.fillText(" : " + re_count, 85, 140);
+
+		gc4.fillOval(35, 155, 20, 20);
+		gc4.strokeText(" : " + ci_count, 85, 180);
+		gc4.fillText(" : " + ci_count, 85, 180);
+
+		gc4.fillOval(35, 195, 10, 30);
+		gc4.strokeText(" : " + ov_count, 85, 220);
+		gc4.fillText(" : " + ov_count, 85, 220);
+	}
+	
+	/**
+	 * Draws an arrow for each planet the player owns outside the FOV
+	 * 
+	 * @param gc4 the GraphicsContext we use to draw the UI elements
+	 */
+	public void draw_domination_table(GraphicsContext gc4) {
+		int planet_count[] = new int[nb_players+1];
+		for (int i = -1 ; i < nb_players ; i++) {
+			for (int j = 0 ; j < nb_planets ; j++) {
+				if (planet_tab[j].getID_player() == i) {
+					planet_count[i+1] += 1;
+				}
+			}
+		}
+		int where_we_at = -250;
+		for (int i = 0 ; i < nb_players+1 ; i++) {
+			Paint color;
+			if (i > 0) color = player_tab[i-1].getColor();
+			else color = Color.GRAY;
+			int width = (int)((((double)planet_count[i]/(double)nb_planets)*100)*5);
+			gc4.setFill(color);
+			gc4.fillRect(FOV_WIDTH/2+where_we_at, 35, width, 35);
+			where_we_at += width;
+		}
+		
+		gc4.setStroke(Color.BLACK);
+		gc4.setLineWidth(5);
+		gc4.strokeLine(FOV_WIDTH/2-250, 35, FOV_WIDTH/2+250, 35);
+		gc4.strokeLine(FOV_WIDTH/2-250, 35, FOV_WIDTH/2-250, 70);
+		gc4.strokeLine(FOV_WIDTH/2+250, 35, FOV_WIDTH/2+250, 70);
+		gc4.strokeLine(FOV_WIDTH/2-250, 70, FOV_WIDTH/2+250, 70);
+	}
+	
+	/**
+	 * Updates ships numbers of each planet.
 	 *
 	 * @param now the now
 	 */
@@ -386,7 +490,7 @@ public class Map implements Serializable {
 	}
 	
 	/**
-	 * Win condition.
+	 * Checks win conditions.
 	 */
 	public void win_condition() {
 		boolean state = true;
@@ -395,7 +499,7 @@ public class Map implements Serializable {
 				if(planet_tab[j].getID_player()!=i)
 					state=false;
 				if(j==nb_planets-1 && state && state_game) {
-					System.out.println("Vous avez gagné cette map essayez les autres \n en changeant grâce au pad numérique 1 2 3 4 5 6 7 8 9 \n Vous pouvez sauvegarder"
+					System.out.println("Vous avez gagné cette map Vous pouvez sauvegarder"
 							+ " ou charger une nouvelle partie comme bon vous semble =)");
 					state_game = false;
 				}

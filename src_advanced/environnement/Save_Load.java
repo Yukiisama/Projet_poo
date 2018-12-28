@@ -10,7 +10,6 @@ import java.io.ObjectOutputStream;
 
 import controller.Player;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
 import planet.Planet;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
