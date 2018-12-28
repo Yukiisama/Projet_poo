@@ -15,12 +15,13 @@ import spaceship.SpaceShip;
 
 
 
+
 /**
  * The Class Map represents each informations we need to draw the actual content of the game .
  */
 public class Map implements Serializable {
 
-	/** The Serial version UID */
+	/**  The Serial version UID. */
 	private static final long serialVersionUID = 1L;
 
 	/** The Constant WIDTH. */
@@ -249,6 +250,10 @@ public class Map implements Serializable {
 			i++;
 		}
 	}
+	
+	/**
+	 * Win condition.
+	 */
 	public void win_condition() {
 		boolean state = true;
 		for(int i = 0 ; i < 2 ; i++) {

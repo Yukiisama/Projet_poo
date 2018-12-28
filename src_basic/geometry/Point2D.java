@@ -56,10 +56,14 @@ public int getY() {return y;}
 public void setY(int y) {this.y = y;}
 
 /**
- * Prints the.
+ * Prints the point.
  */
 public void print() {System.out.println("Point : (" + x + ", " + y + ")");}
-
+/**
+ * Sets the y.
+ *
+ * @param target the target point
+ */
 public double getAngle(Point2D target) {
 	 double angle = (double) Math.atan2(target.y - this.y, target.x - this.x);
 	 	// in radiant
@@ -70,7 +74,7 @@ public double getAngle(Point2D target) {
 	    return angle;
 }
 /**
- * Move.
+ * Move .
  *
  * @param dx the dx
  * @param dy the dy
@@ -78,6 +82,12 @@ public double getAngle(Point2D target) {
 
 public void move(int dx, int dy) {x += dx;y += dy;}
 
+/**
+ * Move angle.
+ *
+ * @param speed the speed
+ * @param angle_radiant the angle radiant
+ */
 public void move_angle(double speed , double angle_radiant)
 {
 	//In radiant , use Math.todegree if u need
