@@ -3,7 +3,6 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import planet.Planet;
 
-
 /**
  * The Class IA.
  */
@@ -31,11 +30,11 @@ public class IA extends Player {
 	/**
 	 * Choose one.
 	 *
-	 * @param prod the prod
-	 * @param from the from
-	 * @param tab  the tab
+	 * @param prod the production count of ships
+	 * @param from the origin planet
+	 * @param tab  the tab of planets in the current map
 	 */
-	private void choose_one(int prod,Planet from,Planet tab[]){
+	public void choose_one(int prod,Planet from,Planet tab[]){
 			if (prod < 5) return;
 			int index= ThreadLocalRandom.current().nextInt(tab.length);
 			if(tab[index]!=null && tab[index].getID_player()!=ID) {
@@ -47,7 +46,7 @@ public class IA extends Player {
 		 * @param length the length
 		 * @param tab    the tab
 		 */
-		private void choose_multiple(int length,Planet tab[]){
+		public void choose_multiple(int length,Planet tab[]){
 			int iterations = ThreadLocalRandom.current().nextInt(length);
 			Planet choose_planet = tab[ThreadLocalRandom.current().nextInt(length)];
 			while(iterations>0){
@@ -66,7 +65,7 @@ public class IA extends Player {
 		 * @param tab the tab
 		 * @return true, if successful
 		 */
-		private boolean still_player1_alive(Planet tab[]) {
+		public boolean still_player1_alive(Planet tab[]) {
 			for(Planet p : tab) {
 				if(p.getID_player()==0)return true;
 			}
@@ -76,11 +75,11 @@ public class IA extends Player {
 		/**
 		 * Choose one and focus player 1.
 		 *
-		 * @param prod the prod
+		 * @param prod the space_ship_production of the planet
 		 * @param from the from
 		 * @param tab the tab
 		 */
-		private void choose_one_and_focus_player1(int prod,Planet from,Planet tab[]){
+		public void choose_one_and_focus_player1(int prod,Planet from,Planet tab[]){
 			if (prod < 5) return;
 			int index= ThreadLocalRandom.current().nextInt(tab.length);
 			if(still_player1_alive(tab)) {
@@ -94,7 +93,7 @@ public class IA extends Player {
 		/**
 		 * Decisionmaking.
 		 *
-		 * @param now the now
+		 * @param now the current time
 		 * @param tab the tab
 		 */
 		public void decisionmaking(long now,Planet tab[]){
@@ -131,8 +130,5 @@ public class IA extends Player {
 					choose_one(OneofMine.getNb_ship(),OneofMine,tab);
 				else if(level>2 && level<LEVEL_MAX+1)
 					choose_multiple(tab.length,tab);
-
-
 		}
-
 }

@@ -4,7 +4,7 @@ import environnement.Save_Load;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-import planet.Planet;
+
 import view.Map;
 
 
@@ -15,15 +15,13 @@ import view.Map;
 public final class Key_Handler {
 	
 	/**
-	 * Nine instance.
+	 * Event_keyboard
 	 *
-	 * @param scene the scene
-	 * @param map the map
-	 * @param map_mult the map mult
-	 * @param scene2 the scene 2
-	 * @param stage the stage
+	 * @param scene the current scene
+	 * @param map the current map 
+	 * @param stage the current stage
 	 */
-	public void event_keyboard (Scene scene ,Map map ,Scene scene2 , Stage stage) {
+	public void event_keyboard (Scene scene ,Map map ,Stage stage) {
 		
 		scene.setOnKeyPressed(event -> {
 			Save_Load save_load = new Save_Load();
@@ -43,11 +41,7 @@ public final class Key_Handler {
 			if (event.getCode() == KeyCode.V) {
 				save_load.load(map, scene,false);
 			}
-			
-				});
+		});
 
 	}
-	
-	
-	
 }

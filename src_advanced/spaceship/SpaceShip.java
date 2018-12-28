@@ -148,16 +148,16 @@ public class SpaceShip implements Serializable {
 	public void setHeight(int height) { this.height = height; }
 
 	/**
-	 * Gets the id player.
+	 * Gets the player's ID.
 	 *
-	 * @return the id player
+	 * @return the player's ID
 	 */
 	public int getId_player() { return id_player; }
 	
 	/**
-	 * Sets the id player.
+	 * Sets the player's ID.
 	 *
-	 * @param id_player the new id player
+	 * @param id_player the new player's ID
 	 */
 	public void setId_player(int id_player) { this.id_player = id_player; }
 	
@@ -179,7 +179,8 @@ public class SpaceShip implements Serializable {
 	/**
 	 * Draw the spaceship on a GraphicsContext.
 	 *
-	 * @param gc the GraphicsContext.
+	 * @param gc the GraphicsContext
+	 * @param camera the camera
 	 */
 	public void draw(GraphicsContext gc, Point2D camera) {
 		if (this.shape.compareTo("Square") == 0 || this.shape.compareTo("Rectangle") == 0) {

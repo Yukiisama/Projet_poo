@@ -127,7 +127,7 @@ public class Main extends Application {
 		
 		//Save load object
 		Key_Handler key = new Key_Handler();
-		key.event_keyboard(scene, map, scene2,stage);
+		key.event_keyboard(scene, map, stage);
 		Menu m = new Menu();	
 		
 		

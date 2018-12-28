@@ -153,7 +153,7 @@ public class Map implements Serializable {
 	/**
 	 * Sets the camera.
 	 *
-	 * @param came the new camera
+	 * @param camera the new camera
 	 */
 	public void setCamera(Point2D camera) { this.camera = camera; }
 
@@ -384,7 +384,6 @@ public class Map implements Serializable {
 	 * @param gc3 the GraphicsContext we use to draw the spaceships
 	 * @param a the Point2D a
 	 * @param b the Point2D b
-	 * @param width the width of the line
 	 */
 	public void draw_dashed_line(GraphicsContext gc3, Point2D a, Point2D b) {
 		int dash_lenght = 20;
@@ -470,7 +469,7 @@ public class Map implements Serializable {
 	/**
 	 * Updates ships numbers of each planet.
 	 *
-	 * @param now the now
+	 * @param now the time now in nanoseconds
 	 */
 	public void update_ships_numbers(long now) {
 		long passed_time = (now - this.last_time)/1000;
@@ -490,7 +489,7 @@ public class Map implements Serializable {
 	}
 	
 	/**
-	 * Checks win conditions.
+	 * Checks win conditions and apply win effect if so.
 	 */
 	public void win_condition() {
 		boolean state = true;

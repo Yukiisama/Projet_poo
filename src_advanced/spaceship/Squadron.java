@@ -15,13 +15,13 @@ public final class Squadron implements Serializable {
 	/** The Serial version UID. */
 	private static final long serialVersionUID = 1L;
 
-	/** The spaceship tab. */
+	/** The spaceship table. */
 	private SpaceShip spaceship_tab[];
 	
-	/** The target. */
+	/** The planet target. */
 	private Planet target;
 	
-	/** The origin. */
+	/** The planet origin. */
 	private Planet origin;
 	
 	/** The size. */
@@ -105,16 +105,16 @@ public final class Squadron implements Serializable {
 		return 2;
 		}
 	/**
-	 * Gets the origin.
+	 * Gets the planet origin.
 	 *
-	 * @return the origin
+	 * @return the planet origin
 	 */
 	public Planet getOrigin() { return origin; }
 	
 	/**
-	 * Sets the origin.
+	 * Sets the planet origin.
 	 *
-	 * @param origin the new origin
+	 * @param origin the new planet origin
 	 */
 	public void setOrigin(Planet origin) { this.origin = origin; }
 
@@ -135,7 +135,7 @@ public final class Squadron implements Serializable {
 	/**
 	 * Squadron move.
 	 * @param speed the speed
-	 * @param tab the planet tab
+	 * @param tab the planet table
 	 */
 	public void squadron_move(int speed, Planet tab[]){
 		double angle;
@@ -174,7 +174,7 @@ public final class Squadron implements Serializable {
 	/**
 	 * Damage planet.
 	 *
-	 * @param s the s
+	 * @param s the spaceship
 	 * @return true, if successful
 	 */
 	public boolean damage_planet(SpaceShip s) {

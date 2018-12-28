@@ -18,72 +18,72 @@ import view.Map;
 public class Menu {
 	
 	
-	/** The value P. */
+	/** The current value of planets. */
 	private int valueP = 10;
 	
-	/** The value IA. */
+	/** The current value of IA number . */
 	private int valueIA = 1;
 	
-	/** The value level IA. */
+	/** The current value of the level of the IA. */
 	private int valueLevelIA = 1;
 	
-	/** The value fov width. */
+	/** The value of the FOV width dimension. */
 	private int valueFovWidth = 1900;
 	
-	/** The value fov height. */
+	/** The value of FOV height dimension. */
 	private int valueFovHeight = 1080;
 	
-	/** The value width. */
+	/** The value of Width dimension . */
 	private int valueWidth = 3840;
 	
-	/** The value height. */
+	/** The value of Height dimension. */
 	private int valueHeight = 2160;
 	
-	/** The ratio nb planet. */
+	/** The value of the ratio of nb planet. */
 	private int ratio_nb_planet = 40000;
 	/** The limit number of planets. */
 	private int max_nb_planets = (valueHeight*valueWidth)/ratio_nb_planet;
-	/** The p pla plus. */
+	/** The point planete plus +. */
 	private Point2D p_pla_plus = new Point2D((Map.FOV_WIDTH/2)+70, Map.FOV_HEIGHT/2-200);
 	
-	/** The p pla less. */
+	/** The point planete less -. */
 	private Point2D p_pla_less = new Point2D((Map.FOV_WIDTH/2)+120, Map.FOV_HEIGHT/2-200);
 	
-	/** The p ia plus. */
+	/** The point ia plus +. */
 	private Point2D p_ia_plus = new Point2D((Map.FOV_WIDTH/2)+70, (Map.FOV_HEIGHT/2)-150);
 	
-	/** The p ia less. */
+	/** The point ia less -. */
 	private Point2D p_ia_less = new Point2D((Map.FOV_WIDTH/2)+120, (Map.FOV_HEIGHT/2)-150);
 	
-	/** The p level I A plus. */
+	/** The point level IA plus +. */
 	private Point2D p_levelIA_plus = new Point2D((Map.FOV_WIDTH/2)+70 , (Map.FOV_HEIGHT/2)-100);
 	
-	/** The p level I A less. */
+	/** The point level IA less -. */
 	private Point2D p_levelIA_less = new Point2D((Map.FOV_WIDTH/2)+120 , (Map.FOV_HEIGHT/2)-100);
 	
-	/** The p level I A plus. */
+	/** The point fovwidth plus +. */
 	private Point2D p_fovwidth_plus = new Point2D((Map.FOV_WIDTH/2)+70 , (Map.FOV_HEIGHT/2)-50);
 	
-	/** The p level I A less. */
+	/** The point fovwidth less -. */
 	private Point2D p_fovwidth_less = new Point2D((Map.FOV_WIDTH/2)+120 , (Map.FOV_HEIGHT/2)-50);
 	
-	/** The p fovheight plus. */
+	/** The point fovheight plus +. */
 	private Point2D p_fovheigth_plus = new Point2D((Map.FOV_WIDTH/2)+70 , (Map.FOV_HEIGHT/2));
 	
-	/** The p fovheight less. */
+	/** The point fovheight less -. */
 	private Point2D p_fovheight_less = new Point2D((Map.FOV_WIDTH/2)+120 , (Map.FOV_HEIGHT/2));
 	
 	
-	/** The p height plus. */
+	/** The point width plus +. */
 	private Point2D p_width_plus = new Point2D((Map.FOV_WIDTH/2)+70 , (Map.FOV_HEIGHT/2)+50);
 	
-	/** The p height less. */
+	/** The point width less -. */
 	private Point2D p_width_less = new Point2D((Map.FOV_WIDTH/2)+120 , (Map.FOV_HEIGHT/2)+50);
 	
-	/** The p height plus. */
+	/** The point height plus +. */
 	private Point2D p_heigth_plus = new Point2D((Map.FOV_WIDTH/2)+70 , (Map.FOV_HEIGHT/2)+100);
 	
-	/** The p height less. */
+	/** The point height less -. */
 	private Point2D p_height_less = new Point2D((Map.FOV_WIDTH/2)+120 , (Map.FOV_HEIGHT/2)+100);
 	
 	/** The play. */
@@ -98,8 +98,8 @@ public class Menu {
 	/**
 	 * Contains.
 	 *
-	 * @param p the p
-	 * @param mouse the mouse
+	 * @param point the point2D
+	 * @param mouse the point mouse
 	 * @param width the width
 	 * @param height the height
 	 * @return true, if successful
@@ -109,7 +109,7 @@ public class Menu {
 	}
 	
 	/**
-	 * Apply change.
+	 * Apply change.Change the current value of map and main statics
 	 */
 	private void apply_change() {
 		Main.Planet = valueP;
@@ -123,7 +123,7 @@ public class Menu {
 	
 	
 	/**
-	 * Increment.
+	 * Increment and apply change to the current model.
 	 *
 	 * @param scene the scene
 	 * @return true, if successful
@@ -206,7 +206,7 @@ public class Menu {
 	/**
 	 * Apply text planets.
 	 *
-	 * @param gc the gc
+	 * @param gc the GraphicsContext use to draw
 	 */
 	private void apply_text_planets(GraphicsContext gc) {
 		apply_text( gc , valueP , Map.FOV_WIDTH/2 , (Map.FOV_HEIGHT/2) - 200,24,"Planets per Player :",0);
@@ -215,7 +215,7 @@ public class Menu {
 	/**
 	 * Apply text IA.
 	 *
-	 * @param gc the gc
+	 * @param gc the GraphicsContext use to draw
 	 */
 	private void apply_text_IA(GraphicsContext gc) {
 		apply_text( gc , valueIA , Map.FOV_WIDTH/2 , (Map.FOV_HEIGHT/2)-150,24,"Number of IA :",0);
@@ -224,7 +224,7 @@ public class Menu {
 	/**
 	 * Apply text level IA.
 	 *
-	 * @param gc the gc
+	 * @param gc the GraphicsContext use to draw
 	 */
 	private void apply_text_LevelIA(GraphicsContext gc) {
 		apply_text( gc , valueLevelIA , Map.FOV_WIDTH/2 , (Map.FOV_HEIGHT/2)-100,24,"Level of IA :",0);
@@ -233,7 +233,7 @@ public class Menu {
 	/**
 	 * Apply text fov.
 	 *
-	 * @param gc the gc
+	 * @param gc the GraphicsContext use to draw
 	 */
 	private void apply_text_Fov(GraphicsContext gc) {
 		apply_text( gc , valueFovWidth , Map.FOV_WIDTH/2 , (Map.FOV_HEIGHT/2)-50,24,"FOV's Width :", 0);
@@ -243,7 +243,7 @@ public class Menu {
 	/**
 	 * Apply text dimension.
 	 *
-	 * @param gc the gc
+	 * @param gc the GraphicsContext use to draw
 	 */
 	private void apply_text_dimension(GraphicsContext gc) {
 		apply_text( gc , valueWidth , Map.FOV_WIDTH/2 , (Map.FOV_HEIGHT/2)+50,24,"Map's Width :", 0);
@@ -253,7 +253,7 @@ public class Menu {
 	/**
 	 * Apply text nbcurrentplanet.
 	 *
-	 * @param gc the gc
+	 * @param gc the GraphicsContext use to draw
 	 */
 	private void apply_text_nbcurrentplanet(GraphicsContext gc) {
 		int total = valueP*(valueIA+2);
@@ -273,7 +273,7 @@ public class Menu {
 	/**
 	 * Apply text nbplanet possible.
 	 *
-	 * @param gc the gc
+	 * @param gc the GraphicsContext use to draw
 	 */
 	private void apply_text_nbplanet_possible(GraphicsContext gc) {
 		int total = valueP*(valueIA+2);
@@ -296,13 +296,13 @@ public class Menu {
 	/**
 	 * Apply text.
 	 *
-	 * @param gc the gc
+	 * @param gc the GraphicsContext use to draw
 	 * @param value the value
 	 * @param width the width
 	 * @param height the height
 	 * @param sizefont the sizefont
 	 * @param text the text
-	 * @param add_to_width_nb the add to width nb
+	 * @param add_to_width_nb the number to add to the current value of width
 	 */
 	private void apply_text(GraphicsContext gc , int value , int width , int height,int sizefont,String text,int add_to_width_nb) {
 		gc.setFill(Color.WHITE);
@@ -320,7 +320,7 @@ public class Menu {
 	/**
 	 * Apply menu.
 	 *
-	 * @param gc the gc
+	 * @param gc the GraphicsContext use to draw
 	 * @param menu the menu
 	 */
 	void apply_menu(GraphicsContext gc,Image menu) {

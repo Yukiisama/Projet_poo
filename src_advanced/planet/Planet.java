@@ -19,7 +19,7 @@ public class Planet implements Serializable {
 	/** The dimensions. */
 	private int width, height;
 	
-	/** The rate production. */
+	/** The production rate. */
 	private double rate_production;
 	
 	/** The number of ships. */
@@ -34,7 +34,7 @@ public class Planet implements Serializable {
     /** The center (i.e Point2D ). */
     private Point2D center;
 	
-	/** The I D of the player which control this planet. */
+	/** The ID of the player which control this planet. */
 	private int ID_player;
 	
 	/** The left time. */
@@ -46,22 +46,22 @@ public class Planet implements Serializable {
 	/** If the planet is selected by player. */
 	private double selected;
 	
-	/** The squadron tab. */
+	/** The squadron table. */
 	private Squadron[] squadron_tab;
 	
-	/** The number of squadron. */
+	/** The number of squadrons. */
 	private int nb_squadron;
 	
-	/**  Default dimensions of planet's shapes. */
+	/** The square height and width. */
 	public static int sq_width = 100, sq_height = 100;
 	
-	/** The re height. */
+	/** The rectangle height and width. */
 	public static int re_width = 100, re_height = 75;
 	
-	/** The ci height. */
+	/** The circle height and width. */
 	public static int ci_width = 100, ci_height = 100;
 	
-	/** The ov height. */
+	/** The oval height and width. */
 	public static int ov_width = 70, ov_height = 120;
 
 	/**
@@ -173,37 +173,37 @@ public class Planet implements Serializable {
 	public void setShips_type(String ships_shape) { this.ships_shape = ships_shape; }
 
 	/**
-	 * Gets the i D player.
+	 * Gets the player's ID.
 	 *
-	 * @return the i D player
+	 * @return the player's ID
 	 */
 	public int getID_player() { return ID_player; }
 	
 	/**
-	 * Sets the i D player.
+	 * Sets the player's ID.
 	 *
-	 * @param iD_player the new i D player
+	 * @param iD_player the new player's ID
 	 */
 	public void setID_player(int iD_player) { ID_player = iD_player; }
 
 	/**
-	 * Gets the rate production.
+	 * Gets the production rate.
 	 *
-	 * @return the rate production
+	 * @return the production rate
 	 */
 	public double getRate_production() { return rate_production; }
 	
 	/**
-	 * Sets the rate production.
+	 * Sets the production rate.
 	 *
-	 * @param rate_production the new rate production
+	 * @param rate_production the new production rate
 	 */
 	public void setRate_production(double rate_production) { this.rate_production = rate_production; }
 
 	/**
 	 * Gets the number of ships.
 	 *
-	 * @return the numbers ship
+	 * @return the number of ships
 	 */
 	public int getNb_ship() { return nb_ship; }
 	
@@ -215,30 +215,30 @@ public class Planet implements Serializable {
 	public void setNb_ship(int nb_ship) { this.nb_ship = nb_ship; }
 
 	/**
-	 * Gets the selected.
+	 * Gets the selected value.
 	 *
-	 * @return the selected
+	 * @return the selected value
 	 */
 	public double getSelected() { return selected; }
 	
 	/**
-	 * Sets the selected.
+	 * Sets the selected value.
 	 *
-	 * @param new_selected the new selected
+	 * @param new_selected the new selected value
 	 */
 	public void setSelected(double new_selected) { this.selected = new_selected; }
 
 	/**
-	 * Gets the squadron tab.
+	 * Gets the squadron table.
 	 *
-	 * @return the squadron tab
+	 * @return the squadron table
 	 */
 	public Squadron[] getSquadron_tab() { return squadron_tab; }
 	
 	/**
-	 * Sets the squadron tab.
+	 * Sets the squadron table.
 	 *
-	 * @param squadron_tab the new squadron tab
+	 * @param squadron_tab the new squadron table
 	 */
 	public void setSquadron_tab(Squadron[] squadron_tab) { this.squadron_tab = squadron_tab; }
 
@@ -269,10 +269,7 @@ public class Planet implements Serializable {
 	 * @param shape the new name of shape
 	 */
 	public void setShape(String shape) { this.shape = shape; }
-	
 
-
-	
 	/**
 	 * Gets the width.
 	 *
@@ -291,6 +288,7 @@ public class Planet implements Serializable {
 	 * Draw the planet on a GraphicsContext.
 	 *
 	 * @param gc the GraphicsContext
+	 * @param camera the camera
 	 */
 	public void draw(GraphicsContext gc, Point2D camera) {
 		if (this.shape.compareTo("Square") == 0 || this.shape.compareTo("Rectangle") == 0) {
